@@ -1,0 +1,1 @@
+Modernize this application without selecting or migrating to any cloud provider. Do not add cloud services, containerization, infrastructure, or deployment.
