@@ -10,7 +10,7 @@ All workstreams are independently launchable. “Wave” indicates scheduling pr
 | WS-04 | Thesis Red Team | research | first | critical | none | `research/thesis-red-team.md` | review |
 | WS-05 | Domain Economics | design | second | high | none | `research/domain-knowledge-economics.md` | review |
 | WS-06 | Authority Model | design | first | critical | none | `research/authority-model.md` | review |
-| WS-07 | Skills / MCP / Domain Taxonomy | research | second | high | none | `research/skills-mcp-domain-taxonomy.md` | ready |
+| WS-07 | Skills / MCP / Domain Taxonomy | research | second | high | none | `research/skills-mcp-domain-taxonomy.md` | review |
 | WS-08 | Product Landscape | research | second | high | none | `research/product-value.md` | ready |
 | WS-09 | MEDP Spec | design | second | high | none; consume WS-03/06 if available | `spec/MEDP-v0.md` | ready |
 | WS-10 | Prototype Core | prototype | first | critical | none | `prototype/control-plane/` | ready |
