@@ -1,0 +1,498 @@
+{
+  "schema_version": "1.0",
+  "workstream": "WS-12",
+  "title": "Generalization beyond modernization",
+  "retrieved_on": "2026-09-23",
+  "method": {
+    "evidence": "Merged WS-03, WS-04, and WS-06 outputs plus their linked primary sources were re-read. No new runtime or buyer experiment was executed in WS-12.",
+    "selection_rule": "Choose domains for contrast rather than convenience: one favorable transfer case, one adaptation case, and one failure-heavy case.",
+    "uncertainty_labels": ["OBSERVED", "DOCUMENTED", "INFERRED", "HYPOTHESIS", "OPINION"],
+    "limits": [
+      "This is synthesis over bounded source sets, not proof of universality or impossibility.",
+      "External documentation is mutable and was not newly archived by WS-12.",
+      "No live control plane, security policy service, infrastructure reconciler, or migration engine was run."
+    ]
+  },
+  "dimensions": [
+    "observation",
+    "domain_knowledge",
+    "provider_knowledge",
+    "organization_policy",
+    "user_intent",
+    "legal_transitions",
+    "agent_judgment",
+    "validation",
+    "authority"
+  ],
+  "verdict": {
+    "claim_type": "INFERRED",
+    "strongest_transfer": {
+      "domain_id": "D01",
+      "statement": "Cybersecurity rule-and-policy enforcement best matches the layered architecture because tested rule artifacts, separate policy bundles, and external enforcement already exist."
+    },
+    "strongest_failure": {
+      "domain_id": "D03",
+      "statement": "Data engineering / schema evolution shows that a machine-generated transition path is not equivalent to semantic safety, data preservation, or downstream compatibility."
+    },
+    "thesis_effect": "narrows",
+    "thesis_statement": "Generalization supports typed artifacts, authority separation, and deterministic validation, but weakens any universal passive-package or single-scan claim."
+  },
+  "selected_domains": [
+    {
+      "id": "D01",
+      "name": "Cybersecurity rule and policy enforcement",
+      "category": "cybersecurity",
+      "selection_reason": {
+        "claim_type": "INFERRED",
+        "statement": "This is the most favorable transfer case because versioned rules, policy engines, and explicit enforcement points already exist."
+      }
+    },
+    {
+      "id": "D02",
+      "name": "Infrastructure operations and runtime reconciliation",
+      "category": "infrastructure operations",
+      "selection_reason": {
+        "claim_type": "INFERRED",
+        "statement": "This domain tests whether the architecture survives long-lived control loops, side effects, provider APIs, and drift."
+      }
+    },
+    {
+      "id": "D03",
+      "name": "Data engineering and schema evolution",
+      "category": "data engineering",
+      "selection_reason": {
+        "claim_type": "INFERRED",
+        "statement": "This domain tests whether migration graphs and validators can safely stand in for semantic correctness and data preservation."
+      }
+    }
+  ],
+  "domains": [
+    {
+      "id": "D01",
+      "name": "Cybersecurity rule and policy enforcement",
+      "result": "transfers_with_adaptation",
+      "mapping": {
+        "observation": {
+          "claim_type": "DOCUMENTED",
+          "example": "Scan inputs, finding locations, and logged policy inputs/results become typed artifacts.",
+          "sources": ["S01", "S04"]
+        },
+        "domain_knowledge": {
+          "claim_type": "DOCUMENTED",
+          "example": "Semgrep rule files encode repeatable security checks and optional fixes.",
+          "sources": ["S02", "R01"]
+        },
+        "provider_knowledge": {
+          "claim_type": "DOCUMENTED",
+          "example": "Rule engine version bounds and bundle verification configuration affect execution separately from rule text.",
+          "sources": ["S02", "S03"]
+        },
+        "organization_policy": {
+          "claim_type": "DOCUMENTED",
+          "example": "ABAC-style policy evaluation and decoupled OPA policy ownership let organizations encode local gates and exceptions.",
+          "sources": ["S05", "S06"]
+        },
+        "user_intent": {
+          "claim_type": "INFERRED",
+          "example": "The caller can request report-only, autofix-limited, or block-on-merge behavior without changing the rule artifact.",
+          "sources": ["R01", "R03"]
+        },
+        "legal_transitions": {
+          "claim_type": "DOCUMENTED",
+          "example": "Report a finding, apply a narrow fix, or deny an action at an enforcement point.",
+          "sources": ["S01", "S03"]
+        },
+        "agent_judgment": {
+          "claim_type": "INFERRED",
+          "example": "The agent can triage, explain, and draft remediation when no deterministic fix exists.",
+          "sources": ["R01", "R03"]
+        },
+        "validation": {
+          "claim_type": "DOCUMENTED",
+          "example": "Semgrep rule tests and OPA policy tests provide repeatable deterministic validation.",
+          "sources": ["S01", "S07"]
+        },
+        "authority": {
+          "claim_type": "INFERRED",
+          "example": "Rule publishers do not own repository write access or deploy credentials; enforcement remains external.",
+          "sources": ["S03", "R03"]
+        }
+      },
+      "mismatches": [
+        {
+          "claim_type": "DOCUMENTED",
+          "statement": "Skipped incompatible rules are not the same as successful validation.",
+          "sources": ["S02"]
+        },
+        {
+          "claim_type": "DOCUMENTED",
+          "statement": "Decision logs can be masked, dropped, or rate-limited and therefore are not complete audit truth by default.",
+          "sources": ["S04"]
+        }
+      ],
+      "false_analogies": [
+        {
+          "claim_type": "INFERRED",
+          "statement": "A passed rule suite does not prove absence of exploitable behavior."
+        }
+      ],
+      "validation_profile": {
+        "claim_type": "INFERRED",
+        "strength": "Strong deterministic tests for rules and policies.",
+        "missing_assurance": "Coverage completeness, exploit absence, and immutable audit completeness remain unproven.",
+        "relative_cost": "low_to_medium",
+        "sources": ["S01", "S04", "S07"]
+      },
+      "durable_value_locations": [
+        "maintained rule catalogs",
+        "exception workflows",
+        "independent enforcement",
+        "replayable evidence capture",
+        "explicit skipped/unknown semantics"
+      ]
+    },
+    {
+      "id": "D02",
+      "name": "Infrastructure operations and runtime reconciliation",
+      "result": "requires_major_adaptation",
+      "mapping": {
+        "observation": {
+          "claim_type": "DOCUMENTED",
+          "example": "Desired state, current cluster state, admission request context, and provider schemas all matter.",
+          "sources": ["S08", "S09"]
+        },
+        "domain_knowledge": {
+          "claim_type": "DOCUMENTED",
+          "example": "Operators capture human operational knowledge while providers implement API-specific behavior.",
+          "sources": ["S08", "S10"]
+        },
+        "provider_knowledge": {
+          "claim_type": "DOCUMENTED",
+          "example": "Provider locks, checksums, and provider protocol behavior remain provider-specific concerns.",
+          "sources": ["S10", "S17"]
+        },
+        "organization_policy": {
+          "claim_type": "DOCUMENTED",
+          "example": "Admission plugins and request validation are configured by the cluster administrator, not by the workload author.",
+          "sources": ["S09"]
+        },
+        "user_intent": {
+          "claim_type": "INFERRED",
+          "example": "Preserve availability, deploy to a chosen target, or upgrade within a maintenance window.",
+          "sources": ["R03", "R04"]
+        },
+        "legal_transitions": {
+          "claim_type": "DOCUMENTED",
+          "example": "Reconcile resources, mutate or reject requests, and apply provider-managed changes.",
+          "sources": ["S08", "S09", "S11"]
+        },
+        "agent_judgment": {
+          "claim_type": "INFERRED",
+          "example": "The agent can propose rollout order or explain drift, but cannot eliminate the need for refreshed state and rebinding of approval.",
+          "sources": ["R03", "R04"]
+        },
+        "validation": {
+          "claim_type": "DOCUMENTED",
+          "example": "envtest covers a partial control plane; acceptance tests run real apply/refresh/destroy flows and require credentials.",
+          "sources": ["S11", "S12"]
+        },
+        "authority": {
+          "claim_type": "INFERRED",
+          "example": "The effective authority boundary is the execution gate and credential holder, not the operator or provider author.",
+          "sources": ["S09", "R03"]
+        }
+      },
+      "mismatches": [
+        {
+          "claim_type": "DOCUMENTED",
+          "statement": "Operators are active control loops, not passive package lookups.",
+          "sources": ["S08"]
+        },
+        {
+          "claim_type": "DOCUMENTED",
+          "statement": "Admission handling includes side effects and reconciliation requirements, so one-shot approval is insufficient.",
+          "sources": ["S09"]
+        }
+      ],
+      "false_analogies": [
+        {
+          "claim_type": "INFERRED",
+          "statement": "A single neutral observation snapshot is not enough for a reconciler domain with drift and retries."
+        }
+      ],
+      "validation_profile": {
+        "claim_type": "INFERRED",
+        "strength": "There are meaningful deterministic checks, but high-confidence validation often requires live APIs, credentials, and side-effect observation.",
+        "missing_assurance": "Static snapshots do not prove safe runtime convergence or correct production approvals.",
+        "relative_cost": "medium_to_high",
+        "sources": ["S09", "S11", "S12"]
+      },
+      "durable_value_locations": [
+        "provider adapters",
+        "protected execution gates",
+        "drift handling",
+        "approval bindings",
+        "live validation harnesses"
+      ]
+    },
+    {
+      "id": "D03",
+      "name": "Data engineering and schema evolution",
+      "result": "transfers_but_fails_if_equated_with_semantic_safety",
+      "mapping": {
+        "observation": {
+          "claim_type": "DOCUMENTED",
+          "example": "Current revision history, current database version, schema documents, and metadata diffs are explicit inputs.",
+          "sources": ["S13", "S15"]
+        },
+        "domain_knowledge": {
+          "claim_type": "DOCUMENTED",
+          "example": "Alembic revision graphs and JSON Schema vocabularies encode reusable structural knowledge.",
+          "sources": ["S14", "S15"]
+        },
+        "provider_knowledge": {
+          "claim_type": "INFERRED",
+          "example": "SQL dialect behavior, validator configuration, and reference resolution remain engine-specific concerns.",
+          "sources": ["R01", "R03"]
+        },
+        "organization_policy": {
+          "claim_type": "INFERRED",
+          "example": "Destructive changes, retention windows, rollback requirements, and maintenance windows remain local policy.",
+          "sources": ["R03"]
+        },
+        "user_intent": {
+          "claim_type": "INFERRED",
+          "example": "Additive migration, backward compatibility, or an exception for a breaking change can all differ with the same starting schema.",
+          "sources": ["R03"]
+        },
+        "legal_transitions": {
+          "claim_type": "DOCUMENTED",
+          "example": "Generate a candidate migration, review or edit it, then apply ordered revisions.",
+          "sources": ["S14"]
+        },
+        "agent_judgment": {
+          "claim_type": "DOCUMENTED",
+          "example": "Rename recognition and corrective editing remain necessary because autogenerated diffs are not perfect.",
+          "sources": ["S14"]
+        },
+        "validation": {
+          "claim_type": "DOCUMENTED",
+          "example": "Alembic check and JSON Schema conformance tests provide structural validation.",
+          "sources": ["S14", "S16"]
+        },
+        "authority": {
+          "claim_type": "INFERRED",
+          "example": "Database credentials and release approval still determine whether a migration runs.",
+          "sources": ["R03"]
+        }
+      },
+      "mismatches": [
+        {
+          "claim_type": "DOCUMENTED",
+          "statement": "Autogenerated migrations always require review and correction by hand.",
+          "sources": ["S14"]
+        },
+        {
+          "claim_type": "INFERRED",
+          "statement": "Structural validation does not prove data preservation, downstream compatibility, or rollback correctness.",
+          "sources": ["S14", "S15", "S16"]
+        }
+      ],
+      "false_analogies": [
+        {
+          "claim_type": "INFERRED",
+          "statement": "A migration path that exists is not the same as a migration path that is safe."
+        }
+      ],
+      "validation_profile": {
+        "claim_type": "INFERRED",
+        "strength": "Revision graphs and schema validators are strong for structural correctness.",
+        "missing_assurance": "Semantic meaning, data backfills, user-visible behavior, and recovery guarantees remain outside the narrow checks.",
+        "relative_cost": "medium_to_high",
+        "sources": ["S13", "S14", "S15", "S16"]
+      },
+      "durable_value_locations": [
+        "migration review workflows",
+        "shadow/backfill orchestration",
+        "compatibility evidence",
+        "rollback proofs",
+        "downstream-consumer impact analysis"
+      ]
+    }
+  ],
+  "cross_domain_findings": [
+    {
+      "id": "F01",
+      "type": "transfer",
+      "claim_type": "INFERRED",
+      "statement": "Typed artifacts plus independent authority plus deterministic validation transfer better than a universal package abstraction.",
+      "domains": ["D01", "D02", "D03"],
+      "sources": ["R01", "R03", "R04"]
+    },
+    {
+      "id": "F02",
+      "type": "adaptation",
+      "claim_type": "INFERRED",
+      "statement": "Domains with drift, long-lived control loops, or partial effects require repeated observation refresh and execution-time approval rebinding.",
+      "domains": ["D02", "D03"],
+      "sources": ["S08", "S09", "S14"]
+    },
+    {
+      "id": "F03",
+      "type": "failure",
+      "claim_type": "INFERRED",
+      "statement": "Single-scan sufficiency and validator-passed-as-safety are invalid cross-domain assumptions.",
+      "domains": ["D02", "D03"],
+      "sources": ["S09", "S14", "R02"]
+    }
+  ],
+  "sources": [
+    {
+      "id": "R01",
+      "classification": "OBSERVED",
+      "path": "research/executable-domain-precedents.md",
+      "locator": "Conclusion; Strongest counterexamples; What remains unproven",
+      "supports": "WS-03 synthesis over executable precedents, especially Semgrep, OPA, operators, Terraform, JSON Schema, and Alembic."
+    },
+    {
+      "id": "R02",
+      "classification": "OBSERVED",
+      "path": "research/thesis-red-team.md",
+      "locator": "RT-03; RT-04; RT-05; Where architecture stops helping",
+      "supports": "WS-04 warnings about target semantics, correlated validator error, and enforcement limits."
+    },
+    {
+      "id": "R03",
+      "classification": "OBSERVED",
+      "path": "research/authority-model.md",
+      "locator": "Verdict; Primary precedents; Authority-first versus package-first",
+      "supports": "WS-06 claim that authority is primary and packages remain subordinate."
+    },
+    {
+      "id": "R04",
+      "classification": "OBSERVED",
+      "path": "prototype/control-plane/README.md",
+      "locator": "Product question; Modular boundaries; Required demonstration",
+      "supports": "Existing prototype scope for software, company, and deployment packages."
+    },
+    {
+      "id": "S01",
+      "classification": "DOCUMENTED",
+      "url": "https://docs.semgrep.dev/writing-rules/testing-rules",
+      "locator": "ruleid/ok annotations; .fixed outputs; semgrep --test",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S02",
+      "classification": "DOCUMENTED",
+      "url": "https://docs.semgrep.dev/writing-rules/rule-syntax",
+      "locator": "fix; metadata; min-version/max-version",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S03",
+      "classification": "DOCUMENTED",
+      "url": "https://www.openpolicyagent.org/docs/management-bundles",
+      "locator": "bundle distribution; default protection from ordinary REST writes; optional verification",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S04",
+      "classification": "DOCUMENTED",
+      "url": "https://www.openpolicyagent.org/docs/management-decision-logs",
+      "locator": "decision log fields; masking; dropping; rate limiting",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S05",
+      "classification": "DOCUMENTED",
+      "url": "https://www.openpolicyagent.org/docs/philosophy",
+      "locator": "policy decoupling; policy as data-driven decisions",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S06",
+      "classification": "DOCUMENTED",
+      "url": "https://csrc.nist.gov/projects/attribute-based-access-control",
+      "locator": "ABAC definition paragraphs",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S07",
+      "classification": "DOCUMENTED",
+      "url": "https://www.openpolicyagent.org/docs/policy-testing",
+      "locator": "opa test; mocks; coverage",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S08",
+      "classification": "DOCUMENTED",
+      "url": "https://kubernetes.io/docs/concepts/extend-kubernetes/operator/",
+      "locator": "Motivation; control loop; upgrades; backups; recovery",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S09",
+      "classification": "DOCUMENTED",
+      "url": "https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/",
+      "locator": "before persistence after authn/authz; mutating and validating phases; side effects",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S10",
+      "classification": "DOCUMENTED",
+      "url": "https://developer.hashicorp.com/terraform/plugin/framework",
+      "locator": "provider servers/protocol; resources; data sources; functions",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S11",
+      "classification": "DOCUMENTED",
+      "url": "https://book.kubebuilder.io/reference/envtest",
+      "locator": "test control plane; writing tests; testing considerations",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S12",
+      "classification": "DOCUMENTED",
+      "url": "https://developer.hashicorp.com/terraform/plugin/testing/acceptance-tests",
+      "locator": "plan/apply/refresh/destroy; credentials; TF_ACC",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S17",
+      "classification": "DOCUMENTED",
+      "url": "https://developer.hashicorp.com/terraform/language/files/dependency-lock",
+      "locator": "provider-only locking; checksum verification; trust on first use",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S13",
+      "classification": "DOCUMENTED",
+      "url": "https://alembic.sqlalchemy.org/en/latest/tutorial.html",
+      "locator": "revision scripts; upgrade path; version table; history",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S14",
+      "classification": "DOCUMENTED",
+      "url": "https://alembic.sqlalchemy.org/en/latest/autogenerate.html",
+      "locator": "candidate migrations; mandatory review; rename limitations; alembic check",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S15",
+      "classification": "DOCUMENTED",
+      "url": "https://json-schema.org/draft/2020-12",
+      "locator": "vocabularies; meta-schemas; compound schema documents; output schemas",
+      "accessed": "2026-09-23"
+    },
+    {
+      "id": "S16",
+      "classification": "DOCUMENTED",
+      "url": "https://github.com/json-schema-org/JSON-Schema-Test-Suite",
+      "locator": "test structure; runner assumptions; known limitations",
+      "accessed": "2026-09-23"
+    }
+  ]
+}
