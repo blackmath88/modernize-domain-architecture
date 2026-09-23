@@ -2,7 +2,7 @@
 
 ## STATUS
 
-`review` on `agent/ws-09-medp-spec` at commit `f26db33`, pushed to `publish/agent/ws-09-medp-spec`, with PR [#10](https://github.com/blackmath88/modernize-domain-architecture/pull/10) open against `main`. WS-09 intentionally keeps MEDP as a narrow descriptor hypothesis rather than a general standard or registry design.
+`complete` after merge of [#10](https://github.com/blackmath88/modernize-domain-architecture/pull/10) into `main`, with the merged result at commit `5714d05`. WS-09 intentionally keeps MEDP as a narrow descriptor hypothesis rather than a general standard or registry design.
 
 ## WHAT I DID
 
