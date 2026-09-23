@@ -11,7 +11,7 @@ All workstreams are independently launchable. “Wave” indicates scheduling pr
 | WS-05 | Domain Economics | design | second | high | none | `research/domain-knowledge-economics.md` | ready |
 | WS-06 | Authority Model | design | first | critical | none | `research/authority-model.md` | ready |
 | WS-07 | Skills / MCP / Domain Taxonomy | research | second | high | none | `research/skills-mcp-domain-taxonomy.md` | ready |
-| WS-08 | Product Landscape | research | second | high | none | `research/product-value.md` | ready |
+| WS-08 | Product Landscape | research | second | high | none | `research/product-value.md` | review |
 | WS-09 | MEDP Spec | design | second | high | none; consume WS-03/06 if available | `spec/MEDP-v0.md` | ready |
 | WS-10 | Prototype Core | prototype | first | critical | none | `prototype/control-plane/` | ready |
 | WS-11 | Challengeability UX | prototype | second | high | none; consume WS-10 if available | `prototype/ux/` | ready |
