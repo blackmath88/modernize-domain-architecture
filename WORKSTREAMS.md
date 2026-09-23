@@ -15,7 +15,7 @@ All workstreams are independently launchable. “Wave” indicates scheduling pr
 | WS-09 | MEDP Spec | design | second | high | none; consume WS-03/06 if available | `spec/MEDP-v0.md` | ready |
 | WS-10 | Prototype Core | prototype | first | critical | none | `prototype/control-plane/` | ready |
 | WS-11 | Challengeability UX | prototype | second | high | none; consume WS-10 if available | `prototype/ux/` | ready |
-| WS-12 | Generalization | synthesis | second | medium | none | `research/generalization.md` | ready |
+| WS-12 | Generalization | synthesis | second | medium | none | `research/generalization.md` | review |
 
 ## First wave
 
