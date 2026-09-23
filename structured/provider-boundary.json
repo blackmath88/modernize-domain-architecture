@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "workstream": "WS-02",
+  "status": "partially_blocked",
+  "control": {
+    "source_repository": "https://github.com/Azure-Samples/PhotoAlbum-Java.git",
+    "source_commit": "0d5a4c47fa229c48bd99c625c69f80af5096a091",
+    "modernize_version": "1.0.74+2ef08a34f9dd25079a0528c9f99c6ea8b25de6c6",
+    "copilot_cli_standalone_version": "1.0.86",
+    "copilot_cli_runtime_reported_version": "1.0.57",
+    "model_selector": "auto",
+    "execution": "local_non_interactive",
+    "known_confounders": [
+      "The source organization and repository name contain Azure.",
+      "The exact effective assessment defaults were not emitted as a separate configuration artifact."
+    ]
+  },
+  "shared_assessment": {
+    "status": "completed",
+    "process_exit_code": 0,
+    "provider_prompt_supplied": false,
+    "raw_report": "experiments/provider-boundary/raw/shared-assessment/generated-modernize/assessment/engines/appcat/result/report.json",
+    "raw_report_sha256": "36dde66ac75bce7658b25a0d13ac9c12c3f451c4266a639e6e850b4e4c3d7bf1",
+    "canonical_report": "experiments/provider-boundary/raw/shared-assessment/generated-modernize/assessment/reports/report-20260923130055/report.json",
+    "canonical_report_sha256": "36dde66ac75bce7658b25a0d13ac9c12c3f451c4266a639e6e850b4e4c3d7bf1",
+    "metadata": {
+      "domains": ["java-upgrade", "cloud-readiness"],
+      "target_ids": ["azure-appservice", "azure-aks", "azure-container-apps"],
+      "capabilities": ["openjdk25"],
+      "operating_systems": ["linux", "windows"],
+      "mode": "issue-only"
+    },
+    "summary": {
+      "issues": 10,
+      "incidents": 31,
+      "effort": 196,
+      "cloud_readiness_issues": 6,
+      "upgrade_readiness_issues": 4
+    },
+    "earliest_provider_shaping": {
+      "stage": "assessment_raw_engine_output",
+      "classification": "provider_domain_knowledge",
+      "status": "observed",
+      "observation": "The raw AppCAT report selects three Azure compute targets and includes cloud-readiness before any planning prompt.",
+      "llm_mediated": false,
+      "deterministic": "unknown"
+    }
+  },
+  "upgrade_only_probe": {
+    "status": "completed_ambiguous",
+    "config": "experiments/provider-boundary/upgrade-only-assess.yml",
+    "raw_evidence": "experiments/provider-boundary/raw/upgrade-only-assessment/",
+    "process_exit_code": 0,
+    "requested_domains": ["java-upgrade"],
+    "observed_domains": ["cloud-readiness", "java-upgrade"],
+    "observed_target_ids": ["azure-appservice", "azure-aks", "azure-container-apps"],
+    "conclusion": "The probe did not suppress provider shaping, but the CLI emitted no evidence that the domains field was recognized; configurability is unresolved."
+  },
+  "plan_runs": [
+    {"id":"A","intent":"language/framework upgrade only","status":"blocked","process_exit_code":0,"blocker":"copilot_monthly_quota","plan":null,"tasks":null,"source_diff":null,"evidence":"experiments/provider-boundary/raw/run-A/"},
+    {"id":"B","intent":"modernize without cloud target","status":"blocked","process_exit_code":0,"blocker":"copilot_monthly_quota","plan":null,"tasks":null,"source_diff":null,"evidence":"experiments/provider-boundary/raw/run-B/"},
+    {"id":"C","intent":"modernize for cloud, provider unspecified","status":"blocked","process_exit_code":0,"blocker":"copilot_monthly_quota","plan":null,"tasks":null,"source_diff":null,"evidence":"experiments/provider-boundary/raw/run-C/"},
+    {"id":"D","intent":"modernize for Azure","status":"blocked","process_exit_code":0,"blocker":"copilot_monthly_quota","plan":null,"tasks":null,"source_diff":null,"evidence":"experiments/provider-boundary/raw/run-D/"},
+    {"id":"E","intent":"explicitly provider-neutral modernization","status":"blocked","process_exit_code":0,"blocker":"copilot_monthly_quota","plan":null,"tasks":null,"source_diff":null,"evidence":"experiments/provider-boundary/raw/run-E/"},
+    {"id":"F","intent":"modernize for AWS","status":"blocked","process_exit_code":0,"blocker":"copilot_monthly_quota","plan":null,"tasks":null,"source_diff":null,"evidence":"experiments/provider-boundary/raw/run-F/"},
+    {"id":"G","intent":"preserve current hosting and deployment","status":"blocked","process_exit_code":0,"blocker":"copilot_monthly_quota","plan":null,"tasks":null,"source_diff":null,"evidence":"experiments/provider-boundary/raw/run-G/"}
+  ],
+  "provider_entry_points": {
+    "observation": "assessment_raw_engine_output",
+    "recommendation": null,
+    "task": null,
+    "code_or_infrastructure_change": null,
+    "validation_criterion": null
+  },
+  "hypothesis_impact": {
+    "strengthens": ["Azure assumptions entered the observed default assessment before explicit provider selection."],
+    "weakens": ["Cloud Readiness is documented as an explicitly Azure-target domain and separately selectable from Upgrade."],
+    "inconclusive": ["Provider symmetry in planning", "Provider effects on tasks and transformations", "Upgrade-only non-interactive assessment behavior"]
+  }
+}

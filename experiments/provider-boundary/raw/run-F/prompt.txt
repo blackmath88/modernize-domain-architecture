@@ -1,0 +1,1 @@
+Modernize this application for AWS. Preserve AWS as the target provider and do not substitute Azure services.
