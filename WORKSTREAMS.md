@@ -4,7 +4,7 @@ All workstreams are independently launchable. “Wave” indicates scheduling pr
 
 | ID | Workstream | Type | Wave | Priority | Depends on | Main output | Status |
 |---|---|---|---|---|---|---|---|
-| WS-01 | Modernize Archaeology | research | first | critical | none | `research/modernize-architecture.md` | ready |
+| WS-01 | Modernize Archaeology | research | first | critical | none | `research/modernize-architecture.md` | in_progress |
 | WS-02 | Provider Boundary | experiment | first | critical | none | `research/provider-boundary.md` | ready |
 | WS-03 | OSS Precedents | research | first | critical | none | `research/executable-domain-precedents.md` | ready |
 | WS-04 | Thesis Red Team | research | first | critical | none | `research/thesis-red-team.md` | ready |
