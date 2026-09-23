@@ -8,7 +8,7 @@ All workstreams are independently launchable. “Wave” indicates scheduling pr
 | WS-02 | Provider Boundary | experiment | first | critical | none | `research/provider-boundary.md` | ready |
 | WS-03 | OSS Precedents | research | first | critical | none | `research/executable-domain-precedents.md` | ready |
 | WS-04 | Thesis Red Team | research | first | critical | none | `research/thesis-red-team.md` | ready |
-| WS-05 | Domain Economics | design | second | high | none | `research/domain-knowledge-economics.md` | ready |
+| WS-05 | Domain Economics | design | second | high | none | `research/domain-knowledge-economics.md` | review |
 | WS-06 | Authority Model | design | first | critical | none | `research/authority-model.md` | ready |
 | WS-07 | Skills / MCP / Domain Taxonomy | research | second | high | none | `research/skills-mcp-domain-taxonomy.md` | ready |
 | WS-08 | Product Landscape | research | second | high | none | `research/product-value.md` | ready |

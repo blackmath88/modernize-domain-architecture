@@ -49,7 +49,7 @@
     {
       "id": "WS-05",
       "name": "Domain Economics",
-      "status": "ready",
+      "status": "review",
       "priority": "high",
       "wave": "second",
       "type": "design",
