@@ -38,7 +38,7 @@
     {
       "id": "WS-04",
       "name": "Thesis Red Team",
-      "status": "ready",
+      "status": "review",
       "priority": "critical",
       "wave": "first",
       "type": "research",
