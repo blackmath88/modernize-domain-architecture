@@ -1,0 +1,4 @@
+domains:
+  - java-upgrade
+analysisCoverage: issue-only
+targetRuntime: openjdk25

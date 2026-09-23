@@ -1,0 +1,1 @@
+Modernize the application code while preserving its current hosting and deployment model. Do not introduce cloud migration, containerization, infrastructure, or deployment changes.

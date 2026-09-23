@@ -5,7 +5,7 @@
     {
       "id": "WS-01",
       "name": "Modernize Archaeology",
-      "status": "ready",
+      "status": "review",
       "priority": "critical",
       "wave": "first",
       "type": "research",
@@ -16,7 +16,7 @@
     {
       "id": "WS-02",
       "name": "Provider Boundary",
-      "status": "ready",
+      "status": "review",
       "priority": "critical",
       "wave": "first",
       "type": "experiment",
@@ -27,7 +27,7 @@
     {
       "id": "WS-03",
       "name": "OSS Precedents",
-      "status": "ready",
+      "status": "review",
       "priority": "critical",
       "wave": "first",
       "type": "research",
@@ -38,7 +38,7 @@
     {
       "id": "WS-04",
       "name": "Thesis Red Team",
-      "status": "ready",
+      "status": "review",
       "priority": "critical",
       "wave": "first",
       "type": "research",
@@ -49,7 +49,7 @@
     {
       "id": "WS-05",
       "name": "Domain Economics",
-      "status": "ready",
+      "status": "review",
       "priority": "high",
       "wave": "second",
       "type": "design",
@@ -60,7 +60,7 @@
     {
       "id": "WS-06",
       "name": "Authority Model",
-      "status": "ready",
+      "status": "review",
       "priority": "critical",
       "wave": "first",
       "type": "design",

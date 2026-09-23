@@ -1,0 +1,330 @@
+{
+  "schema_version": "1.0.0",
+  "as_of": "2026-09-23",
+  "subject": "GitHub Copilot Modernization public architecture",
+  "public_source_revision": "a9c9469d86e9dc078018e8fb391abc7744088078",
+  "evidence_limit": "No raw Modernize run artifact is present in this repository; public implementation contracts do not prove behavior of a particular installed build.",
+  "status_vocabulary": ["observed", "documented", "inferred", "unknown"],
+  "role_vocabulary": ["deterministic", "llm_mediated", "human", "unknown"],
+  "sources": [
+    {
+      "id": "S1",
+      "status": "observed",
+      "kind": "public_source",
+      "revision": "a9c9469d86e9dc078018e8fb391abc7744088078",
+      "url": "https://github.com/microsoft/github-copilot-modernization/tree/a9c9469d86e9dc078018e8fb391abc7744088078",
+      "paths": [
+        "plugins/github-copilot-modernization/com.github.copilot/agents/modernize.agent.md",
+        "plugins/github-copilot-modernization/com.github.copilot/agents/assessment-coordinator.agent.md",
+        "plugins/github-copilot-modernization/com.github.copilot/agents/planning-coordinator.agent.md",
+        "plugins/github-copilot-modernization/com.github.copilot/agents/execution-coordinator.agent.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "status": "observed",
+      "kind": "public_schema_and_skill_contract",
+      "revision": "a9c9469d86e9dc078018e8fb391abc7744088078",
+      "url": "https://github.com/microsoft/github-copilot-modernization/tree/a9c9469d86e9dc078018e8fb391abc7744088078/plugins/github-copilot-modernization/skills",
+      "paths": [
+        "assessment/SKILL.md",
+        "assessment-report-converter/scripts/assessment-report.schema.json",
+        "create-modernization-plan/tasks-schema.json",
+        "create-modernization-plan/summary-schema.json",
+        "batch-modernization/references/phase-contract.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "status": "documented",
+      "kind": "vendor_documentation",
+      "date": "2026-06-02",
+      "url": "https://learn.microsoft.com/en-us/azure/developer/github-copilot-app-modernization/customize-modernization-plan"
+    },
+    {
+      "id": "S4",
+      "status": "documented",
+      "kind": "vendor_documentation",
+      "date": "2026-03-11",
+      "url": "https://learn.microsoft.com/en-us/azure/developer/github-copilot-app-modernization/overview"
+    },
+    {
+      "id": "S5",
+      "status": "observed",
+      "kind": "preserved_local_notes_without_raw_run",
+      "paths": [
+        "docs/source-notes/handoff/docs/03_MODERNIZE_ARCHITECTURE.md",
+        "docs/source-notes/handoff/docs/documentation-hackathon.json"
+      ]
+    }
+  ],
+  "routing": {
+    "status": "observed",
+    "broad_intent": ["assessment", "human_assessment_gate", "planning", "human_plan_gate", "transformation"],
+    "single_specific_task": ["transformation"],
+    "multiple_specific_tasks": ["planning", "human_plan_gate", "transformation"],
+    "integration_test_request": ["planning", "human_plan_gate", "transformation", "validation"],
+    "headless_difference": "Skips phase gates but not unresolved coordinator input.",
+    "source_refs": ["S1"]
+  },
+  "stages": [
+    {
+      "id": "assessment",
+      "name": "Assessment",
+      "status": "observed",
+      "inputs": ["repository", "user_request", "explicit_config", "default_domain_catalog"],
+      "outputs": ["raw_engine_results", "optional_fact_and_security_outputs", "html_report", "report.json", "normalized-assessment.json", "verification.json"],
+      "knowledge_sources": ["plugin_catalog", "AppCAT", "npm-check-updates", "optional_fact_skills", "security_skills"],
+      "roles": {
+        "deterministic": ["bootstrap", "language_detection", "engine_invocation", "normalization", "artifact_verification"],
+        "llm_mediated": ["six_full_coverage_fact_skills", "six_CWE_skills"],
+        "human": ["explicit_scope_and_config"],
+        "unknown": ["AppCAT_rule_internals", "unstored_model_and_tool_behavior"]
+      },
+      "inspectability": "Reports and fact files are inspectable; assessment does not modify application source.",
+      "editability": "Supported inputs are configurable; generated reports are not documented as direct-edit surfaces.",
+      "provenance": ["run_id", "coverage_source", "producer", "engine_outputs", "verification_receipt"],
+      "surviving_evidence": ["finding_locations", "report_metadata", "fact_files", "verification.json"],
+      "source_refs": ["S1", "S2", "S5"]
+    },
+    {
+      "id": "typed_findings",
+      "name": "Typed findings",
+      "status": "observed",
+      "inputs": ["raw_engine_results", "normalized_skill_results"],
+      "outputs": ["public_unified_report.json", "internal_normalized-assessment.json"],
+      "knowledge_sources": ["assessment_report_schema", "solution_mapping", "normalizer"],
+      "roles": {
+        "deterministic": ["schema_shaping", "rule_and_incident_identity", "target_overrides", "verification"],
+        "llm_mediated": ["optional_AI_fact_and_CWE_finding_origin"],
+        "human": [],
+        "unknown": ["completeness", "false_positive_rate"]
+      },
+      "inspectability": "The public report and internal sidecar are files; the sidecar is deliberately omitted from normal user presentation.",
+      "editability": "No direct-edit workflow is documented.",
+      "provenance": ["rule_id", "incident_id", "location", "producer", "run_metadata", "solution_id", "kb_id"],
+      "surviving_evidence": ["severity", "effort", "targets", "evidence_files", "messages"],
+      "earliest_typed_artifact": "Raw AppCAT or NCU output; report.json is the earliest stable public boundary.",
+      "source_refs": ["S2", "S5"]
+    },
+    {
+      "id": "planning",
+      "name": "Planning",
+      "status": "observed",
+      "inputs": ["verified_normalized_assessment", "legacy_report_or_direct_tasks", "user_choices", "rulebook", "active_memory_patches"],
+      "outputs": ["plan.md", ".metadata/tasks.json", "preview", "planning_summary"],
+      "knowledge_sources": ["assessment_solutions", "supported_patterns", "rulebook", "user_intent", "create-modernization-plan_skill"],
+      "roles": {
+        "deterministic": ["verification_receipt_check", "choice_protocol", "task_schema_validation"],
+        "llm_mediated": ["plan_and_task_synthesis"],
+        "human": ["alternative_selection", "execution_approval", "regeneration_requests"],
+        "unknown": ["model_specific_ranking_and_synthesis"]
+      },
+      "inspectability": "Both plan.md and tasks.json are inspectable.",
+      "editability": "Microsoft documents prompt-driven regeneration; direct plan edits can drift from tasks.json.",
+      "provenance": ["chosen_solution", "kb_id", "constraints", "requirements", "dependencies", "skill_hints", "language", "created_at"],
+      "surviving_evidence": ["plan.md", ".metadata/tasks.json"],
+      "source_refs": ["S1", "S2", "S3"]
+    },
+    {
+      "id": "tasks",
+      "name": "Tasks / DAG",
+      "status": "observed",
+      "inputs": ["planning_result"],
+      "outputs": ["schema_constrained_task_graph"],
+      "knowledge_sources": ["tasks_schema", "planner_output"],
+      "roles": {
+        "deterministic": ["dependency_contract", "schema_contract"],
+        "llm_mediated": ["task_decomposition", "field_population"],
+        "human": ["indirect_changes_through_regeneration"],
+        "unknown": ["uniform_dependency_enforcement_across_all_workers"]
+      },
+      "inspectability": "JSON is inspectable.",
+      "editability": "Manual editing is possible but not the documented customization path.",
+      "provenance": ["task_id", "type", "requirements", "dependencies", "skills", "success_criteria"],
+      "surviving_evidence": ["status", "task_summary", "success_criteria_status"],
+      "caveat": "Direct single-task execution has no durable planning artifact.",
+      "source_refs": ["S1", "S2", "S3"]
+    },
+    {
+      "id": "skills",
+      "name": "Skills",
+      "status": "observed",
+      "inputs": ["task_type", "task_description", "optional_kb_id", "workspace", "constraints"],
+      "outputs": ["instructions", "script_results", "generated_artifacts", "worker_result"],
+      "knowledge_sources": ["plugin_skills", "scripts", "schemas", "supported_patterns", "knowledge_base_references"],
+      "roles": {
+        "deterministic": ["skill_scripts_and_validators_when_present"],
+        "llm_mediated": ["procedural_skill_interpretation"],
+        "human": ["project_guidelines_and_policy"],
+        "unknown": ["computation_location_from_skill_name_alone"]
+      },
+      "inspectability": "Public built-in skills are inspectable; runtime-fetched knowledge may not be.",
+      "editability": "Project guidance is editable; built-in package content depends on installation/distribution.",
+      "provenance": ["skill_name", "skill_location"],
+      "surviving_evidence": ["persisted_skill_artifacts", "worker_summary"],
+      "source_refs": ["S1", "S2"]
+    },
+    {
+      "id": "mcp_tools",
+      "name": "MCP / tools",
+      "status": "observed",
+      "inputs": ["worker_request", "scenario_or_kb_id", "workspace", "bindings_or_credentials"],
+      "outputs": ["tool_specific_knowledge", "analysis", "transformation", "process", "validation_or_deployment_result"],
+      "knowledge_sources": ["App_Modernization_MCP_server", "local_tools", "cloud_services"],
+      "roles": {
+        "deterministic": ["tool_specific_operations"],
+        "llm_mediated": ["tool_selection", "parameterization", "result_interpretation"],
+        "human": ["authorization", "unresolved_infrastructure_input"],
+        "unknown": ["server_side_algorithms", "remote_knowledge_provenance"]
+      },
+      "inspectability": "Calls may be traceable; server internals and transient results may be opaque.",
+      "editability": "Tool outputs are editable only when persisted as ordinary files.",
+      "provenance": ["persisted_tool_outputs_when_present"],
+      "surviving_evidence": ["changed_files", "commits", "reports", "worker_summaries"],
+      "caveat": "Assessment explicitly excludes MCP in the inspected revision.",
+      "source_refs": ["S1", "S2"]
+    },
+    {
+      "id": "transformation",
+      "name": "Transformation",
+      "status": "observed",
+      "inputs": ["task_or_task_group", "source", "branch", "rulebook", "memory_patches", "KB_scenario"],
+      "outputs": ["code_changes", "configuration_changes", "IaC_changes", "commits", "task_result", "specialized_reports"],
+      "knowledge_sources": ["specialized_worker", "skill", "MCP_knowledge", "repository_context", "organization_rulebook"],
+      "roles": {
+        "deterministic": ["tool_backed_transforms", "scripts", "build_commands"],
+        "llm_mediated": ["source_analysis", "edit_generation", "tool_orchestration"],
+        "human": ["scope", "constraints", "review"],
+        "unknown": ["per_change_attribution_when_not_emitted"]
+      },
+      "inspectability": "Git diffs and committed changes are inspectable.",
+      "editability": "Ordinary repository changes are editable and reversible.",
+      "provenance": ["Git_history", "worker_return", "task_status", "specialized_reports"],
+      "surviving_evidence": ["changed_files", "commits", "task_result"],
+      "source_refs": ["S1", "S4"]
+    },
+    {
+      "id": "validation",
+      "name": "Validation",
+      "status": "observed",
+      "inputs": ["changed_workspace", "success_criteria", "optional_baseline", "optional_deployment_target"],
+      "outputs": ["build_test_scan_results", "successCriteriaStatus", "test_evidence", ".metadata/summary.json", "terminal_result"],
+      "knowledge_sources": ["build_tools", "test_frameworks", "scanners", "deployment_probes", "baseline_skills"],
+      "roles": {
+        "deterministic": ["command_results", "schema_checks", "artifact_checks"],
+        "llm_mediated": ["repair_selection", "result_summary"],
+        "human": ["criteria", "exemptions"],
+        "unknown": ["raw_log_persistence_consistency"]
+      },
+      "inspectability": "Persisted tests, summaries, and named reports are inspectable; transient output may not survive.",
+      "editability": "Tests and criteria artifacts are editable under ordinary repository controls.",
+      "provenance": ["task_id", "status", "task_summary", "goal_status", "risks", "follow_ups"],
+      "surviving_evidence": ["CVE_report", "baseline_file", "test_counts", "deployment_URL", "resource_group"],
+      "source_refs": ["S1", "S2", "S4"]
+    },
+    {
+      "id": "retry",
+      "name": "Retry",
+      "status": "observed",
+      "inputs": ["failed_validation", "failed_phase", "interrupted_session", "explicit_user_retry"],
+      "outputs": ["alternate_worker_attempt", "terminal_failed_task", "resumed_run", "new_execution_delegation"],
+      "knowledge_sources": ["worker_specific_policy", "coordinator_protocol", "user_decision"],
+      "roles": {
+        "deterministic": ["coordinator_no_redelegation_guard"],
+        "llm_mediated": ["worker_internal_alternate_KB_approach"],
+        "human": ["explicit_terminal_retry_decision"],
+        "unknown": ["retry_limits_inside_each_specialist"]
+      },
+      "inspectability": "Final failures are inspectable; intermediate attempts survive only if logged or committed.",
+      "editability": "The human can choose retry from scratch, manual repair, or abort after terminal failure.",
+      "provenance": ["error_context", "files_changed_before_failure"],
+      "surviving_evidence": ["terminal_status", "worker_summary", "optional_logs"],
+      "caveat": "This is not a generic automatic validation-to-planning loop.",
+      "source_refs": ["S1"]
+    },
+    {
+      "id": "deployment",
+      "name": "Deployment",
+      "status": "observed",
+      "inputs": ["explicit_deployment_task", "target_Azure_service", "IaC_choice", "resource_state", "cloud_context"],
+      "outputs": ["container_assets", "IaC", "CI_CD_assets", "provisioned_resources", "deployment_validation", "URL_and_resource_summary"],
+      "knowledge_sources": ["deployment_agent", "Azure_tools_and_guidance", "user_constraints", "rulebook"],
+      "roles": {
+        "deterministic": ["build", "scan", "provisioning", "quota_and_SKU_checks", "endpoint_validation"],
+        "llm_mediated": ["orchestration", "asset_generation"],
+        "human": ["explicit_request", "resource_authorization"],
+        "unknown": ["validation_depth_per_target"]
+      },
+      "inspectability": "Generated assets and resources are inspectable with provider access.",
+      "editability": "IaC and pipeline files are editable; cloud mutations require provider permissions.",
+      "provenance": ["task_fields", "IaC", "commits", "app_logs"],
+      "surviving_evidence": ["deployed_flag", "resource_group", "access_URL"],
+      "source_refs": ["S1", "S2", "S3", "S4"]
+    },
+    {
+      "id": "provenance",
+      "name": "Provenance",
+      "status": "inferred",
+      "inputs": ["all_persisted_stage_artifacts"],
+      "outputs": ["partial_end_to_end_evidence_chain"],
+      "knowledge_sources": ["harness_schemas", "worker_persistence_behavior"],
+      "roles": {
+        "deterministic": ["schema_identity", "artifact_path_checks", "phase_evidence_checks", "Git_history"],
+        "llm_mediated": ["narrative_summaries"],
+        "human": ["review_and_approval_events"],
+        "unknown": ["finding_to_decision_to_code_hunk_lineage"]
+      },
+      "inspectability": "Persisted artifacts are inspectable; no unified classic-run ledger is established.",
+      "editability": "Artifacts are individually editable subject to schema and Git controls; provenance integrity after edits is not uniformly specified.",
+      "provenance": ["report_metadata", "verification_receipt", "task_id", "status", "summary_entry", "logs", "commits", "batch_attempt_identity"],
+      "surviving_evidence": ["strong_assessment_boundary", "strong_batch_phase_boundary", "partial_plan_task_result_joins", "weak_change_level_attribution"],
+      "source_refs": ["S1", "S2"]
+    }
+  ],
+  "contradictions": [
+    {
+      "id": "C1",
+      "strength": "strongest",
+      "status": "observed",
+      "current_claim": "Validation failure loops generally back through planning and repair.",
+      "finding": "The public execution coordinator forbids re-delegating a returned task. Workers may retry internally; terminal retry requires an explicit user decision and a new delegation.",
+      "source_refs": ["S1"]
+    },
+    {
+      "id": "C2",
+      "strength": "material",
+      "status": "observed",
+      "current_claim": "Assessment is deterministic typed analysis.",
+      "finding": "Issue-only AppCAT/NCU is deterministic, but full coverage and security add AI-mediated fact and CWE skills before deterministic normalization.",
+      "source_refs": ["S2"]
+    },
+    {
+      "id": "C3",
+      "strength": "material",
+      "status": "observed",
+      "current_claim": "Assessment invokes domain-specific MCP tools.",
+      "finding": "The inspected assessment contract explicitly prohibits MCP and uses plugin-owned Node scripts and local engines; later execution workers may use MCP.",
+      "source_refs": ["S1", "S2"]
+    },
+    {
+      "id": "C4",
+      "strength": "material",
+      "status": "observed",
+      "current_claim": "report.json is the assessment-to-planning contract.",
+      "finding": "Native planning resolves a verified internal normalized-assessment.json through verification.json; report.json remains public and supports legacy/external planning.",
+      "source_refs": ["S1", "S2"]
+    }
+  ],
+  "least_inspectable_boundary": {
+    "boundary": "specialized_worker_to_MCP_or_remote_tool",
+    "reason": "Task inputs and Git outputs are visible, but remote knowledge provenance, transient responses, model mediation, and finding-to-hunk lineage are not uniformly persisted.",
+    "status": "inferred",
+    "source_refs": ["S1", "S2"]
+  },
+  "next_artifact_needed": {
+    "description": "A complete version-pinned run directory containing raw AppCAT output, canonical and normalized assessments, verification.json, plan.md, tasks.json, worker/tool traces, summary.json, commits, and validation outputs.",
+    "purpose": "Verify that an installed product follows the public contracts and recover end-to-end provenance.",
+    "status": "unknown"
+  }
+}
