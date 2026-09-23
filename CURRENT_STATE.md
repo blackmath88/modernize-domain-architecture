@@ -1,27 +1,39 @@
 # Current State
 
-Last reviewed: 2026-09-23
-
 ## What we know
 
-- **Observed:** The supplied PhotoAlbum notes report an AppCAT assessment with 28 typed incidents and fields including rule identifiers, targets, and severity. The raw assessment artifact is not yet present in this repository. Source: `docs/source-notes/handoff/COPILOT_HANDOFF.md` and `docs/source-notes/handoff/docs/03_MODERNIZE_ARCHITECTURE.md` after source preservation is complete.
-- **Documented in the supplied research:** Modernize is described as an orchestrated pipeline spanning assessment, typed findings, planning, task execution, and validation. Source: `modernize-domain-architecture-handoff/docs/03_MODERNIZE_ARCHITECTURE.md`.
-- **Observed:** The supplied corpus contains research notes and visual explainers, but no raw Modernize assessment, plan, task, execution, or validation artifacts.
+- **OBSERVED:** Supplied notes record a PhotoAlbum AppCAT assessment with 28 typed incidents. The raw report is not in this repository. Source: `docs/source-notes/handoff/docs/03_MODERNIZE_ARCHITECTURE.md`.
+- **DOCUMENTED:** Supplied research describes Modernize as an orchestrated pipeline spanning assessment, typed findings, planning, task execution, and validation. Source: `docs/source-notes/handoff/COPILOT_HANDOFF.md`.
+- **OBSERVED:** The repository inventory contains research and visual explainers but no raw Modernize run artifacts. Source: `structured/claims.json` (`claim-006`).
 
-## What we think
+## What changed our mind
 
-- **Hypothesis:** GitHub Copilot Modernize combines relatively portable application-modernization knowledge with an opinionated Azure-target modernization path.
-- **Inferred:** Deployment execution occurs late, while provider target and constraints can shape architecture and planning earlier.
-- **Opinion:** Stable domain knowledge should become typed, testable, machine-executable infrastructure when repeated ambiguity costs more than encoding it.
+The investigation shifted from “the model owns modernization intelligence” to a layered view because supplied notes describe typed findings, task artifacts, specialist tools, and deterministic validation before and after model reasoning.
 
-## What is still unknown
+## Strongest current thesis
 
-- Where provider assumptions first enter an actual Modernize run.
-- Whether assessment begins with provider-neutral facts or target-aware findings.
-- Whether AWS, Azure, and provider-neutral requests receive symmetric treatment.
-- Which planning decisions are deterministic, LLM-mediated, or enforced by tools behind MCP.
-- How much of the product's durable differentiation resides in provider expertise, orchestration, validation, integration, UX, or operational learning.
+**HYPOTHESIS:** Stable domain expertise can become portable machine-executable infrastructure consumed by interchangeable agents, while durable product value concentrates in provider expertise, orchestration, validation, integration, trust, UX, and operational learning.
 
-## What experiment should happen next
+## Strongest counterargument
 
-Run the same application through the seven intents in `EXPERIMENT_PLAN.md`. Preserve each prompt, tool version, assessment, plan, task graph, selected skills, generated files, validation output, repair behavior, and final diff. Record observations without filling absent evidence with inference.
+Encoding and maintaining domain knowledge may cost more than repeated model inference, and the supposedly separate language, provider, organization, and judgment layers may be too entangled to package usefully.
+
+## Most important evidence
+
+The strongest current evidence is the recorded existence of typed assessment findings and machine-readable planning/task artifacts. This is secondary evidence until raw artifacts are captured. See `structured/claims.json`.
+
+## Biggest unknown
+
+Where provider-specific assumptions first enter a real Modernize run, and whether Azure, AWS, and preserve-current-hosting requests are treated symmetrically.
+
+## Next experiment
+
+Run the same clean application revision through intents A-G in `EXPERIMENT_PLAN.md`, preserving raw assessment, plan, tasks, transformations, validation, retries, and final diffs.
+
+## Current build
+
+The static explainer and structured research model are present. The provider-neutral control-plane prototype is specified in `prototype/control-plane/README.md` but not implemented.
+
+## Active workstreams
+
+Twelve workstreams are ready. First wave: WS-01, WS-02, WS-03, WS-04, WS-06, and WS-10. See `WORKSTREAMS.md` and `structured/workstreams.json`.

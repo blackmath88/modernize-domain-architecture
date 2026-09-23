@@ -37,12 +37,29 @@ Deployment runs late, but target constraints can affect identity, messaging, sec
 ## Start here
 
 - [Current state](CURRENT_STATE.md): shortest reliable handoff
+- [Agent protocol](AGENTS.md): shared rules for cloud coding and research agents
+- [Workstreams](WORKSTREAMS.md): 12 independently launchable assignments
+- [Prototype workspace](prototype/README.md): provider-neutral control-plane demonstrator
 - [Research thesis](RESEARCH_THESIS.md): question, alternatives, and falsification criteria
 - [Architecture](ARCHITECTURE.md): observed pipeline and proposed domain-package model
 - [Experiment plan](EXPERIMENT_PLAN.md): seven-intent provider-influence comparison
 - [Visual explainer](site/index.html): the same model as a static narrative
 - [Structured model](structured/README.md): JSON interfaces for agents and tooling
 - [Original sources](docs/source-notes/README.md): verbatim supplied research and visual artifacts
+
+## Launch a cloud agent
+
+The repository contains the complete workstream context. A new GitHub Copilot cloud session normally needs only:
+
+```text
+Work on WS-XX.
+
+Read AGENTS.md, CURRENT_STATE.md, WORKSTREAMS.md and the corresponding file in agent-prompts/.
+
+Complete the workstream, commit your work, create the required handoff, and open a PR.
+```
+
+First wave: WS-01, WS-02, WS-03, WS-04, WS-06, and WS-10.
 
 ## Evidence discipline
 
@@ -64,6 +81,9 @@ evidence/      Raw run artifacts, never interpretations
 structured/    Machine-readable thesis, claims, architecture, and runs
 site/          Dependency-free visual documentation
 experiments/   Reproducible runbooks and capture templates
+agent-prompts/ Self-contained cloud-agent workstream briefs
+agent-output/  Concise workstream handoffs
+prototype/     Narrow architecture demonstrators
 ```
 
 ## Security

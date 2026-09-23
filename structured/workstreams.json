@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0.0",
+  "allowed_statuses": ["ready", "in_progress", "review", "complete", "blocked"],
+  "workstreams": [
+    {
+      "id": "WS-01",
+      "name": "Modernize Archaeology",
+      "status": "ready",
+      "priority": "critical",
+      "wave": "first",
+      "type": "research",
+      "dependencies": [],
+      "prompt": "agent-prompts/WS-01-modernize-archaeology.md",
+      "outputs": ["research/modernize-architecture.md", "structured/modernize-pipeline.json", "agent-output/WS-01-handoff.md"]
+    },
+    {
+      "id": "WS-02",
+      "name": "Provider Boundary",
+      "status": "ready",
+      "priority": "critical",
+      "wave": "first",
+      "type": "experiment",
+      "dependencies": [],
+      "prompt": "agent-prompts/WS-02-provider-boundary.md",
+      "outputs": ["research/provider-boundary.md", "structured/provider-boundary.json", "experiments/provider-boundary/", "agent-output/WS-02-handoff.md"]
+    },
+    {
+      "id": "WS-03",
+      "name": "OSS Precedents",
+      "status": "ready",
+      "priority": "critical",
+      "wave": "first",
+      "type": "research",
+      "dependencies": [],
+      "prompt": "agent-prompts/WS-03-oss-precedents.md",
+      "outputs": ["research/executable-domain-precedents.md", "structured/open-source-precedents.json", "agent-output/WS-03-handoff.md"]
+    },
+    {
+      "id": "WS-04",
+      "name": "Thesis Red Team",
+      "status": "ready",
+      "priority": "critical",
+      "wave": "first",
+      "type": "research",
+      "dependencies": [],
+      "prompt": "agent-prompts/WS-04-thesis-red-team.md",
+      "outputs": ["research/thesis-red-team.md", "structured/thesis-risks.json", "agent-output/WS-04-handoff.md"]
+    },
+    {
+      "id": "WS-05",
+      "name": "Domain Economics",
+      "status": "ready",
+      "priority": "high",
+      "wave": "second",
+      "type": "design",
+      "dependencies": [],
+      "prompt": "agent-prompts/WS-05-domain-economics.md",
+      "outputs": ["research/domain-knowledge-economics.md", "prototype/economics-calculator/", "agent-output/WS-05-handoff.md"]
+    },
+    {
+      "id": "WS-06",
+      "name": "Authority Model",
+      "status": "ready",
+      "priority": "critical",
+      "wave": "first",
+      "type": "design",
+      "dependencies": [],
+      "prompt": "agent-prompts/WS-06-authority-model.md",
+      "outputs": ["research/authority-model.md", "structured/authority-model.json", "agent-output/WS-06-handoff.md"]
+    },
+    {
+      "id": "WS-07",
+      "name": "Skills / MCP / Domain Taxonomy",
+      "status": "ready",
+      "priority": "high",
+      "wave": "second",
+      "type": "research",
+      "dependencies": [],
+      "prompt": "agent-prompts/WS-07-skills-mcp-taxonomy.md",
+      "outputs": ["research/skills-mcp-domain-taxonomy.md", "structured/capability-taxonomy.json", "agent-output/WS-07-handoff.md"]
+    },
+    {
+      "id": "WS-08",
+      "name": "Product Landscape",
+      "status": "ready",
+      "priority": "high",
+      "wave": "second",
+      "type": "research",
+      "dependencies": [],
+      "prompt": "agent-prompts/WS-08-product-landscape.md",
+      "outputs": ["research/product-value.md", "structured/product-value-patterns.json", "agent-output/WS-08-handoff.md"]
+    },
+    {
+      "id": "WS-09",
+      "name": "MEDP Spec",
+      "status": "ready",
+      "priority": "high",
+      "wave": "second",
+      "type": "design",
+      "dependencies": [],
+      "recommended_inputs": ["WS-03", "WS-06"],
+      "prompt": "agent-prompts/WS-09-medp-spec.md",
+      "outputs": ["spec/MEDP-v0.md", "spec/medp.schema.json", "spec/examples/", "agent-output/WS-09-handoff.md"]
+    },
+    {
+      "id": "WS-10",
+      "name": "Prototype Core",
+      "status": "ready",
+      "priority": "critical",
+      "wave": "first",
+      "type": "prototype",
+      "dependencies": [],
+      "recommended_inputs": ["WS-03", "WS-04", "WS-06", "WS-09"],
+      "prompt": "agent-prompts/WS-10-prototype-core.md",
+      "outputs": ["prototype/control-plane/", "structured/prototype-contracts/", "agent-output/WS-10-handoff.md"]
+    },
+    {
+      "id": "WS-11",
+      "name": "Challengeability UX",
+      "status": "ready",
+      "priority": "high",
+      "wave": "second",
+      "type": "prototype",
+      "dependencies": [],
+      "recommended_inputs": ["WS-06", "WS-10"],
+      "prompt": "agent-prompts/WS-11-challengeability-ux.md",
+      "outputs": ["research/challengeable-ai.md", "prototype/ux/", "agent-output/WS-11-handoff.md"]
+    },
+    {
+      "id": "WS-12",
+      "name": "Generalization",
+      "status": "ready",
+      "priority": "medium",
+      "wave": "second",
+      "type": "synthesis",
+      "dependencies": [],
+      "recommended_inputs": ["WS-03", "WS-04", "WS-06"],
+      "prompt": "agent-prompts/WS-12-generalization.md",
+      "outputs": ["research/generalization.md", "structured/generalization.json", "agent-output/WS-12-handoff.md"]
+    }
+  ]
+}
