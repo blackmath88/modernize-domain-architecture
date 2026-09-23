@@ -5,7 +5,7 @@
     {
       "id": "WS-01",
       "name": "Modernize Archaeology",
-      "status": "ready",
+      "status": "review",
       "priority": "critical",
       "wave": "first",
       "type": "research",
@@ -16,7 +16,7 @@
     {
       "id": "WS-02",
       "name": "Provider Boundary",
-      "status": "ready",
+      "status": "review",
       "priority": "critical",
       "wave": "first",
       "type": "experiment",
@@ -27,7 +27,7 @@
     {
       "id": "WS-03",
       "name": "OSS Precedents",
-      "status": "ready",
+      "status": "review",
       "priority": "critical",
       "wave": "first",
       "type": "research",

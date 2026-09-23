@@ -1,0 +1,407 @@
+GitHub Copilot modernization v1.0.74
+GitHub Copilot modernization is AI-powered and may not always be accurate.
+All tools have access to necessary resources.
+
+GitHub account: blackmath88
+GitHub CLI version: 2.101.0
+Copilot CLI version: 1.0.57
+Model: Auto
+
+[+] SUCCESS: 1/1 repo(s) ready for assessment.
+    [+] SUCCESS:   Repo: source
+    Name: source
+    Path: /var/folders/60/f_l92jt16f9d55p9w65prr9r0000gn/T/provider-boundary-upgrade.akBaRo/source
+    Apps: source
+[>] Assessment Dashboard
+
+    Progress: 0% (0/1)
+    SUCCESS: 0  FAILED: 0  RUNNING: 0  PENDING: 1
+
+    TASK       NAME   STATUS  TIME
+    ---------- ------ ------- ----
+    [Task 1/1] source PENDING -
+
+    Page 1/1  Showing 1-1 of 1
+
+[>] Assessment Dashboard
+
+    Progress: 0% (0/1)
+    SUCCESS: 0  FAILED: 0  RUNNING: 1  PENDING: 0
+
+    TASK       NAME   STATUS     TIME 
+    ---------- ------ ---------- -----
+    [Task 1/1] source RUNNING... 0m 0s
+
+    Page 1/1  Showing 1-1 of 1
+
+[>] Running assessment
+    
+[>] Analyzing migration readiness
+    0%   | Preparing...
+    0%   | Processed rule: hardcoded-ip-address
+    0%   | Processed rule: azure-aws-config-credential-01000
+    0%   | Processed rule: azure-aws-config-region-02000
+    1%   | Processed rule: azure-aws-config-sqs-04004
+    1%   | Processed rule: azure-aws-config-s3-03001
+    1%   | Processed rule: azure-aws-config-sqs-04002
+    2%   | Processed rule: aws-bedrock-to-azure-ai-06000
+    2%   | Processed rule: azure-aws-config-sqs-04000
+    2%   | Processed rule: aws-lambda-to-azure-functions-01000
+    3%   | Processed rule: azure-cache-redis-01000
+    3%   | Processed rule: azure-file-system-02000
+    3%   | Processed rule: azure-file-system-03000
+    4%   | Processed rule: azure-database-config-mongodb-02000
+    4%   | Processed rule: azure-keystore-certificates-01000
+    4%   | Processed rule: azure-java-version-02000
+    5%   | Processed rule: azure-java-version-01000
+    5%   | Processed rule: azure-message-queue-config-kafka-01000
+    5%   | Processed rule: azure-message-queue-config-rabbitmq-01000
+    6%   | Processed rule: azure-message-queue-config-artemis-01000
+    6%   | Processed rule: azure-message-queue-amqp-02000
+    6%   | Processed rule: azure-message-queue-spring-jms-rabbitmq-01000
+    7%   | Processed rule: azure-message-queue-activemq-01000
+    7%   | Processed rule: azure-aws-config-sqs-04001
+    7%   | Processed rule: azure-message-queue-ibm-jms-01000
+    8%   | Processed rule: amazon-sns-to-azure-servicebus-01000
+    8%   | Processed rule: azure-aws-config-sqs-04003
+    8%   | Processed rule: azure-message-queue-rabbitmq-01000
+    8%   | Processed rule: amazon-kinesis-to-azure-eventhubs-01000
+    9%   | Processed rule: apache-pulsar-to-azure-eventhubs-01000
+    9%   | Processed rule: azure-aws-config-s3-03000
+    9%   | Processed rule: azure-message-queue-java-ee-rabbitmq-amqp-01000
+    10%  | Processed rule: aws-bedrock-to-azure-ai-06002
+    10%  | Processed rule: spring-boot-to-azure-config-server-01000
+    10%  | Processed rule: spring-boot-to-azure-eureka-01000
+    11%  | Processed rule: azure-aws-config-secret-manager-05000
+    11%  | Processed rule: azure-aws-config-s3-03002
+    11%  | Processed rule: spring-boot-to-azure-port-01000
+    12%  | Processed rule: azure-keystore-certificates-02000
+    12%  | Processed rule: spring-boot-to-azure-restricted-config-01000
+    12%  | Processed rule: spring-batch-to-azure-durable-functions-01000
+    13%  | Processed rule: quartz-scheduler-to-azure-functions-01000
+    13%  | Processed rule: spring-boot-to-azure-spring-boot-version-01000
+    13%  | Processed rule: spring-boot-to-azure-spring-cloud-version-01000
+    14%  | Processed rule: spring-boot-to-azure-spring-boot-version-02000
+    14%  | Processed rule: spring-boot-to-azure-spring-cloud-version-02000
+    14%  | Processed rule: solace-pubsubplus-to-azure-servicebus-01000
+    15%  | Processed rule: aws-bedrock-to-azure-ai-06001
+    15%  | Processed rule: azure-system-config-01000
+    15%  | Processed rule: tibco-ems-jms-to-azure-servicebus-jms-01000
+    16%  | Processed rule: spring-boot-to-azure-eureka-02000
+    16%  | Processed rule: azure-database-microsoft-mongodb-05000
+    16%  | Processed rule: database-reliability-01000
+    16%  | Processed rule: spring-boot-to-azure-eureka-03000
+    17%  | Processed rule: ibm-db2-to-azure-postgresql-01000
+    17%  | Processed rule: firebird-to-azure-postgresql-01000
+    17%  | Processed rule: azure-database-microsoft-cassandra-04000
+    18%  | Processed rule: sqlite-to-azure-postgresql-01000
+    18%  | Processed rule: apm-00001
+    18%  | Processed rule: apm-00002
+    19%  | Processed rule: azure-database-microsoft-mariadb-06000
+    19%  | Processed rule: spring-boot-to-azure-openfeign-01000
+    19%  | Processed rule: auth-00000
+    20%  | Processed rule: auth-01000
+    20%  | Processed rule: auth-02000
+    20%  | Processed rule: spring-boot-to-azure-key-vault-01000
+    21%  | Processed rule: auth-04000
+    21%  | Processed rule: auth-03000
+    21%  | Processed rule: azure-database-microsoft-sql-03000
+    22%  | Processed rule: azure-database-microsoft-oracle-07000
+    22%  | Processed rule: azure-tas-binding-01000
+    22%  | Processed rule: openliberty-database-00002
+    23%  | Processed rule: openliberty-database-00005
+    23%  | Processed rule: azure-database-mysql-01000
+    23%  | Processed rule: azure-database-postgresql-02000
+    24%  | Processed rule: openliberty-database-00006
+    24%  | Processed rule: openliberty-database-00004
+    24%  | Processed rule: apm-00003
+    25%  | Processed rule: openliberty-filesystem-00003
+    25%  | Processed rule: openliberty-filesystem-00004
+    25%  | Processed rule: openliberty-database-00007
+    25%  | Processed rule: openliberty-jms-00002
+    26%  | Processed rule: openliberty-jms-00003
+    26%  | Processed rule: openliberty-filesystem-00001
+    26%  | Processed rule: openliberty-jms-00006
+    27%  | Processed rule: openliberty-jms-00005
+    27%  | Processed rule: sybase-ase-to-azure-database-01000
+    27%  | Processed rule: openliberty-database-00003
+    28%  | Processed rule: spring-framework-version-01000
+    28%  | Processed rule: spring-framework-version-02000
+    28%  | Processed rule: jakarta-ee-version-01000
+    29%  | Processed rule: openliberty-database-00001
+    29%  | Processed rule: google-firestore-to-azure-cosmosdb-01000
+    29%  | Processed rule: google-cloud-bigtable-to-azure-cosmosdb-01000
+    30%  | Processed rule: google-pubsub-to-azure-service-bus-01000
+    30%  | Processed rule: openliberty-jms-00001
+    30%  | Processed rule: google-cloud-storage-to-azure-blob-storage-01000
+    31%  | Processed rule: google-cloud-functions-to-azure-functions-01000
+    31%  | Processed rule: google-cloud-spanner-to-azure-postgresql-01000
+    31%  | Processed rule: openliberty-database-00008
+    32%  | Processed rule: embedded-cache-01000
+    32%  | Processed rule: embedded-cache-02000
+    32%  | Processed rule: embedded-cache-03000
+    33%  | Processed rule: embedded-cache-04000
+    33%  | Processed rule: embedded-cache-05000
+    33%  | Processed rule: embedded-cache-06000
+    33%  | Processed rule: embedded-cache-07000
+    34%  | Processed rule: embedded-cache-08000
+    34%  | Processed rule: embedded-cache-09000
+    34%  | Processed rule: embedded-cache-10000
+    35%  | Processed rule: embedded-cache-11000
+    35%  | Processed rule: embedded-cache-12000
+    35%  | Processed rule: embedded-cache-13000
+    36%  | Processed rule: embedded-cache-14000
+    36%  | Processed rule: openliberty-database-00009
+    36%  | Processed rule: embedded-cache-16000
+    37%  | Processed rule: java-ldap-to-msft-entra-id-01000
+    37%  | Processed rule: java-corba-00000
+    37%  | Processed rule: java-rmi-00000
+    38%  | Processed rule: java-rmi-00001
+    38%  | Processed rule: java-rpc-00000
+    38%  | Processed rule: embedded-cache-15000
+    39%  | Processed rule: jni-native-code-00000
+    39%  | Processed rule: jni-native-code-00001
+    39%  | Processed rule: local-storage-00002
+    40%  | Processed rule: local-storage-00003
+    40%  | Processed rule: local-storage-00001
+    40%  | Processed rule: azure-password-01000
+    41%  | Processed rule: openliberty-logging-00002
+    41%  | Processed rule: local-storage-00006
+    41%  | Processed rule: openliberty-filesystem-00002
+    41%  | Processed rule: openliberty-logging-00001
+    42%  | Processed rule: local-storage-00005
+    42%  | Processed rule: logging-0000
+    42%  | Processed rule: logging-0001
+    43%  | Processed rule: google-gcr-to-azure-acr-01000
+    43%  | Processed rule: logging-0003
+    43%  | Processed rule: logging-0004
+    44%  | Processed rule: logging-0005
+    44%  | Processed rule: jca-00000
+    44%  | Processed rule: openliberty-jms-00004
+    45%  | Processed rule: socket-communication-00000
+    45%  | Processed rule: session-00001
+    45%  | Processed rule: socket-communication-00001
+    46%  | Processed rule: web-11000
+    46%  | Processed rule: web-10000
+    46%  | Processed rule: local-storage-00004
+    47%  | Processed rule: unsecure-network-protocol-00000
+    47%  | Processed rule: hardcoded-urls-00001
+    47%  | Processed rule: hardcoded-urls-00002
+    48%  | Processed rule: localhost-http-00001
+    48%  | Processed rule: localhost-ws-00003
+    48%  | Processed rule: localhost-jdbc-00002
+    49%  | Processed rule: windows-registry-00000
+    49%  | Processed rule: logging-0002
+    49%  | Processed rule: localhost-00004
+    50%  | Processed rule: ant-build-tool-00001
+    50%  | Processed rule: external-config-00000
+    50%  | Processed rule: jakarta-auth-00001
+    50%  | Processed rule: jakarta-database-00001
+    51%  | Processed rule: jakarta-database-00002
+    51%  | Processed rule: jakarta-database-00003
+    51%  | Processed rule: jakarta-service-00001
+    52%  | Processed rule: jakarta-service-00002
+    52%  | Processed rule: webform-auth-00000
+    52%  | Processed rule: dockerfile-00000
+    53%  | Processed rule: dockerfile-00010
+    53%  | Processed rule: dockerfile-00030
+    53%  | Processed rule: dockerfile-00020
+    54%  | Processed rule: mail-00000
+    54%  | Processed rule: clustering-00000
+    54%  | Processed rule: cra-weak-crypto-md5-01000
+    55%  | Processed rule: cra-weak-crypto-ecb-05000
+    55%  | Processed rule: cra-weak-crypto-sha1-02000
+    55%  | Processed rule: cra-weak-crypto-des-03000
+    56%  | Processed rule: cra-weak-crypto-password-hash-07000
+    56%  | Processed rule: cra-weak-crypto-blowfish-06000
+    56%  | Processed rule: cra-insecure-tls-protocol-01000
+    57%  | Processed rule: cra-weak-crypto-rc4-04000
+    57%  | Processed rule: cra-insecure-tls-hostname-verify-04000
+    57%  | Processed rule: cra-hardcoded-credential-password-01000
+    58%  | Processed rule: cra-hardcoded-credential-crypto-key-05000
+    58%  | Processed rule: cra-hardcoded-credential-apikey-02000
+    58%  | Processed rule: cra-insecure-random-math-02000
+    58%  | Processed rule: cra-insecure-random-threadlocal-03000
+    59%  | Processed rule: java-10-deprecate-dom-00000
+    59%  | Processed rule: cra-insecure-tls-trust-all-03000
+    59%  | Processed rule: cra-insecure-random-01000
+    60%  | Processed rule: java-10-deprecate-javafx-00000
+    60%  | Processed rule: java-10-deprecate-security-00002
+    60%  | Processed rule: java-10-deprecate-security-00001
+    61%  | Processed rule: java-10-deprecate-security-00004
+    61%  | Processed rule: java-11-deprecate-awt-00000
+    61%  | Processed rule: java-10-deprecate-security-00003
+    62%  | Processed rule: java-11-deprecate-javaee-00000
+    62%  | Processed rule: java-11-deprecate-corba-00000
+    62%  | Processed rule: java-10-deprecate-runtime-00000
+    63%  | Processed rule: java-11-deprecate-pack-00000
+    63%  | Processed rule: java-11-deprecate-property-00000
+    63%  | Processed rule: java-11-deprecate-property-00001
+    64%  | Processed rule: java-11-deprecate-javaee-00001
+    64%  | Processed rule: java-11-deprecate-peer-00000
+    64%  | Processed rule: java-11-deprecate-security-00001
+    65%  | Processed rule: java-11-deprecate-security-00000
+    65%  | Processed rule: java-11-deprecate-unsafe-00000
+    65%  | Processed rule: java-10-deprecate-security-00000
+    66%  | Processed rule: java-11-deprecate-unsafe-00001
+    66%  | Processed rule: java-removals-00010
+    66%  | Processed rule: java-removals-00000
+    66%  | Processed rule: java-9-deprecate-dom-00000
+    67%  | Processed rule: java-9-deprecate-javafx-00000
+    67%  | Processed rule: java-11-deprecate-thread-00000
+    67%  | Processed rule: java-9-deprecate-log-00000
+    68%  | Processed rule: java-9-deprecate-pack-00000
+    68%  | Processed rule: java-9-deprecate-property-00000
+    68%  | Processed rule: java-9-deprecate-peer-00000
+    69%  | Processed rule: java-9-deprecate-property-00001
+    69%  | Processed rule: java-9-deprecate-reflect-00010
+    69%  | Processed rule: java-9-deprecate-security-00000
+    70%  | Processed rule: java-9-deprecate-security-00001
+    70%  | Processed rule: java-9-deprecate-security-00002
+    70%  | Processed rule: java-9-deprecate-reflect-00000
+    71%  | Processed rule: java-9-deprecate-tracing-00000
+    71%  | Processed rule: azure-java-sdk-legacy-migration-01000
+    71%  | Processed rule: java-9-deprecate-url-00000
+    72%  | Processed rule: java-9-deprecate-unsafe-00001
+    72%  | Processed rule: java-11-deprecate-stream-00000
+    72%  | Processed rule: java-12-deprecate-security-00000
+    73%  | Processed rule: java-12-deprecate-finalize-00000
+    73%  | Processed rule: java-13-deprecate-security-00000
+    73%  | Processed rule: java-9-deprecate-unsafe-00000
+    74%  | Processed rule: java-14-deprecate-property-00000
+    74%  | Processed rule: java-12-deprecate-finalize-00001
+    74%  | Processed rule: java-14-deprecate-security-00000
+    75%  | Processed rule: java-13-deprecate-runtime-00000
+    75%  | Processed rule: java-14-deprecate-property-00001
+    75%  | Processed rule: java-15-deprecate-signer-00000
+    75%  | Processed rule: java-15-deprecate-property-00000
+    76%  | Processed rule: java-15-deprecate-ssl-00001
+    76%  | Processed rule: java-15-deprecate-ssl-00000
+    76%  | Processed rule: java-14-deprecate-pack-00000
+    77%  | Processed rule: java-17-deprecate-applet-00000
+    77%  | Processed rule: cra-hardcoded-credential-default-pwd-04000
+    77%  | Processed rule: cra-hardcoded-credential-config-03000
+    78%  | Processed rule: cra-insecure-tls-cipher-suite-05000
+    78%  | Processed rule: java-17-deprecate-security-manager-00010
+    78%  | Processed rule: java-17-deprecate-security-manager-00040
+    79%  | Processed rule: java-17-deprecate-security-manager-00030
+    79%  | Processed rule: java-17-deprecate-security-manager-00020
+    79%  | Processed rule: java-16-deprecate-thread-group-00000
+    80%  | Processed rule: java-14-deprecate-thread-00000
+    80%  | Processed rule: java-17-deprecate-security-manager-00050
+    80%  | Processed rule: lombok-incompatibility-00001
+    81%  | Processed rule: removed-packages-00000
+    81%  | Processed rule: removed-packages-00010
+    81%  | Processed rule: java-9-deprecate-agent-00000
+    82%  | Processed rule: java-16-deprecate-security-00000
+    82%  | Processed rule: java-17-deprecate-unsafe-00000
+    82%  | Processed rule: java-18-deprecate-property-00000
+    83%  | Processed rule: java-17-deprecate-security-manager-00000
+    83%  | Processed rule: java-18-deprecate-socket-00000
+    83%  | Processed rule: java-17-deprecate-security-manager-00070
+    83%  | Processed rule: java-18-deprecate-runtime-00000
+    84%  | Processed rule: java-17-deprecate-security-manager-00060
+    84%  | Processed rule: java-18-deprecate-thread-00000
+    84%  | Processed rule: java-18-deprecate-security-00000
+    85%  | Processed rule: java-19-deprecate-param-spec-00001
+    85%  | Processed rule: java-19-deprecate-locale-00000
+    85%  | Processed rule: java-19-deprecate-param-spec-00000
+    86%  | Processed rule: java-17-deprecate-socket-00000
+    86%  | Processed rule: eclipse-00002
+    86%  | Processed rule: java-20-deprecate-net-00000
+    87%  | Processed rule: java-19-deprecate-thread-00001
+    87%  | Processed rule: java-18-deprecate-unsafe-00000
+    87%  | Processed rule: java-20-deprecate-jmx-00000
+    88%  | Processed rule: java-19-deprecate-thread-00002
+    88%  | Processed rule: java-18-deprecate-finalize-00000
+    88%  | Processed rule: java-20-deprecate-thread-00002
+    89%  | Processed rule: java-21-deprecate-dynamic-agents-00000
+    89%  | Processed rule: java-21-deprecate-file-00001
+    89%  | Processed rule: java-21-deprecate-property-00000
+    90%  | Processed rule: java-21-deprecate-jmx-00000
+    90%  | Processed rule: java-21-deprecate-property-00001
+    90%  | Processed rule: java-21-deprecate-signer-00000
+    91%  | Processed rule: java-20-deprecate-thread-00001
+    91%  | Processed rule: utf-8-by-default-00000
+    91%  | Processed rule: java-21-deprecate-jmx-00001
+    91%  | Processed rule: utf-8-by-default-00010
+    92%  | Processed rule: java-18-deprecate-finalize-00001
+    92%  | Processed rule: oracle2openjdk-00002
+    92%  | Processed rule: java-20-deprecate-thread-00000
+    93%  | Processed rule: java-8-deprecate-apt-00001
+    93%  | Processed rule: java-21-deprecate-thread-00000
+    93%  | Processed rule: utf-8-by-default-00030
+    94%  | Processed rule: java-8-deprecate-callback-00001
+    94%  | Processed rule: java-8-deprecate-javafx-builder-00001
+    94%  | Processed rule: java-21-deprecate-file-00000
+    95%  | Processed rule: java-8-deprecate-odbc-00001
+    95%  | Processed rule: java-8-deprecate-corba-00001
+    95%  | Processed rule: java-8-deprecate-security-00001
+    96%  | Processed rule: utf-8-by-default-00020
+    96%  | Processed rule: java-8-deprecate-security-manager-00001
+    96%  | Processed rule: java-8-deprecate-pack-00001
+    97%  | Processed rule: java-8-deprecate-pack-00002
+    97%  | Processed rule: oracle2openjdk-00006
+    97%  | Processed rule: java-8-deprecate-security-manager-00002
+    98%  | Processed rule: java-8-deprecate-security-00002
+    98%  | Processed rule: java-8-deprecate-thread-00001
+    98%  | Processed rule: java-8-deprecate-log-00001
+    99%  | Processed rule: java-8-deprecate-stream-00001
+    99%  | Processed rule: java-19-deprecate-thread-00000
+    99%  | Processed rule: java-19-deprecate-class-00010
+    100% | Processed rule: cra-insecure-tls-config-02000
+    100% | Finishing...
+[>] Modernization Assessment Summary
+    Target Azure services: Azure App Service, Azure Kubernetes Service, Azure Container Apps
+    
+    Applications: 1
+    
+    Application: photo-album
+    JDK Version: 1.8
+    Frameworks: Spring Boot, Spring
+    Languages: Java
+    Build Tools: Maven
+    
+    Cloud Readiness Issues: 6 (Mandatory 0 · Potential 6 · Optional 0)
+    
+    Top potential findings:
+    - Oracle database found
+    - Password found in configuration file
+    - Restricted configurations found
+    
+    Upgrade Readiness Issues: 4 (Mandatory 3 · Potential 0 · Optional 1)
+    
+    Top mandatory findings:
+    - Spring Boot Version Has Reached the End of OSS Support
+    - Spring Framework Version Has Reached the End of OSS Support
+    - Java Version Has Reached the End of Support
+[>] Assessment Dashboard
+
+    Progress: 100% (1/1)
+    SUCCESS: 1  FAILED: 0  RUNNING: 0  PENDING: 0
+
+    TASK       NAME   STATUS  TIME  
+    ---------- ------ ------- ------
+    [Task 1/1] source SUCCESS 0m 11s
+
+    Page 1/1  Showing 1-1 of 1
+
+[+] SUCCESS: Assessment report has been created.
+    See more details in:
+    /var/folders/60/f_l92jt16f9d55p9w65prr9r0000gn/T/provider-boundary-upgrade.akBaRo/source/.github/modernize/assessment/reports-20260923130440/index.md
+[>] Assessment Summary
+
+    | Metric              | Value |
+    |---------------------|-------|
+    | Total Business Apps | 1     |
+    | Upgrades Needed     | 1     |
+    | Mandatory Blockers  | 3     |
+    | Potential Issues    | 6     |
+
+[>] Migration Wave Plan
+
+    | Phase                   | Business Apps | Rationale                                   |
+    |-------------------------|---------------|---------------------------------------------|
+    | Wave 1 - Quick Wins     | -             | < 5 mandatory issues, no version upgrades   |
+    | Wave 2 - Core Cloud     | source        | Moderate effort                             |
+    | Wave 3 - Long term Bets | -             | > 10 mandatory issues with version upgrades |

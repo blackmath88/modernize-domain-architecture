@@ -1,0 +1,1 @@
+modernize plan create <prompt> --source . --assess-file-path <shared-report.json> --plan-name provider-boundary-D --language java --delegate local --model auto --no-tty
