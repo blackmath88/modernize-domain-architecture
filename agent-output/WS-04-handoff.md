@@ -3,7 +3,8 @@
 ## STATUS
 
 `review` on `agent/ws-04-thesis-red-team`, based on publication repository main at `65e4dd09b7b6b337d6a3eb7190067d486f050948`.
-Work completed in an isolated worktree at `/tmp/achim-ws-04-thesis-red-team`; the user's current workspace branch and newer work were not changed. Local validation passed. Publication is pending the commit and PR step; no publication blocker has been observed.
+Research commit: `82031a3`, published to `publish/agent/ws-04-thesis-red-team`. PR: [#4](https://github.com/blackmath88/modernize-domain-architecture/pull/4), open for orchestrator review. No publication blocker.
+Work completed in an isolated worktree at `/tmp/achim-ws-04-thesis-red-team`; the user's current workspace branch and newer work were not changed. Local validation passed.
 
 ## WHAT I DID
 
@@ -32,7 +33,7 @@ Produced thirteen ranked critiques spanning every required attack surface, ninet
 
 The structured catalog identifies sources RT-S01 through RT-S19 with access dates and section locators. Principal adverse evidence: Helm CRD lifecycle exclusions; Kubernetes compatibility constraints; Alembic/Cargo validation limits; SLSA's malicious-producer boundary; the primary xz incident disclosure; OPA logging/privacy tradeoffs; historical inference-price change and METR's conflicting, time-sensitive productivity evidence. Repository proposals are evidence of claims, not external confirmation. No raw evidence or source notes were changed.
 
-Validation: repository script passed; JSON parsed; all thirteen required surfaces covered; unique risk/source/experiment IDs and resolved references; allowed severity/kill labels; priority order; prose/register title, status and test parity; nineteen source destinations and labeled links; local links; proposed experiment fields; illustrative arithmetic; git whitespace checks. Editor diagnostics reported no errors in the research and risk register. Final handoff headings and status scope are checked before publication.
+Validation: repository script passed; JSON parsed; all thirteen required surfaces covered; unique risk/source/experiment IDs and resolved references; allowed severity/kill labels; priority order; prose/register title, severity, kill-label and test parity; nineteen source destinations and labeled links; local links; proposed experiment fields; illustrative arithmetic; git whitespace checks. Editor diagnostics reported no errors in all five changed files. Exact handoff headings, matched review statuses and unchanged other workstream objects passed before publication.
 
 No proposed experiment, cloud deployment, Modernize workflow, native migration engine, buyer interview or production security test was run. ROI, incident rates, buyer budgets and cross-client conformance remain unobserved. `kills_thesis: yes` denotes conditional rejection of a named claim, never an already-proven universal failure.
 
