@@ -2,7 +2,7 @@
 
 ## STATUS
 
-`review` on `agent/ws-09-medp-spec` once this branch is committed and pushed. WS-09 intentionally keeps MEDP as a narrow descriptor hypothesis rather than a general standard or registry design.
+`review` on `agent/ws-09-medp-spec` at commit `f26db33`, pushed to `publish/agent/ws-09-medp-spec`, with PR [#10](https://github.com/blackmath88/modernize-domain-architecture/pull/10) open against `main`. WS-09 intentionally keeps MEDP as a narrow descriptor hypothesis rather than a general standard or registry design.
 
 ## WHAT I DID
 
@@ -11,6 +11,7 @@
 - Wrote [spec/MEDP-v0.md](../spec/MEDP-v0.md) as a deliberately small MEDP v0 descriptor spec with explicit goals, non-goals, trust boundaries, outcome semantics, and v1 evidence thresholds.
 - Wrote [spec/medp.schema.json](../spec/medp.schema.json) as a JSON Schema for the descriptor.
 - Added valid and invalid package examples under [spec/examples/](../spec/examples/) covering one software package, one organization-policy package, two deployment packages, and two failure cases.
+- Committed the WS-09 changes, pushed the dedicated branch, and opened PR [#10](https://github.com/blackmath88/modernize-domain-architecture/pull/10) against `main`.
 
 ## FILES CHANGED
 
