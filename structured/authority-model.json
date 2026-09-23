@@ -1,0 +1,352 @@
+{
+  "schema_version": "0.1.0",
+  "workstream": "WS-06",
+  "status": "proposed",
+  "as_of": "2026-09-23",
+  "evidence_mode": "primary-source review and hypothetical tabletop traces; no authority engine executed",
+  "verdict": {
+    "classification": "INFERRED",
+    "organizing_abstraction": "decision_authority",
+    "medp_role": "subordinate",
+    "wrong_framing": "A package's supported transitions are not local authorization to change an application.",
+    "novelty_claim": false,
+    "recommendation": "Reuse native tools and policy/enforcement precedents; test a small decision contract before a new package format."
+  },
+  "dimensions": [
+    {"id": "epistemic", "permits": "Admit scoped evidence and conditional technical claims.", "does_not_permit": "Declare universal truth or authorize changes."},
+    {"id": "policy", "permits": "Define adopted constraints, rights and exception routes within jurisdiction.", "does_not_permit": "Change measured facts or confer rights outside jurisdiction."},
+    {"id": "execution", "permits": "Perform bounded actions through an enforcing gateway with current capabilities.", "does_not_permit": "Self-approve, alter policy or attest universal correctness."},
+    {"id": "verification", "permits": "Attest specified checks on bound outputs under accepted criteria.", "does_not_permit": "Rewrite failures as passes or unilaterally authorize release."}
+  ],
+  "rights": ["admit_evidence", "adopt_rule", "evaluate_policy", "choose", "authorize_change", "execute", "attest_check", "accept_result", "issue_exception", "amend_policy", "delegate"],
+  "actors": [
+    {"id": "evidence-producer", "candidates": ["compiler", "analyzer", "runtime probe"], "basis": "Adopter registration for specified claims, methods and scope.", "accountability": "Reproducible evidence and disclosed coverage, not infallibility."},
+    {"id": "knowledge-publisher", "candidates": ["community maintainer", "vendor specialist"], "basis": "Authorship of versioned domain assertions and transform support.", "accountability": "Claim semantics, applicability and maintenance; no implicit local policy rights."},
+    {"id": "evidence-owner", "candidates": ["application technical owner"], "basis": "Adopted evidence-admission policy.", "accountability": "Resolve disputed evidence with retained lineage."},
+    {"id": "policy-owner", "candidates": ["organization security owner", "privacy owner", "observability owner"], "basis": "Explicit jurisdiction in protected authority profile.", "accountability": "Constraints, lawful exceptions and policy lifecycle within own scope."},
+    {"id": "decision-owner", "candidates": ["authorized application owner", "scoped user"], "basis": "Choice rights assigned by adopter policy.", "accountability": "Recorded preferences and selection rationale; not arbitrary policy override."},
+    {"id": "approver", "candidates": ["change approver", "risk acceptance owner"], "basis": "Current scoped grant and required independence.", "accountability": "Bound approval or permitted risk acceptance."},
+    {"id": "executor", "candidates": ["harness executor", "transform worker"], "basis": "Delegated execution rights plus current runtime capabilities.", "accountability": "Enforce scope and record actual side effects and partial failure."},
+    {"id": "verifier", "candidates": ["compiler/test runner", "policy checker", "independent acceptance evaluator"], "basis": "Accepted producer for specific pre-approved criteria.", "accountability": "Exact result, coverage and output binding; preserve missing/failed results."},
+    {"id": "runtime", "candidates": ["OS", "cloud API", "deployment controller"], "basis": "Actual resource access and admission controls.", "accountability": "Enforce runtime permissions; report observed operational state."},
+    {"id": "governance-owner", "candidates": ["adopter authority-profile administrator", "designated conflict arbiter"], "basis": "Bootstrap trust configuration outside agent-writable proposals.", "accountability": "Owner assignments, lawful conflict routes and protected change control."},
+    {"id": "llm", "candidates": ["model adviser"], "basis": "Advisory by default; any bounded choice delegation requires the same explicit grant checks.", "accountability": "Record inference and uncertainty; cannot self-grant, invent evidence or approve exceptions."}
+  ],
+  "trust_boundary": {
+    "classification": "HYPOTHESIS",
+    "protected_assets": ["authority profile", "grant and revocation store", "adopted policy revisions", "execution gateway", "accepted verification criteria", "decision event store"],
+    "agent_writable_assets": ["proposed plans", "unaccepted rule suggestions", "scoped branch edits", "appeal requests"],
+    "default_rights": [],
+    "no_alternate_write_path": true,
+    "bootstrap_owner": "governance-owner",
+    "limitation": "A same-process local demo cannot prove resistance to its administrator. Without control of the execution path this is advisory only."
+  },
+  "transitions": [
+    {
+      "id": "T00", "from": "source_context", "to": "observed_fact",
+      "dimensions": ["epistemic"], "right": "admit_evidence",
+      "proposers": ["evidence-producer", "llm"], "deciders": ["evidence-owner"],
+      "enforcement_point": "evidence admission boundary",
+      "required_evidence": ["source revision", "method/tool version", "environment and target assumptions", "scope/coverage", "raw evidence reference"],
+      "guard": "Accepted producer and method for this claim; inference remains labeled; material contradictions prevent admission as an established fact.",
+      "failure_state": "unknown_or_disputed",
+      "sources": ["S06", "S12"]
+    },
+    {
+      "id": "T01", "from": "observed_fact", "to": "applicable_knowledge",
+      "dimensions": ["epistemic", "policy"], "right": "adopt_rule",
+      "proposers": ["knowledge-publisher", "llm"], "deciders": ["evidence-owner", "policy-owner"],
+      "enforcement_point": "applicability evaluator under adopted rule trust configuration",
+      "required_evidence": ["accepted observations", "rule/version", "applicability predicates", "missing prerequisites"],
+      "guard": "Scope and version conditions supported by evidence; publisher identity is not local policy entitlement.",
+      "failure_state": "unresolved_applicability",
+      "sources": ["S07", "S11", "S12"]
+    },
+    {
+      "id": "T02", "from": "applicable_knowledge", "to": "valid_alternatives",
+      "dimensions": ["epistemic", "policy"], "right": "evaluate_policy",
+      "proposers": ["knowledge-publisher", "llm"], "deciders": ["evidence-owner", "policy-owner"],
+      "enforcement_point": "candidate evaluation boundary",
+      "required_evidence": ["capability evidence", "support declaration", "adopted policy results", "intent scope", "authority profile revision"],
+      "guard": "Evaluate feasibility, support, permission and intent separately; eligible requires satisfied prerequisites.",
+      "failure_state": "blocked_or_unresolved",
+      "sources": ["S01", "S02", "S04", "S09"]
+    },
+    {
+      "id": "T03", "from": "valid_alternatives", "to": "choice",
+      "dimensions": ["policy"], "right": "choose",
+      "proposers": ["llm", "decision-owner"], "deciders": ["decision-owner"],
+      "enforcement_point": "selection boundary",
+      "required_evidence": ["eligible alternatives", "owner choice or bounded selection delegation", "rationale"],
+      "guard": "Selection within current eligible set and decision scope; no hidden target selection.",
+      "failure_state": "awaiting_choice_or_blocked",
+      "sources": ["S02", "S09"]
+    },
+    {
+      "id": "T04", "from": "choice", "to": "authorization",
+      "dimensions": ["policy", "execution"], "right": "authorize_change",
+      "proposers": ["decision-owner", "executor"], "deciders": ["approver"],
+      "enforcement_point": "approval and grant boundary",
+      "required_evidence": ["complete decision binding", "authenticated approver grant", "expiry", "separation of duties", "exception records if applicable"],
+      "guard": "Entitled approver for this action/environment; approval bound to plan/scope and criteria, not just task name.",
+      "failure_state": "unauthorized",
+      "sources": ["S02", "S05"]
+    },
+    {
+      "id": "T05", "from": "authorization", "to": "transformation",
+      "dimensions": ["execution"], "right": "execute",
+      "proposers": ["executor"], "deciders": ["executor", "runtime"],
+      "enforcement_point": "non-bypassable executor and runtime access controls",
+      "required_evidence": ["current binding", "valid unrevoked delegation chain", "runtime capability scope", "pre-action decision event"],
+      "guard": "Recheck before effects; no widened scope, stale approval or implicit production credentials.",
+      "failure_state": "denied_or_partial_failure",
+      "sources": ["S03", "S04", "S05"]
+    },
+    {
+      "id": "T06", "from": "transformation", "to": "verification",
+      "dimensions": ["verification", "epistemic"], "right": "attest_check",
+      "proposers": ["executor", "verifier"], "deciders": ["verifier"],
+      "enforcement_point": "protected verification pipeline",
+      "required_evidence": ["output digest", "criteria revision", "check/tool identity", "environment", "actual result", "raw evidence reference", "independence statement"],
+      "guard": "Result bound to exact output and pre-approved criterion; missing/skipped/error is not pass.",
+      "failure_state": "verification_incomplete_or_failed",
+      "sources": ["S08", "S12", "S13"]
+    },
+    {
+      "id": "T07", "from": "verification", "to": "accepted_result",
+      "dimensions": ["policy", "verification"], "right": "accept_result",
+      "proposers": ["verifier", "llm"], "deciders": ["approver"],
+      "enforcement_point": "acceptance gate",
+      "required_evidence": ["coverage of required criteria", "bound verification results", "risk exceptions where permitted", "acceptance owner's right"],
+      "guard": "Acceptance only for stated scope; any exception retained separately from failed/unknown check results.",
+      "failure_state": "acceptance_blocked",
+      "sources": ["S05", "S08"]
+    }
+  ],
+  "combination_semantics": {
+    "classification": "HYPOTHESIS",
+    "global_actor_precedence": null,
+    "mandatory_policy_combination": "Conjunction of jointly applicable constraints; explicit scoped deny defeats allow unless that rule permits a valid exception.",
+    "conflict_without_designated_resolver": "block affected action; appeal to all affected entitled owners",
+    "technical_claim_resolution": "reproduce or obtain additional evidence under aligned context, not policy override",
+    "unknown_material_input": "unresolved, never permitted by default",
+    "candidate_states": {
+      "feasibility": ["supported_by_evidence", "infeasible", "unknown"],
+      "support": ["supported", "unsupported", "unknown"],
+      "policy": ["permitted", "forbidden", "conflict", "unknown"],
+      "intent": ["within_scope", "outside_scope", "unknown"],
+      "eligibility_rule": "supported_by_evidence AND supported AND permitted AND within_scope; unsupported paths require a new reviewed implementation path"
+    }
+  },
+  "conflicts": [
+    {"id": "C01", "kind": "evidence_disagreement", "resolvers": ["evidence-owner"], "behavior": "Preserve both claims; reproduce aligned inputs; supersede with reason, never overwrite.", "llm_may": "Suggest a discriminating probe.", "llm_may_not": "Average confidence into an accepted fact."},
+    {"id": "C02", "kind": "preference_against_policy", "resolvers": ["policy-owner"], "behavior": "Reject forbidden option; expose owner and exception eligibility.", "llm_may": "Explain alternatives or draft appeal.", "llm_may_not": "Turn user urgency into override rights."},
+    {"id": "C03", "kind": "policy_against_policy", "resolvers": ["policy-owner", "governance-owner"], "behavior": "Use preconfigured jurisdiction/combination rules; otherwise block and obtain joint entitled resolution. Non-waivable obligations remain.", "llm_may": "Propose a design satisfying both constraints.", "llm_may_not": "Invent precedence or consent."},
+    {"id": "C04", "kind": "permission_without_feasibility", "resolvers": ["evidence-owner", "decision-owner"], "behavior": "Keep unknown capability unresolved; obtain evidence or revise design.", "llm_may": "Propose experiments.", "llm_may_not": "Treat approval as capability evidence."},
+    {"id": "C05", "kind": "stale_or_revoked_authority", "resolvers": ["approver"], "behavior": "Re-evaluate and reauthorize before further affected effects.", "llm_may": "Explain changed inputs.", "llm_may_not": "Reuse prior approval after binding changes."},
+    {"id": "C06", "kind": "transformer_disputes_verifier", "resolvers": ["verifier", "approver"], "behavior": "Preserve failed/unknown check; require new evidence or explicitly permitted acceptance exception.", "llm_may": "Propose a repair or appeal.", "llm_may_not": "Weaken criteria and report pass."},
+    {"id": "C07", "kind": "authority_overreach", "resolvers": ["governance-owner"], "behavior": "Reject self-grants, wrong audiences, unentitled issuers, widened child grants and bypass paths.", "llm_may": "Request a scoped grant.", "llm_may_not": "Authorize itself by emitting grant JSON."}
+  ],
+  "delegation": {
+    "required_fields": ["id", "issuer", "subject", "rights", "scope", "audience", "parent_grant_id", "issued_at", "expires_at", "revocation_ref", "constraints", "redelegation_allowed"],
+    "scope_fields": ["application", "resources", "actions", "environment"],
+    "rules": ["Authenticate issuer and subject.", "Issuer must hold delegable rights for the requested scope.", "Child rights and scope must be subsets; child expiry cannot exceed parent expiry.", "Every ancestor must remain current and unrevoked.", "Default redelegation is false.", "Choice, branch edit, merge, deploy, exception and policy-edit rights are distinct.", "Issuer retains delegation accountability; delegate remains accountable for actions."],
+    "revocation_behavior": "Block subsequent affected actions; reconcile completed or partial effects rather than pretend retroactive rollback."
+  },
+  "exceptions_and_appeals": {
+    "override_kinds": ["evidence_correction", "eligible_choice_change", "policy_exception", "acceptance_exception", "policy_amendment"],
+    "exception_required_fields": ["id", "rule_or_criterion_id", "issuer", "decision_binding", "rationale", "scope", "compensating_controls", "expires_at", "reassessment_obligation"],
+    "exception_guard": "Issuer is entitled for this rule, scope and exception type; constraint is exceptionable; exception is current and bound. No broader authority implied.",
+    "exception_after_expiry": "Before effects: deny. After effects: reconciliation/incident obligation, not automatic reversal.",
+    "appeal_states": ["open", "upheld", "amended", "rejected"],
+    "pending_appeal_grants_permission": false,
+    "revision_rule": "Append new decision with supersedes link; retain prior evidence, failed checks and rationale.",
+    "routing": {"evidence": "evidence-owner", "policy": "policy-owner", "cross_policy": "governance-owner"},
+    "cross_policy_no_arbiter": "all affected entitled policy owners; no owner can waive an external obligation outside their jurisdiction"
+  },
+  "record_contract": {
+    "kind": "proposed field contract, not JSON Schema",
+    "binding_fields": ["source_digest", "observations_digest", "knowledge_revision", "policy_revision", "authority_profile_revision", "target", "environment", "plan_digest", "allowed_effect_scope", "criteria_revision"],
+    "decision_fields": [
+      {"name": "id", "type": "string", "required": true, "meaning": "Stable decision identity; revisions have separate IDs."},
+      {"name": "classification", "type": "enum", "required": true, "values": ["OBSERVED", "DOCUMENTED", "INFERRED", "HYPOTHESIS", "OPINION"], "meaning": "Evidence status, not authorization status."},
+      {"name": "statement", "type": "string", "required": true, "meaning": "Concrete modernization question."},
+      {"name": "binding", "type": "object", "required": true, "meaning": "All binding_fields; null material fields prevent actionable authorization."},
+      {"name": "evidence", "type": "array", "required": true, "meaning": "Claims with IDs, producer identity, method/tool version, scope, evidence refs, target assumptions, time, status and derived_from; empty means not observed."},
+      {"name": "alternatives", "type": "array", "required": true, "meaning": "IDs and separate feasibility/support/policy/intent states with reasons and source refs; illustrative states require explicit labeling."},
+      {"name": "choice", "type": "object|null", "required": true, "meaning": "Selected alternative, chooser identity, grant reference and rationale; null is no actual choice."},
+      {"name": "authorization", "type": "object|null", "required": true, "meaning": "Approver identity, grant chain refs, full binding, issued_at/expires_at, revocation ref, status and evidence ref; null means unauthorized."},
+      {"name": "execution", "type": "object|null", "required": true, "meaning": "Actor, grant ref, input/output digests, effect scope, actual effects, timestamps, status and raw evidence refs."},
+      {"name": "verification", "type": "object", "required": true, "meaning": "status plus check results binding criterion, verifier/tool, output, environment, coverage, independence and raw evidence ref."},
+      {"name": "acceptance", "type": "object", "required": true, "meaning": "status, accountable owner, evidence_ref and exception refs; not a rewrite of verification."},
+      {"name": "conflict_ids", "type": "array<string>", "required": true, "meaning": "Conflict kinds requiring resolution, linked to applicable rules in an implemented record."},
+      {"name": "exception_refs", "type": "array<string>", "required": true, "meaning": "Granted exceptions only; empty does not indicate pending exceptions approved."},
+      {"name": "appeal", "type": "object|null", "required": true, "meaning": "Requester, affected decision/rule refs, reason, routed owner, status, resolution and evidence refs."},
+      {"name": "llm_involvement", "type": "object", "required": true, "meaning": "Observed status, advisory scope and prohibited escalation; production records should link model/run evidence when present."},
+      {"name": "supersedes", "type": "string|null", "required": true, "meaning": "Prior decision revision retained for lineage."}
+    ],
+    "verification_statuses": ["not_run", "incomplete", "pass", "fail", "error"],
+    "acceptance_statuses": ["not_requested", "blocked", "accepted", "accepted_with_exception"],
+    "provenance_mapping": {"entity": "source/rule/plan/output", "activity": "evaluation/choice/approval/execution/check", "agent": "attributed producer/owner", "actedOnBehalfOf": "descriptive delegation lineage; requires a separately verified grant"},
+    "event_store": "Append consequential transitions and supersession; redact sensitive payloads with explicit redaction metadata and protected evidence references. Record missing events; do not claim completeness from logs alone.",
+    "sources": ["S02", "S06", "S07", "S10"]
+  },
+  "decisions": [
+    {
+      "id": "D01", "classification": "HYPOTHESIS", "statement": ".NET 6 to .NET 10 source upgrade while preserving hosting.",
+      "binding": {"source_digest": null, "observations_digest": null, "knowledge_revision": null, "policy_revision": null, "authority_profile_revision": null, "target": "preserve-current-hosting", "environment": "local-branch-only", "plan_digest": null, "allowed_effect_scope": "reviewed source edits and local tests; no merge or deployment", "criteria_revision": null},
+      "evidence": [],
+      "alternatives_are_hypothetical": true,
+      "alternatives": [
+        {"id": "D01-A", "name": "Reviewed source upgrade branch", "feasibility": "supported_by_evidence", "support": "supported", "policy": "permitted", "intent": "within_scope", "reason": "Fixture assumes prerequisites for branch edits established; deployment is excluded.", "sources": ["S12", "S13"]},
+        {"id": "D01-B", "name": "Deploy upgraded app immediately", "feasibility": "unknown", "support": "unknown", "policy": "unknown", "intent": "outside_scope", "reason": "Actual host/runtime and deployment grant not established.", "sources": ["S12"]}
+      ],
+      "choice": null, "authorization": null, "execution": null,
+      "verification": {"status": "not_run", "checks": []},
+      "acceptance": {"status": "not_requested", "owner": "approver", "evidence_ref": null},
+      "conflict_ids": ["C04", "C05", "C06"], "exception_refs": [], "appeal": null,
+      "llm_involvement": {"observed": false, "may_advise": "Dependency substitutions, extra tests, repair proposals.", "may_not_decide": "Hosting retarget, passing status or acceptance-criterion waiver."},
+      "supersedes": null,
+      "trace": [
+        {"transition_id": "T00", "authority": "evidence-owner", "premise": "Pinned scan establishes net6.0; production runtime needs a separate probe.", "expected": "Admit scoped manifest fact only."},
+        {"transition_id": "T01", "authority": "evidence-owner", "premise": "Versioned constraints across .NET 7-10 and transform prerequisites are inspected.", "expected": "Accept applicable rules; retain missing host evidence."},
+        {"transition_id": "T02", "authority": "policy-owner", "premise": "Branch-edit path supported; deployment prerequisites missing.", "expected": "Only branch-edit option eligible in fixture."},
+        {"transition_id": "T03", "authority": "decision-owner", "premise": "Owner selects upgrade branch, preserving host.", "expected": "Record constrained choice."},
+        {"transition_id": "T04", "authority": "approver", "premise": "Owner seeks branch edits and tests only.", "expected": "Bind exact approved scope and criteria, not deployment."},
+        {"transition_id": "T05", "authority": "executor", "premise": "Edits remain inside grant; unexpected changes require revised plan.", "expected": "Execute only authorized effects."},
+        {"transition_id": "T06", "authority": "verifier", "premise": "Build passes; required serialization regression test fails.", "expected": "Retain separate pass and fail results."},
+        {"transition_id": "T07", "authority": "approver", "premise": "No acceptance exception granted.", "expected": "Block clean acceptance despite successful build."}
+      ],
+      "expected_outcome": "A branch upgrade can be authorized without deployment; a required behavior failure blocks clean acceptance.",
+      "actual_result": null
+    },
+    {
+      "id": "D02", "classification": "HYPOTHESIS", "statement": "Select preserve hosting, Azure Container Apps or AWS ECS.",
+      "binding": {"source_digest": null, "observations_digest": null, "knowledge_revision": null, "policy_revision": null, "authority_profile_revision": null, "target": "preserve-current-hosting", "environment": "planning-only", "plan_digest": null, "allowed_effect_scope": "compare candidate plans; no provisioning", "criteria_revision": null},
+      "evidence": [],
+      "alternatives_are_hypothetical": true,
+      "alternatives": [
+        {"id": "D02-A", "name": "Preserve hosting", "feasibility": "supported_by_evidence", "support": "supported", "policy": "permitted", "intent": "within_scope", "reason": "Fixture assumes planning prerequisites established for each target and owner requests preserve.", "sources": ["R03"]},
+        {"id": "D02-B", "name": "Azure Container Apps", "feasibility": "supported_by_evidence", "support": "supported", "policy": "permitted", "intent": "outside_scope", "reason": "A planning capability is not a user target choice; no live target tests.", "sources": ["R03"]},
+        {"id": "D02-C", "name": "AWS ECS", "feasibility": "supported_by_evidence", "support": "supported", "policy": "permitted", "intent": "outside_scope", "reason": "Same intent restriction as Azure; no preference inferred from vendor.", "sources": ["R03"]}
+      ],
+      "choice": null, "authorization": null, "execution": null,
+      "verification": {"status": "not_run", "checks": []},
+      "acceptance": {"status": "not_requested", "owner": "approver", "evidence_ref": null},
+      "conflict_ids": ["C02", "C05", "C07"], "exception_refs": [], "appeal": null,
+      "llm_involvement": {"observed": false, "may_advise": "Compare tradeoffs, identify required probes.", "may_not_decide": "Amend intent, select cloud implicitly, provision resources."},
+      "supersedes": null,
+      "trace": [
+        {"transition_id": "T00", "authority": "evidence-owner", "premise": "Current-host and dependency facts are captured; target assumptions are labeled.", "expected": "Separate facts from vendor hypotheses."},
+        {"transition_id": "T01", "authority": "evidence-owner", "premise": "Provider specialists publish target capability rules.", "expected": "Accept applicable capability claims without giving vendor choice rights."},
+        {"transition_id": "T02", "authority": "policy-owner", "premise": "Organization allows three targets; current intent permits preserve only.", "expected": "Display clouds as outside intent, not impossible."},
+        {"transition_id": "T03", "authority": "decision-owner", "premise": "LLM recommends Azure; owner has not amended preserve intent.", "expected": "Retain preserve choice scope."},
+        {"transition_id": "T04", "authority": "approver", "premise": "Owner later amends target explicitly.", "expected": "Require newly bound plan and appropriately scoped authorization."},
+        {"transition_id": "T05", "authority": "executor", "premise": "Planner has only comparison/branch rights, not deployment grant.", "expected": "No provisioning; runtime credential alone is insufficient."},
+        {"transition_id": "T06", "authority": "verifier", "premise": "No target deployment or runtime check performed.", "expected": "Target validation remains not_run."},
+        {"transition_id": "T07", "authority": "approver", "premise": "Only shared source checks are available.", "expected": "No claim of validated target deployment."}
+      ],
+      "expected_outcome": "Provider expertise does not choose a provider; revised intent and deployment require separate authority.",
+      "actual_result": null
+    },
+    {
+      "id": "D03", "classification": "HYPOTHESIS", "statement": "Reject a public database proposed to meet a deadline.",
+      "binding": {"source_digest": null, "observations_digest": null, "knowledge_revision": null, "policy_revision": null, "authority_profile_revision": null, "target": "proposed-cloud-target", "environment": "production-proposal", "plan_digest": null, "allowed_effect_scope": "review only; no deployment authorization", "criteria_revision": null},
+      "evidence": [],
+      "alternatives_are_hypothetical": true,
+      "alternatives": [
+        {"id": "D03-A", "name": "Public database endpoint", "feasibility": "supported_by_evidence", "support": "supported", "policy": "forbidden", "intent": "within_scope", "reason": "Fixture sets no-public-database rule as non-exceptionable for this deployment.", "sources": ["R03", "S04"]},
+        {"id": "D03-B", "name": "Private database path", "feasibility": "unknown", "support": "supported", "policy": "permitted", "intent": "within_scope", "reason": "Private connectivity is proposed but not yet evidenced.", "sources": ["R03"]}
+      ],
+      "choice": null, "authorization": null, "execution": null,
+      "verification": {"status": "not_run", "checks": []},
+      "acceptance": {"status": "not_requested", "owner": "approver", "evidence_ref": null},
+      "conflict_ids": ["C02", "C04", "C07"], "exception_refs": [], "appeal": null,
+      "llm_involvement": {"observed": false, "may_advise": "Private networking alternative or appeal draft.", "may_not_decide": "Emergency exception or deployment approval."},
+      "supersedes": null,
+      "trace": [
+        {"transition_id": "T00", "authority": "evidence-owner", "premise": "Plan exposes database publicly; live exposure not measured.", "expected": "Admit plan finding only."},
+        {"transition_id": "T01", "authority": "policy-owner", "premise": "Security owner adopts no-public-database rule.", "expected": "Apply local constraint separately from provider capability."},
+        {"transition_id": "T02", "authority": "policy-owner", "premise": "Public option supported, forbidden; private option not yet technically established.", "expected": "No eligible deploy option."},
+        {"transition_id": "T03", "authority": "decision-owner", "premise": "User requests public endpoint due to deadline.", "expected": "Reject forbidden choice; offer appeal."},
+        {"transition_id": "T04", "authority": "approver", "premise": "Ordinary approver attempts waiver of non-exceptionable rule.", "expected": "Deny exception and authorization."},
+        {"transition_id": "T05", "authority": "executor", "premise": "Vendor-signed recipe and cloud credentials would allow creation.", "expected": "Local gate still denies effects."},
+        {"transition_id": "T06", "authority": "verifier", "premise": "A revised private design would need both config and runtime checks.", "expected": "No live exposure assertion from source lint."},
+        {"transition_id": "T07", "authority": "approver", "premise": "No verified revised deployment exists.", "expected": "Acceptance remains blocked in the tabletop."}
+      ],
+      "expected_outcome": "Block public deployment; require evidence for private alternative or authorized policy amendment and re-evaluation.",
+      "actual_result": null
+    },
+    {
+      "id": "D04", "classification": "HYPOTHESIS", "statement": "Resolve telemetry mandate versus personal-data export prohibition.",
+      "binding": {"source_digest": null, "observations_digest": null, "knowledge_revision": null, "policy_revision": null, "authority_profile_revision": null, "target": "configured-external-telemetry-sink", "environment": "production-proposal", "plan_digest": null, "allowed_effect_scope": "review conflicting export; no export authorization", "criteria_revision": null},
+      "evidence": [],
+      "alternatives_are_hypothetical": true,
+      "alternatives": [
+        {"id": "D04-A", "name": "Export required diagnostic payload", "feasibility": "supported_by_evidence", "support": "supported", "policy": "conflict", "intent": "within_scope", "reason": "Fixture's observability and privacy requirements conflict for this sink/field set; classification also disputed.", "sources": ["R03", "S01", "S10"]},
+        {"id": "D04-B", "name": "Redacted or locally retained telemetry", "feasibility": "unknown", "support": "unknown", "policy": "unknown", "intent": "within_scope", "reason": "Compromise needs diagnostic-adequacy and privacy evidence plus entitled owner agreement.", "sources": ["S08", "S10"]}
+      ],
+      "choice": null, "authorization": null, "execution": null,
+      "verification": {"status": "not_run", "checks": []},
+      "acceptance": {"status": "not_requested", "owner": "approver", "evidence_ref": null},
+      "conflict_ids": ["C01", "C03", "C06"], "exception_refs": [], "appeal": null,
+      "llm_involvement": {"observed": false, "may_advise": "Redaction, local retention, compromise and discriminating tests.", "may_not_decide": "Policy precedence, data classification as fact, consent for either owner."},
+      "supersedes": null,
+      "trace": [
+        {"transition_id": "T00", "authority": "evidence-owner", "premise": "Payload fields known; personal-data classification disputed.", "expected": "Retain disputed claim and route for evidence."},
+        {"transition_id": "T01", "authority": "policy-owner", "premise": "Observability and privacy owners have independent applicable mandates.", "expected": "Adopt both with scope and exception boundaries."},
+        {"transition_id": "T02", "authority": "policy-owner", "premise": "No demonstrated plan satisfies both mandates.", "expected": "Expose conflict, not a fabricated precedence order."},
+        {"transition_id": "T03", "authority": "decision-owner", "premise": "LLM offers compromise; user wants progress.", "expected": "Proposal only; no eligible selection yet."},
+        {"transition_id": "T04", "authority": "governance-owner", "premise": "No designated arbiter; neither owner can waive the other's rule.", "expected": "Joint entitled amendment or new compliant design; external non-waivable duties retained."},
+        {"transition_id": "T05", "authority": "executor", "premise": "Appeal open.", "expected": "No conflicting export; unrelated separately authorized branch work may proceed."},
+        {"transition_id": "T06", "authority": "verifier", "premise": "New redacted/local plan proposed.", "expected": "Require separate privacy and diagnostic-adequacy checks on exact output and collector behavior."},
+        {"transition_id": "T07", "authority": "approver", "premise": "Checks or entitled resolution still missing.", "expected": "Block acceptance, not hide unresolved requirements."}
+      ],
+      "expected_outcome": "Block conflicting export until evidence and joint entitled resolution or a demonstrated compliant design exist.",
+      "actual_result": null
+    }
+  ],
+  "conformance_cases": [
+    {"id": "A01", "decision_id": "D01", "transition_id": "T05", "setup": "Approved plan, then source/target/criteria change.", "expected": "deny_stale_binding", "actual_result": null},
+    {"id": "A02", "decision_id": "D01", "transition_id": "T07", "setup": "Build pass, required behavior check fails, no exception.", "expected": "block_clean_acceptance", "actual_result": null},
+    {"id": "A03", "decision_id": "D02", "transition_id": "T03", "setup": "LLM selects Azure under preserve-only intent without delegated choice rights.", "expected": "reject_selection", "actual_result": null},
+    {"id": "A04", "decision_id": "D03", "transition_id": "T05", "setup": "Valid vendor signature and cloud credential but forbidden public database.", "expected": "deny_policy", "actual_result": null},
+    {"id": "A05", "decision_id": "D04", "transition_id": "T04", "setup": "Privacy owner alone waives observability mandate; no arbiter.", "expected": "deny_cross_jurisdiction_override", "actual_result": null},
+    {"id": "A06", "decision_id": "D01", "transition_id": "T05", "setup": "Child execution grant active but parent revoked.", "expected": "deny_revoked_ancestor", "actual_result": null},
+    {"id": "A07", "decision_id": "D03", "transition_id": "T05", "setup": "Attempt direct deployment bypassing executor with planner identity.", "expected": "runtime_denies_alternate_write_path", "actual_result": null},
+    {"id": "A08", "decision_id": "D02", "transition_id": "T07", "setup": "Worker summary says success but required deployment evidence absent.", "expected": "block_missing_evidence", "actual_result": null},
+    {"id": "A09", "decision_id": "D01", "transition_id": "T07", "setup": "Entitled owner grants current bound exception for waivable failed criterion.", "expected": "accepted_with_exception_preserve_failed_check", "actual_result": null},
+    {"id": "A10", "decision_id": "D03", "transition_id": "T04", "setup": "Ordinary approver attempts non-exceptionable public-database waiver.", "expected": "deny_non_exceptionable_rule", "actual_result": null},
+    {"id": "A11", "decision_id": "D01", "transition_id": "T05", "setup": "Transform partially writes then fails; retry would widen scope.", "expected": "record_partial_effects_require_reauthorization", "actual_result": null},
+    {"id": "A12", "decision_id": "D04", "transition_id": "T05", "setup": "Appeal pending; exporter requests execution.", "expected": "deny_pending_appeal", "actual_result": null},
+    {"id": "A13", "decision_id": "D01", "transition_id": "T05", "setup": "All evidence/eligibility, current bound approval, delegation, runtime scopes and pre-action event valid for local edits only.", "expected": "allow_only_bound_local_effects", "actual_result": null},
+    {"id": "A14", "decision_id": "D02", "transition_id": "T02", "setup": "Same application/packages; adopter policy changes allowed targets.", "expected": "eligible_sets_may_differ_with_policy", "actual_result": null},
+    {"id": "A15", "decision_id": "D04", "transition_id": "T00", "setup": "Field renamed; no new data-classification evidence.", "expected": "retain_disputed_classification", "actual_result": null}
+  ],
+  "downstream": {
+    "WS-09": ["Keep authority profile separate from publisher metadata.", "Split supported/feasible/permitted/selected/authorized.", "Use this field contract as input, not a finished schema."],
+    "WS-10": ["Protected profile and bound record for existing three-target demo.", "Actual executor gate; no alternate credential path.", "Frozen adopter criteria; per-check results and partial effects.", "Run conformance cases; local simulation is not production enforcement."],
+    "WS-11": ["Why applicable/possible/permitted/chosen/authorized/verified panels.", "Owner, scope, source, rationale and unresolved evidence visible.", "Appeal available without implying override; disabled override explains missing right.", "Display supersession, revocation and exception expiry without deleting failures."]
+  },
+  "sources": [
+    {"id": "S01", "classification": "DOCUMENTED", "url": "https://www.openpolicyagent.org/docs/philosophy", "locator": "What Is Policy Decoupling?; What Is OPA?; Document Model", "accessed": "2026-09-23", "supports": "Decoupled policy evaluation, including decisions broader than authorization."},
+    {"id": "S02", "classification": "DOCUMENTED", "url": "https://csrc.nist.gov/projects/attribute-based-access-control", "locator": "ABAC definition paragraphs", "accessed": "2026-09-23", "supports": "Subject/object/action/environment attributes and rule evaluation."},
+    {"id": "S03", "classification": "DOCUMENTED", "url": "https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/", "locator": "Introduction; Admission control phases", "accessed": "2026-09-23", "supports": "Admission after authn/authz, mutation before validation, rejection and side-effect reconciliation."},
+    {"id": "S04", "classification": "DOCUMENTED", "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html", "locator": "Permission boundaries; SCP/RCP evaluation; explicit deny", "accessed": "2026-09-23", "supports": "Explicit policy combination semantics, not a universal authority hierarchy."},
+    {"id": "S05", "classification": "DOCUMENTED", "url": "https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments", "locator": "Required reviewers; administrator bypass; Environment secrets", "accessed": "2026-09-23", "supports": "Approval enforcement, optional no-self-review, bypass configuration and credential availability."},
+    {"id": "S06", "classification": "DOCUMENTED", "url": "https://www.w3.org/TR/prov-o/#description-starting-point-terms", "locator": "Section 3.1; actedOnBehalfOf", "accessed": "2026-09-23", "supports": "Derivation, responsibility and descriptive delegation relations."},
+    {"id": "S07", "classification": "DOCUMENTED", "url": "https://slsa.dev/spec/v1.1/threats-overview", "locator": "Summary; Real-world examples rows A and I", "accessed": "2026-09-23", "supports": "Integrity provenance does not address all producer/usage threats."},
+    {"id": "S08", "classification": "DOCUMENTED", "url": "https://www.nasa.gov/ivv-overview/", "locator": "What is Verification and Validation?; What is Independence?", "accessed": "2026-09-23", "supports": "Requirements versus mission needs; technical, managerial and financial independence."},
+    {"id": "S09", "classification": "DOCUMENTED", "url": "https://www.omg.org/spec/DMN/1.5/About-DMN", "additional_url": "https://www.omg.org/dmn/", "locator": "DMN description and formal version; overview", "accessed": "2026-09-23", "supports": "Established decision-model/process-model separation and executable decision specifications."},
+    {"id": "S10", "classification": "DOCUMENTED", "url": "https://www.openpolicyagent.org/docs/management-decision-logs", "locator": "Introduction; Masking Sensitive Data; Drop Decision Logs; Rate Limiting Decision Logs", "accessed": "2026-09-23", "supports": "Decision trace metadata and explicit limits on log completeness."},
+    {"id": "S11", "classification": "DOCUMENTED", "url": "https://www.openpolicyagent.org/docs/management-bundles", "locator": "Introduction", "accessed": "2026-09-23", "supports": "Separate policy/data distribution and default protection from REST writes to bundle-owned content."},
+    {"id": "S12", "classification": "DOCUMENTED", "url": "https://learn.microsoft.com/en-us/dotnet/core/compatibility/10", "pinned_url": "https://github.com/dotnet/docs/blob/bdb2efc634ce2b2ceb53834e531cfbc5dde53571/docs/core/compatibility/10.md", "locator": "Introduction; binary/source/behavioral change categories and incomplete-list note", "accessed": "2026-09-23", "supports": "Build success is narrower than behavioral compatibility."},
+    {"id": "S13", "classification": "DOCUMENTED", "url": "https://docs.openrewrite.org/authoring-recipes/recipe-testing", "locator": "Introduction", "accessed": "2026-09-23", "supports": "Expected-change and unnecessary-change testing for recipes."},
+    {"id": "R01", "classification": "OBSERVED", "path": "ARCHITECTURE.md", "base_commit": "65e4dd09b7b6b337d6a3eb7190067d486f050948", "locator": "Generic modernization harness; Package architecture", "accessed": "2026-09-23", "supports": "Existing package-first legal-transition proposal."},
+    {"id": "R02", "classification": "OBSERVED", "path": "structured/provenance.json", "base_commit": "65e4dd09b7b6b337d6a3eb7190067d486f050948", "locator": "record_fields", "accessed": "2026-09-23", "supports": "Existing provenance fields omit authority-grant and approval-binding semantics."},
+    {"id": "R03", "classification": "OBSERVED", "path": "prototype/control-plane/README.md", "base_commit": "65e4dd09b7b6b337d6a3eb7190067d486f050948", "locator": "Company/deployment packages; Runtime; Required demonstration", "accessed": "2026-09-23", "supports": "Proposed .NET upgrade, three targets, telemetry and no-public-database constraints; not implemented behavior."},
+    {"id": "R04", "classification": "DOCUMENTED", "url": "https://github.com/blackmath88/modernize-domain-architecture/blob/dcf11ccda66817cc01b728d17ebbb31303e511b4/agent-output/WS-02-handoff.md", "locator": "Key Findings; Risks / Weaknesses", "accessed": "2026-09-23", "supports": "Sibling report of blocked plans with success-shaped CLI output; not replayed in WS-06."},
+    {"id": "R05", "classification": "DOCUMENTED", "url": "https://github.com/blackmath88/modernize-domain-architecture/blob/66feef2a91cf87475e349ca5752e38e3a292ba9a/research/executable-domain-precedents.md", "locator": "Conclusion; Strongest counterexamples", "accessed": "2026-09-23", "supports": "Sibling precedent analysis consumed as research, not independent confirmation."},
+    {"id": "R06", "classification": "DOCUMENTED", "url": "https://github.com/blackmath88/modernize-domain-architecture/blob/62e6f3437c7a994069f30bea7fdd588892b61299/agent-output/WS-04-handoff.md", "locator": "Key Findings; Recommended Next Step", "accessed": "2026-09-23", "supports": "Sibling warning about cost, correlated validator error and enforcement."}
+  ]
+}
