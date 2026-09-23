@@ -2,7 +2,7 @@
 
 ## STATUS
 
-`review` on `agent/ws-07-skills-mcp-taxonomy`, based on publication main at `65e4dd09b7b6b337d6a3eb7190067d486f050948`. Publication details will be recorded after PR creation. Only WS-07's outputs and status changed.
+`review` on `agent/ws-07-skills-mcp-taxonomy`, based on publication main at `65e4dd09b7b6b337d6a3eb7190067d486f050948`. Research commit: `d425f2f`, pushed to `publish/agent/ws-07-skills-mcp-taxonomy`. PR: [blackmath88/modernize-domain-architecture#7](https://github.com/blackmath88/modernize-domain-architecture/pull/7), open for orchestrator review. No publication blocker. Only WS-07's outputs and status changed.
 
 ## WHAT I DID
 
