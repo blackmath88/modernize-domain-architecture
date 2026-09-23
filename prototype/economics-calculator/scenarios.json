@@ -1,0 +1,94 @@
+{
+  "as_of": "2026-09-23",
+  "classification": "HYPOTHESIS",
+  "currency": "USD",
+  "perspective": "Combined producer and adopter incremental resource cost; not vendor margin or customer willingness to pay.",
+  "range_semantics": "Closed plausible-input intervals chosen for illustration, not observed distributions, forecasts or confidence intervals. Expected names a working case, not a statistical expectation. Consumers are active consumer-equivalents over the horizon.",
+  "years_definition": "Integer years from investment to evaluation, 1-30; setup at time zero, annual flows at year end. Two years in these examples is a speculative planning horizon.",
+  "assumptions": {
+    "consumers": {"unit": "active consumer-equivalents", "definition": "Independent adopters sharing the implementation; each adds integration and support cost.", "classification": "HYPOTHESIS", "source_refs": ["E-S08", "E-S09"]},
+    "tasks_per_consumer_year": {"unit": "comparable tasks / consumer / year", "definition": "Demand, not model calls or retry attempts; constant within a run. Use a shorter horizon or separate runs for demand changes.", "classification": "HYPOTHESIS", "source_refs": ["E-S09"]},
+    "eligible_fraction": {"unit": "fraction 0-1", "definition": "Share covered by the encoded implementation at equivalent acceptance quality; excluded cases use identical fallback work in both approaches.", "classification": "HYPOTHESIS", "source_refs": ["E-S08", "E-S10"]},
+    "labor_usd_hour": {"unit": "USD / productive hour", "definition": "Blended fully burdened opportunity cost, used symmetrically for setup, support and human review. BLS is contextual, not an estimate of this team's rate.", "classification": "HYPOTHESIS", "source_refs": ["E-S02", "E-S03"]},
+    "encode_setup_hours": {"unit": "hours at time zero", "definition": "Incremental authoring, fixtures, independent validation, release and initial governance for encoded/native software; excludes already-sunk common tooling.", "classification": "HYPOTHESIS", "source_refs": ["E-S08", "E-S09"]},
+    "infer_setup_hours": {"unit": "hours at time zero", "definition": "Equivalent baseline setup including prompts, retrieval, evaluations and native tool integration; not assumed free.", "classification": "HYPOTHESIS", "source_refs": ["E-S09"]},
+    "integration_extra_hours_consumer": {"unit": "encode minus infer hours / consumer at time zero", "definition": "Additional adopter adapter/configuration effort; negative values model cheaper encoded integration.", "classification": "HYPOTHESIS", "source_refs": ["E-S08", "E-S09"]},
+    "changes_year": {"unit": "material domain changes in year one", "definition": "Operational proxy for stability: changes that require reassessment, repair or recertification, not source commit count.", "classification": "HYPOTHESIS", "source_refs": ["E-S10"]},
+    "change_growth_factor": {"unit": "annual multiplier", "definition": "Changes in year index year equal changes_year times factor^year; 0 stops changes after year one, 1 is constant, above 1 accelerates churn.", "classification": "HYPOTHESIS", "source_refs": ["E-S10"]},
+    "maintenance_extra_hours_change": {"unit": "encode minus infer hours / material change", "definition": "Differential repair, test and recertification labor across supported profiles; includes baseline prompt/retrieval upkeep and may be negative.", "classification": "HYPOTHESIS", "source_refs": ["E-S09", "E-S10"]},
+    "support_extra_hours_consumer_year": {"unit": "encode minus infer hours / consumer / year", "definition": "Differential support, runtime operations, policy exceptions and provenance administration; exclude per-case review already counted below.", "classification": "HYPOTHESIS", "source_refs": ["E-S09", "E-S11"]},
+    "llm_usd_task": {"unit": "USD / eligible task in year one", "definition": "All metered model/tool charges per task including retries, cached tokens and failed attempts. Token-budget examples are not measurements or evidence of equal capability at different prices.", "classification": "HYPOTHESIS", "source_refs": ["E-S01"]},
+    "price_factor": {"unit": "annual multiplier of task API bill", "definition": "Net change in effective bill, including token demand, routing and price; may improve or worsen. Applied to encoded residual LLM use too.", "classification": "HYPOTHESIS", "source_refs": ["E-S01", "E-S04"]},
+    "encode_llm_fraction": {"unit": "fraction 0-1 of baseline API bill", "definition": "Residual model use on covered cases; zero is not required for encoding to pay. Encoded quality is entered separately, not derived from this fraction.", "classification": "HYPOTHESIS", "source_refs": ["E-S12"]},
+    "infer_review_minutes": {"unit": "minutes / eligible task in year one", "definition": "Human checking and ordinary rework in the inference workflow; excludes audit, separately charged validation and escaped-incident handling.", "classification": "HYPOTHESIS", "source_refs": ["E-S05", "E-S06"]},
+    "encode_review_minutes": {"unit": "minutes / eligible task", "definition": "Human checking and ordinary rework with encoding; held constant per run, not presumed zero or necessarily cheaper.", "classification": "HYPOTHESIS", "source_refs": ["E-S08", "E-S09"]},
+    "review_factor": {"unit": "annual multiplier", "definition": "Change in infer-side review/rework time; independent of price and error changes. Encoded review changes require separate stress runs.", "classification": "HYPOTHESIS", "source_refs": ["E-S06"]},
+    "infer_validation_usd_task": {"unit": "USD / eligible task", "definition": "Independent test/validation labor and compute for inference, excluding the review minutes already priced.", "classification": "HYPOTHESIS", "source_refs": ["E-S08", "E-S09"]},
+    "encode_validation_usd_task": {"unit": "USD / eligible task", "definition": "Independent test/validation labor and compute for encoding; both approaches must meet the same acceptance criteria.", "classification": "HYPOTHESIS", "source_refs": ["E-S08", "E-S09"]},
+    "infer_audit_minutes": {"unit": "minutes / eligible task", "definition": "Actual marginal evidence reconstruction or audit handling for inference; zero if no such work is required.", "classification": "HYPOTHESIS", "source_refs": ["E-S11"]},
+    "encode_audit_minutes": {"unit": "minutes / eligible task", "definition": "Same actual audit task with encoded lineage; more metadata is not an assumed benefit or compliance claim.", "classification": "HYPOTHESIS", "source_refs": ["E-S11"]},
+    "infer_escape_probability": {"unit": "probability 0-1 / eligible task in year one", "definition": "Residual material error after all baseline checks, not raw benchmark failure. Domain-specific value is unmeasured.", "classification": "HYPOTHESIS", "source_refs": ["E-S05", "E-S06", "E-S07"]},
+    "encode_escape_probability": {"unit": "probability 0-1 / eligible task in year one", "definition": "Residual material error after encoded checks; software can be wrong. Exclude incidents budgeted as common-cause loss.", "classification": "HYPOTHESIS", "source_refs": ["E-S07", "E-S09"]},
+    "infer_error_factor": {"unit": "annual multiplier", "definition": "Yearly change in inference residual error; resulting probabilities clamp at 1. Improvement is not implied by cheaper tokens.", "classification": "HYPOTHESIS", "source_refs": ["E-S06"]},
+    "encode_error_factor": {"unit": "annual multiplier", "definition": "Yearly change in encoded residual error, including improvements or stale assumptions; clamp at 1.", "classification": "HYPOTHESIS", "source_refs": ["E-S09", "E-S10"]},
+    "loss_usd_escape": {"unit": "USD / escaped incident", "definition": "Conditional mean loss for this bounded task class; same severity distribution assumed on both sides. Exclude ordinary rework and common-cause incidents. Tail acceptability is a separate gate.", "classification": "HYPOTHESIS", "source_refs": ["E-S07", "E-S09"]},
+    "encode_runtime_usd_task": {"unit": "extra non-LLM USD / eligible task", "definition": "Incremental deterministic runtime cost after common native execution cancels; not a duplicate of validation or support.", "classification": "HYPOTHESIS", "source_refs": ["E-S08"]},
+    "common_loss_extra_usd_year": {"unit": "encode minus infer expected-loss allowance USD / year", "definition": "Separate portfolio allowance for correlated faults, compromised rules or outages, at the specified rollout scale. Not multiplied by tasks. Unknown is not zero; entering a range is a stress assumption, not a measured event probability.", "classification": "HYPOTHESIS", "source_refs": ["E-S07", "E-S09"]},
+    "discount_rate": {"unit": "annual fraction 0-1", "definition": "Buyer opportunity-cost discount in consistent USD terms; labor and non-model unit costs held flat. Not an observed financing rate.", "classification": "HYPOTHESIS", "source_refs": ["E-S09"]}
+  },
+  "scenarios": [
+    {
+      "name": "conservative", "description": "Sparse reuse, changing knowledge, modest review benefit; conservative about encoding.", "years": 2,
+      "parameters": {
+        "consumers": [1, 2], "tasks_per_consumer_year": [10, 50], "eligible_fraction": [0.3, 0.6], "labor_usd_hour": [100, 180],
+        "encode_setup_hours": [160, 320], "infer_setup_hours": [8, 24], "integration_extra_hours_consumer": [8, 24],
+        "changes_year": [4, 12], "change_growth_factor": [1, 1.3], "maintenance_extra_hours_change": [8, 24], "support_extra_hours_consumer_year": [4, 12],
+        "llm_usd_task": [0.02, 0.5], "price_factor": [0.3, 0.8], "encode_llm_fraction": [0.1, 0.4],
+        "infer_review_minutes": [1, 5], "encode_review_minutes": [2, 6], "review_factor": [0.6, 0.9],
+        "infer_validation_usd_task": [1, 3], "encode_validation_usd_task": [1, 4], "infer_audit_minutes": [0, 1], "encode_audit_minutes": [0, 1],
+        "infer_escape_probability": [0.002, 0.01], "encode_escape_probability": [0.002, 0.015], "infer_error_factor": [0.5, 0.9], "encode_error_factor": [0.9, 1.2],
+        "loss_usd_escape": [50, 500], "encode_runtime_usd_task": [0.02, 0.2], "common_loss_extra_usd_year": [0, 3000], "discount_rate": [0.05, 0.12]
+      }
+    },
+    {
+      "name": "expected", "description": "Working middle case, not a probability-weighted expectation; uncertain review savings and adoption.", "years": 2,
+      "parameters": {
+        "consumers": [3, 6], "tasks_per_consumer_year": [100, 300], "eligible_fraction": [0.6, 0.9], "labor_usd_hour": [100, 160],
+        "encode_setup_hours": [80, 180], "infer_setup_hours": [8, 24], "integration_extra_hours_consumer": [4, 12],
+        "changes_year": [2, 6], "change_growth_factor": [0.8, 1.3], "maintenance_extra_hours_change": [4, 12], "support_extra_hours_consumer_year": [2, 6],
+        "llm_usd_task": [0.05, 2], "price_factor": [0.4, 1], "encode_llm_fraction": [0.05, 0.2],
+        "infer_review_minutes": [6, 15], "encode_review_minutes": [2, 6], "review_factor": [0.7, 1],
+        "infer_validation_usd_task": [1, 4], "encode_validation_usd_task": [1, 5], "infer_audit_minutes": [1, 4], "encode_audit_minutes": [0.5, 1.5],
+        "infer_escape_probability": [0.005, 0.02], "encode_escape_probability": [0.002, 0.008], "infer_error_factor": [0.6, 1], "encode_error_factor": [0.8, 1.2],
+        "loss_usd_escape": [100, 1000], "encode_runtime_usd_task": [0.02, 0.2], "common_loss_extra_usd_year": [0, 5000], "discount_rate": [0.05, 0.12]
+      }
+    },
+    {
+      "name": "aggressive", "description": "High repeated demand, bounded stable support and substantial review reduction; optimistic about encoding, not a forecast.", "years": 2,
+      "parameters": {
+        "consumers": [8, 12], "tasks_per_consumer_year": [1000, 2000], "eligible_fraction": [0.8, 0.95], "labor_usd_hour": [100, 160],
+        "encode_setup_hours": [60, 120], "infer_setup_hours": [12, 24], "integration_extra_hours_consumer": [2, 6],
+        "changes_year": [1, 3], "change_growth_factor": [0.8, 1.2], "maintenance_extra_hours_change": [2, 6], "support_extra_hours_consumer_year": [1, 3],
+        "llm_usd_task": [0.1, 3], "price_factor": [0.4, 1], "encode_llm_fraction": [0, 0.1],
+        "infer_review_minutes": [10, 20], "encode_review_minutes": [1, 3], "review_factor": [0.8, 1],
+        "infer_validation_usd_task": [1, 3], "encode_validation_usd_task": [0.5, 2], "infer_audit_minutes": [1, 4], "encode_audit_minutes": [0.2, 1],
+        "infer_escape_probability": [0.005, 0.02], "encode_escape_probability": [0.001, 0.003], "infer_error_factor": [0.7, 1], "encode_error_factor": [0.8, 1.1],
+        "loss_usd_escape": [100, 500], "encode_runtime_usd_task": [0.01, 0.1], "common_loss_extra_usd_year": [0, 10000], "discount_rate": [0.05, 0.12]
+      }
+    }
+  ],
+  "sources": [
+    {"id": "E-S01", "url": "https://openai.com/api/pricing/", "accessed": "2026-09-23", "classification": "DOCUMENTED", "locator": "Standard API input/cached-input/output rate cards; fetched page localized to German", "finding": "Retrieved standard rate cards span USD 0.10-10 per million input tokens and USD 0.50-50 output, for the listed tiers below 272k context; batch and residency have different rates.", "limit": "Mutable price snapshot, not a workload price or capability equivalence; refresh before use."},
+    {"id": "E-S02", "url": "https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm", "accessed": "2026-09-23", "classification": "DOCUMENTED", "locator": "Summary: Pay; updated August 27, 2026", "finding": "Software developers' May 2025 median annual wage is USD 135980; the combined occupation headline is a different statistic.", "limit": "US wages, not fully loaded expert/project cost; sample hourly rates are hypotheses."},
+    {"id": "E-S03", "url": "https://www.bls.gov/news.release/ecec.nr0.htm", "accessed": "2026-09-23", "classification": "DOCUMENTED", "locator": "June 2026 release, published September 9, 2026: private industry compensation", "finding": "Private industry average compensation USD 46.89/hour comprises USD 32.82 wages and USD 14.07 benefits.", "limit": "All private industry, not software-specific; do not mechanically scale the developer median using this average."},
+    {"id": "E-S04", "url": "https://hai.stanford.edu/ai-index/2025-ai-index-report", "accessed": "2026-09-23", "classification": "DOCUMENTED", "locator": "Top Takeaway 7", "finding": "Reports historical over-280-fold GPT-3.5-level inference-cost decline from November 2022 to October 2024.", "limit": "Historical report synthesis, not a forecast or total task-cost reduction."},
+    {"id": "E-S05", "url": "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/", "accessed": "2026-09-23", "classification": "DOCUMENTED", "locator": "Methodology; Core Result; out-of-date notice", "finding": "Early-2025 RCT: 16 experienced developers, 246 issues, 19 percent slowdown with AI.", "limit": "Explicitly outdated for current productivity, not a failure probability or a forecast."},
+    {"id": "E-S06", "url": "https://metr.org/blog/2026-02-24-uplift-update/", "accessed": "2026-09-23", "classification": "DOCUMENTED", "locator": "Opening results; Wider adoption; Details", "finding": "Follow-up suggests improved productivity but warns of selection and timing biases that make effect-size estimates unreliable.", "limit": "Does not calibrate review or residual-error inputs for this project."},
+    {"id": "E-S07", "url": "https://csrc.nist.gov/pubs/sp/800/30/r1/final", "accessed": "2026-09-23", "classification": "DOCUMENTED", "locator": "Abstract and publication record for SP 800-30 Rev. 1, September 2012", "finding": "Risk assessments support organizational risk-management decisions, including residual risk and controls.", "limit": "Guidance, not empirical AI incident rates, loss estimates or endorsement of this calculator."},
+    {"id": "E-S08", "url": "https://github.com/blackmath88/modernize-domain-architecture/blob/2607deb/research/executable-domain-precedents.md", "accessed": "2026-09-23", "classification": "INFERRED", "locator": "Conclusion; native precedents; implications for WS-09 and WS-10", "finding": "WS-03 recommends native recipe/policy/compiler artifacts as a baseline before a new format.", "limit": "Prior research synthesis, not a benchmark; pinned published version, not a merge dependency."},
+    {"id": "E-S09", "url": "https://github.com/blackmath88/modernize-domain-architecture/blob/62e6f34/research/thesis-red-team.md", "accessed": "2026-09-23", "classification": "INFERRED", "locator": "RT-01, RT-04, RT-07, RT-08 and Economics and error model", "finding": "WS-04 requires full-cost native baselines, update cycles, conditional falsifiers and explicit tail-loss limitations.", "limit": "Prior research synthesis, not observed negative ROI; pinned published version, not a merge dependency."},
+    {"id": "E-S10", "url": "https://helm.sh/docs/chart_best_practices/custom_resource_definitions/", "accessed": "2026-09-23", "classification": "DOCUMENTED", "locator": "Method 1: Some caveats (and explanations)", "finding": "CRD upgrade/deletion excluded due to data-loss risk and unresolved lifecycle consensus.", "limit": "A lifecycle limitation, not a maintenance-hour estimate."},
+    {"id": "E-S11", "url": "https://www.openpolicyagent.org/docs/management-decision-logs", "accessed": "2026-09-23", "classification": "DOCUMENTED", "locator": "Decision Log Service API; Masking Sensitive Data; dropping and rate limits", "finding": "Existing revision-bearing decision logs have privacy and retention tradeoffs.", "limit": "Does not establish customer audit savings or willingness to pay."},
+    {"id": "E-S12", "path": "docs/source-notes/handoff/docs/04_SEMANTIC_COMPILER_AND_JEV.md", "accessed": "2026-09-23", "classification": "OPINION", "locator": "Working concept; Where this applies in Modernize; Key principle", "finding": "Proposes typed operators for stable work with model reasoning retained for ambiguity.", "limit": "Preserved conceptual notes, not measured savings."}
+  ]
+}
