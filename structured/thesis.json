@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "main_question": "If stable language, framework, provider, and organizational knowledge can be represented as portable machine-executable domain infrastructure, where does the proprietary value of GitHub Copilot Modernize actually live?",
+  "current_thesis": {
+    "status": "hypothesis",
+    "statement": "GitHub Copilot Modernize combines relatively portable application-modernization knowledge with an opinionated Azure-target modernization path."
+  },
+  "principles": [
+    {
+      "status": "opinion",
+      "statement": "The agent is a client of the domain. It does not own the domain."
+    },
+    {
+      "status": "opinion",
+      "statement": "Build software with LLMs, not software out of LLMs."
+    },
+    {
+      "status": "opinion",
+      "statement": "Type repeated domain knowledge when the cost of ambiguity exceeds the cost of encoding it."
+    }
+  ],
+  "alternative_explanations": [
+    "Most useful modernization expertise is proprietary and inaccessible.",
+    "Harness quality matters more than portable domain rules.",
+    "Provider-specific choices remain late and explicit.",
+    "Model reasoning cannot be economically replaced for most modernization decisions.",
+    "Distribution, trust, support, and operational feedback dominate product value."
+  ],
+  "falsified_or_weakened_by": [
+    "Native symmetric evaluation of Azure, AWS, GCP, and neutral targets.",
+    "Provider-neutral assessment and planning until explicit target selection.",
+    "Decisive knowledge that cannot reasonably be reproduced from public analyzers and recipes.",
+    "Provider expertise that cannot be separated from the harness without essential behavior loss."
+  ],
+  "strengthened_by": [
+    "Azure assumptions before explicit provider selection.",
+    "Assessment findings or plans parameterized around Azure targets.",
+    "Alternate providers outside the native decision space.",
+    "Open analyzers and recipes reproducing generic language and framework findings.",
+    "A distinct replaceable provider transformation layer."
+  ]
+}

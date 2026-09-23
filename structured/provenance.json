@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "record_fields": [
+    "id",
+    "statement_or_decision",
+    "stage",
+    "classification",
+    "status",
+    "source_file",
+    "source_section",
+    "experiment_id",
+    "artifact",
+    "observation",
+    "confidence",
+    "derived_from"
+  ],
+  "classifications": [
+    "community_domain_fact",
+    "provider_domain_knowledge",
+    "organization_policy",
+    "user_intent",
+    "llm_inference",
+    "harness_behavior",
+    "deterministic_validation"
+  ],
+  "source_collections": [
+    {
+      "id": "supplied_handoff",
+      "path": "docs/source-notes/handoff",
+      "kind": "preserved_primary_research",
+      "mutability": "immutable_snapshot"
+    },
+    {
+      "id": "supplied_visuals",
+      "path": "docs/source-notes/root-artifacts",
+      "kind": "preserved_visual_and_research_artifacts",
+      "mutability": "immutable_snapshot"
+    },
+    {
+      "id": "experiment_evidence",
+      "path": "evidence",
+      "kind": "raw_run_artifacts",
+      "mutability": "append_only"
+    }
+  ],
+  "rules": [
+    "Do not infer provenance when it can be observed.",
+    "Do not use interpreted documentation as a substitute for an available raw artifact.",
+    "Preserve null values when evidence has not been collected.",
+    "Record derived claims with explicit source claim identifiers."
+  ]
+}

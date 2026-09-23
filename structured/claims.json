@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "allowed_statuses": ["observed", "documented", "inferred", "hypothesis", "opinion"],
+  "claims": [
+    {
+      "id": "claim-001",
+      "statement": "The supplied PhotoAlbum notes report an AppCAT assessment with 28 typed incidents and fields including rule identifiers, targets, and severity.",
+      "status": "observed",
+      "source_file": "docs/source-notes/handoff/docs/03_MODERNIZE_ARCHITECTURE.md",
+      "source_section": "Assessment is already typed",
+      "experiment_id": null,
+      "artifact": null,
+      "confidence": "medium",
+      "implication": "Some modernization knowledge is represented before free-form LLM reasoning.",
+      "caveat": "The raw assessment artifact is not present in this repository."
+    },
+    {
+      "id": "claim-002",
+      "statement": "The supplied research describes Modernize as an orchestrated pipeline spanning assessment, typed findings, planning, specialized execution, and validation.",
+      "status": "documented",
+      "source_file": "docs/source-notes/handoff/docs/03_MODERNIZE_ARCHITECTURE.md",
+      "source_section": "The architecture pattern",
+      "experiment_id": null,
+      "artifact": null,
+      "confidence": "medium",
+      "implication": "The product should be analyzed as a system rather than only as a prompt."
+    },
+    {
+      "id": "claim-003",
+      "statement": "Deployment target and constraints can affect modernization architecture before deployment execution.",
+      "status": "inferred",
+      "source_file": "docs/source-notes/handoff/README.md",
+      "source_section": "Why deployment matters",
+      "experiment_id": null,
+      "artifact": null,
+      "confidence": "high",
+      "implication": "Provider choice belongs in assessment and planning analysis."
+    },
+    {
+      "id": "claim-004",
+      "statement": "GitHub Copilot Modernize combines relatively portable application-modernization knowledge with an opinionated Azure-target modernization path.",
+      "status": "hypothesis",
+      "source_file": "docs/source-notes/handoff/COPILOT_HANDOFF.md",
+      "source_section": "Product-value hypothesis",
+      "experiment_id": null,
+      "artifact": null,
+      "confidence": "low",
+      "implication": "Provider knowledge may be a separable source of product differentiation."
+    },
+    {
+      "id": "claim-005",
+      "statement": "Stable repeated domain knowledge should be encoded when ambiguity costs more than encoding it.",
+      "status": "opinion",
+      "source_file": "docs/source-notes/handoff/docs/04_SEMANTIC_COMPILER_AND_JEV.md",
+      "source_section": "The economic boundary",
+      "experiment_id": null,
+      "artifact": null,
+      "confidence": "not_applicable",
+      "implication": "The LLM versus deterministic boundary should be chosen economically."
+    },
+    {
+      "id": "claim-006",
+      "statement": "No raw Modernize assessment, planning, task, execution, or validation artifact is currently present in the repository.",
+      "status": "observed",
+      "source_file": "CURRENT_STATE.md",
+      "source_section": "What we know",
+      "experiment_id": null,
+      "artifact": null,
+      "confidence": "high",
+      "implication": "Product behavior claims require new evidence collection."
+    }
+  ]
+}

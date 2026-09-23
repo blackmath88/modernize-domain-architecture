@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "components": [
+    {"id": "source", "name": "Source application", "kind": "input"},
+    {"id": "observations", "name": "Typed observations", "kind": "deterministic_artifact"},
+    {"id": "domain_packages", "name": "Community domain packages", "kind": "knowledge"},
+    {"id": "provider_packages", "name": "Provider packages", "kind": "knowledge"},
+    {"id": "organization_policy", "name": "Organization policy", "kind": "constraint"},
+    {"id": "user_intent", "name": "User intent", "kind": "constraint"},
+    {"id": "harness", "name": "Modernization harness", "kind": "orchestration"},
+    {"id": "llm", "name": "LLM reasoning", "kind": "probabilistic_reasoning"},
+    {"id": "execution", "name": "Execution", "kind": "action"},
+    {"id": "validation", "name": "Deterministic validation", "kind": "verification"},
+    {"id": "provenance", "name": "Provenance record", "kind": "evidence"}
+  ],
+  "knowledge_layers": [
+    {"id": "community", "examples": ["Java", ".NET", "Spring", "Jakarta"], "status": "proposed"},
+    {"id": "provider", "examples": ["Azure", "AWS", "GCP"], "status": "proposed"},
+    {"id": "organization", "examples": ["architecture policy", "security", "compliance"], "status": "proposed"},
+    {"id": "user", "examples": ["goal", "preferences", "exceptions"], "status": "observed_concept"}
+  ],
+  "flows": [
+    {"from": "source", "to": "observations", "relationship": "analyzed_into"},
+    {"from": "observations", "to": "harness", "relationship": "constrains"},
+    {"from": "domain_packages", "to": "harness", "relationship": "supplies_legal_moves"},
+    {"from": "provider_packages", "to": "harness", "relationship": "supplies_target_constraints"},
+    {"from": "organization_policy", "to": "harness", "relationship": "constrains"},
+    {"from": "user_intent", "to": "harness", "relationship": "directs"},
+    {"from": "harness", "to": "llm", "relationship": "delegates_unresolved_ambiguity"},
+    {"from": "harness", "to": "execution", "relationship": "orders"},
+    {"from": "llm", "to": "execution", "relationship": "proposes"},
+    {"from": "execution", "to": "validation", "relationship": "checked_by"},
+    {"from": "validation", "to": "harness", "relationship": "returns_evidence_and_failures"},
+    {"from": "validation", "to": "provenance", "relationship": "records"}
+  ],
+  "boundaries": [
+    {"id": "protocol_vs_knowledge", "statement": "MCP transports capabilities but does not own the domain model."},
+    {"id": "portable_vs_provider", "statement": "Application facts and framework rules should remain distinguishable from provider mappings."},
+    {"id": "llm_vs_deterministic", "statement": "Stable repeatable cases favor encoded software; unresolved ambiguity favors model reasoning."},
+    {"id": "raw_vs_interpretation", "statement": "Raw evidence is stored separately from analysis."}
+  ],
+  "open_questions": [
+    "Where do provider assumptions first enter an actual Modernize run?",
+    "Can one neutral observation set be evaluated against multiple provider packages?",
+    "Which planning decisions are deterministic or LLM-mediated?",
+    "What minimum contract makes a domain package portable?"
+  ]
+}

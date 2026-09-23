@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "shared_input": {
+    "application": null,
+    "source_repository": null,
+    "source_commit": null,
+    "control_requirement": "Use the same clean source revision and tool versions for every run."
+  },
+  "experiments": [
+    {"id": "A", "intent": "language/framework upgrade only", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null},
+    {"id": "B", "intent": "modernize without cloud target", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null},
+    {"id": "C", "intent": "modernize for cloud, provider unspecified", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null},
+    {"id": "D", "intent": "modernize for Azure", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null},
+    {"id": "E", "intent": "explicitly provider-neutral modernization", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null},
+    {"id": "F", "intent": "modernize for AWS", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null},
+    {"id": "G", "intent": "preserve current hosting and deployment", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null}
+  ]
+}

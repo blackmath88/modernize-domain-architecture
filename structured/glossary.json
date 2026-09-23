@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "terms": [
+    {"term": "domain_package", "definition": "Portable executable observations, rules, legal transitions, transforms, knowledge, and validators."},
+    {"term": "harness", "definition": "State, planning, ordering, execution, approval, retry, provenance, and UX machinery."},
+    {"term": "provider_knowledge", "definition": "Target-platform mappings and constraints for services and operations."},
+    {"term": "organization_policy", "definition": "Local architecture, security, compliance, and exception rules."},
+    {"term": "user_intent", "definition": "The requested outcome and explicit constraints for one modernization run."},
+    {"term": "llm_inference", "definition": "Probabilistic interpretation or synthesis where typed knowledge does not resolve ambiguity."},
+    {"term": "deterministic_validation", "definition": "Reproducible build, test, policy, schema, or deployment checks."},
+    {"term": "provenance", "definition": "Evidence explaining where an observation, recommendation, or change came from."},
+    {"term": "mcp", "definition": "A protocol for exposing context and tools, not the domain intelligence itself."}
+  ]
+}

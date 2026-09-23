@@ -1,0 +1,430 @@
+{
+  "handoff_context": {
+    "purpose": "Capture the key learnings, architectural insights, product observations, and hackathon direction from the setup and Modernize investigation.",
+    "date": "2026-09-23",
+    "event_context": ".NET / GitHub Copilot Modernize hackathon",
+    "status": "Morning setup and architectural discovery complete enough to sharpen the project direction."
+  },
+  "environment_and_setup": {
+    "docker": {
+      "status": "running",
+      "learning": "Docker should be treated primarily as reproducible packaging/runtime infrastructure, not as the core architecture problem.",
+      "recommended_use_today": "Build and validate locally first, then containerize if useful for demo reproducibility or service packaging."
+    },
+    "azure": {
+      "subscription_name": "Azure subscription 1",
+      "tenant": "Bridge Works",
+      "tenant_domain": "bridge-work.ai",
+      "state": "Enabled",
+      "subscription_id_seen_in_resource_group": "b4f04625-b6fc-4d96-87e8-dde8c71e3ec8",
+      "resource_group": "hackathon-preflight",
+      "region": "switzerlandnorth",
+      "issue": "Storage account creation returned SubscriptionNotFound even though subscription and resource group were visible.",
+      "likely_cause_being_checked": "Microsoft.Storage provider registration / Azure resource-provider state.",
+      "learning": "A readable and enabled Azure subscription does not guarantee that a particular resource provider is ready for writes."
+    },
+    "sample_repos": {
+      "dotnet": "Azure-Samples/PhotoAlbum",
+      "java": "Azure-Samples/PhotoAlbum-Java",
+      "status": "Both cloned locally.",
+      "primary_repo_for_investigation": "PhotoAlbum"
+    },
+    "dotnet": {
+      "sdk": "10.0.401",
+      "sample_target_framework": "net9.0",
+      "baseline_build": {
+        "status": "success",
+        "restore_time_seconds": 134.5,
+        "build_time_seconds": 138.0,
+        "projects": [
+          "PhotoAlbum",
+          "PhotoAlbum.Tests"
+        ]
+      },
+      "learning": "The untouched sample repo builds successfully, giving a known-good baseline before Modernize changes anything."
+    },
+    "modernize_cli": {
+      "version": "1.0.74",
+      "copilot_cli_version_seen": "1.0.57",
+      "github_account": "blackmath88",
+      "default_requested_model": "claude-sonnet-4.6",
+      "actual_model": "Auto",
+      "reason": "claude-sonnet-4.6 was not available through the current Copilot entitlement/runtime.",
+      "main_commands": [
+        "assess",
+        "plan",
+        "upgrade"
+      ],
+      "assessment_command_used": "modernize assess --source . --delegate local",
+      "assessment_output_root": ".github/modernize/assessment"
+    }
+  },
+  "modernize_runtime_model": {
+    "current_understanding": {
+      "modernize_cli": "Packaged modernization product/agent workflow.",
+      "copilot_cli": "Primary AI runtime/auth layer used by Modernize.",
+      "model_access": "Model availability depends on GitHub Copilot runtime/entitlement unless BYOK or another supported provider configuration is used.",
+      "byok": "Copilot CLI can support bring-your-own-provider/key setups, but a ChatGPT or Claude Code subscription is not itself an API entitlement.",
+      "serviceability": "Modernize can be automated or wrapped, but it is not exposed as a generic standalone SDK or HTTP modernization service."
+    },
+    "important_distinction": "The modernization workflow and domain logic are more durable than any single model provider."
+  },
+  "assessment_findings": {
+    "producer": ".NET AppCAT CLI",
+    "analysis_duration": "Approximately one second for the raw AppCAT analysis.",
+    "implication": "The several-minute Modernize run was not primarily static analysis time; orchestration, download/setup, report generation, and AI workflow consumed most of the time.",
+    "domains": [
+      "cloud-readiness",
+      "dotnet-upgrade"
+    ],
+    "targets": [
+      "Azure App Service",
+      "Azure Kubernetes Service",
+      "Azure Container Apps",
+      "Azure App Service Container",
+      "Azure App Service Managed Instance"
+    ],
+    "summary": {
+      "total_projects": 2,
+      "total_issues": 8,
+      "total_incidents": 28,
+      "total_effort": 78
+    },
+    "structured_fields_observed": [
+      "ruleId",
+      "incidentId",
+      "file location",
+      "line",
+      "column",
+      "target",
+      "severity",
+      "effort",
+      "project framework",
+      "language",
+      "build tool"
+    ],
+    "example": {
+      "rule": "Identity.0002",
+      "meaning": "Windows Authentication detected",
+      "location": "PhotoAlbum/Web.config",
+      "target_specific_result": "mandatory for Azure Container Apps and several other targets",
+      "interpretation": "The assessment already produces machine-readable, target-aware, typed domain facts rather than relying on free-form LLM interpretation."
+    }
+  },
+  "architecture_learnings": {
+    "initial_hypothesis": "Modernize might rely heavily on a frontier LLM to inspect source, understand the application, plan, and act.",
+    "updated_hypothesis": "Modernize already uses deterministic/specialized analyzers to produce structured facts before agentic reasoning.",
+    "observed_pipeline": [
+      "source repository",
+      "specialist deterministic assessment such as AppCAT",
+      "typed findings",
+      "assessment reports",
+      "planning",
+      "tasks.json / plan.md",
+      "specialist execution",
+      "build/test/CVE validation",
+      "retry and verification"
+    ],
+    "important_realization": "Modernize already embodies much of the same architectural instinct that motivated the recent JEV/Semantic Compiler discussions: stable structure should be extracted by specialized software instead of repeatedly rediscovered by a large generative model."
+  },
+  "jev_and_semantic_compiler_reframing": {
+    "old_question": "Could JEV or a Semantic Compiler make Modernize more typed and deterministic?",
+    "new_question": "How far should typed/deterministic domain encoding go before the cost of encoding the domain exceeds the value compared with letting a general LLM reason?",
+    "new_insight": "The interesting trade-off is not deterministic software versus LLMs in general. It is domain-engineering cost versus repeated model reasoning cost.",
+    "economic_model": {
+      "general_agent": {
+        "upfront_domain_engineering": "low",
+        "per_task_reasoning_cost": "higher",
+        "variance": "higher",
+        "best_for": "rare, novel, one-off, highly ambiguous work"
+      },
+      "domain_specific_system": {
+        "upfront_domain_engineering": "high",
+        "per_task_reasoning_cost": "lower",
+        "variance": "lower",
+        "best_for": "frequent, stable, repeated, high-value workflows"
+      }
+    },
+    "principle": "Type the parts of a domain that are encountered often enough that the cost of ambiguity exceeds the cost of encoding them."
+  },
+  "machine_executable_domain_packages": {
+    "preferred_term": "machine-executable domain packages",
+    "definition": "Community- or vendor-maintained bundles of typed rules, constraints, migration recipes, schemas, validators, compatibility knowledge, and decision logic that software and agents can execute instead of rediscovering domain knowledge from scratch.",
+    "why_the_term_matters": "It makes clear that the artifact is more than documentation, prompts, RAG, or static knowledge. The domain representation is executable.",
+    "core_thesis": "LLMs should not own stable domain knowledge. Communities, vendors, and organizations should encode stable domain knowledge as executable infrastructure that agents consume.",
+    "governance_question": "Who owns the machine-executable representation of the domain?",
+    "model_independence": "A domain package should be usable by Copilot, Codex, Claude Code, local models, CI, or even non-LLM software."
+  },
+  "modernize_as_reference_architecture": {
+    "lesson": "Modernize should not necessarily be copied as a product, but its harness architecture can be abstracted.",
+    "separable_layers": {
+      "harness": [
+        "lifecycle",
+        "state",
+        "task graph",
+        "artifacts",
+        "execution",
+        "provenance",
+        "validation",
+        "retry"
+      ],
+      "domain_knowledge": [
+        "detections",
+        "compatibility rules",
+        "migration recipes",
+        "legal transitions",
+        "validators",
+        "known constraints"
+      ],
+      "agent_llm": [
+        "human intent interpretation",
+        "ambiguity resolution",
+        "novel cases",
+        "explanations",
+        "code synthesis where recipes are insufficient"
+      ]
+    },
+    "abstraction_goal": "Open-source the generic harness and make domain knowledge pluggable rather than embedding all domain expertise inside one vendor's agent."
+  },
+  "open_ecosystem_research": {
+    "openrewrite": {
+      "role": "Strongest precedent for community-maintained executable modernization knowledge.",
+      "important_concepts": [
+        "Lossless Semantic Tree",
+        "recipes",
+        "composable migrations",
+        "language/framework-specific transformations",
+        "community recipe projects"
+      ],
+      "ecosystem_examples": [
+        "Java version upgrades",
+        "Spring upgrades",
+        "Jakarta migrations",
+        "Apache Camel",
+        "Apache Wicket",
+        "AWS SDK",
+        "Axon",
+        "Quarkus",
+        "other framework migrations"
+      ],
+      "implication": "A large part of the community transformation layer already exists and should be reused rather than recreated."
+    },
+    "codeql": {
+      "role": "Strong precedent for packaging, publishing, versioning, dependency management, and reusable executable analysis knowledge.",
+      "useful_mechanics": [
+        "pack manifest",
+        "semantic versioning",
+        "dependencies",
+        "lockfiles",
+        "query packs",
+        "library packs",
+        "model packs",
+        "tests"
+      ],
+      "implication": "The package-distribution model for machine-executable domain knowledge also already has mature precedents."
+    },
+    "renovate": {
+      "role": "Strong precedent for a domain-agnostic harness with modular ecosystem adapters.",
+      "useful_pattern": [
+        "platform",
+        "manager",
+        "datasource",
+        "versioning"
+      ],
+      "implication": "The harness can own process while ecosystem-specific modules own domain knowledge."
+    },
+    "rust": {
+      "role": "Smaller example of compiler-produced structured suggestions consumed by tooling such as cargo fix/rustfix.",
+      "implication": "Domain intelligence can live in language tooling and be consumed automatically without an LLM."
+    }
+  },
+  "proposed_open_architecture": {
+    "generic_harness": {
+      "working_name": "Domain Harness",
+      "knowledge_of_specific_domains": "none",
+      "lifecycle": [
+        "discover",
+        "observe",
+        "derive possible actions",
+        "select / plan",
+        "execute transformation",
+        "verify",
+        "emit evidence"
+      ]
+    },
+    "package_examples": [
+      "community/java-core",
+      "community/java-spring",
+      "community/jakarta",
+      "community/postgres",
+      "community/kubernetes",
+      "microsoft/dotnet",
+      "microsoft/java-to-azure",
+      "aws/java-to-aws",
+      "google/java-to-gcp",
+      "org/acme-standards"
+    ],
+    "package_contents": [
+      "manifest",
+      "typed observations",
+      "rules",
+      "constraints",
+      "transition definitions",
+      "recipes",
+      "validators",
+      "knowledge/explanations",
+      "tests",
+      "dependencies on other domain packages"
+    ],
+    "example_manifest": {
+      "schema": "medp/v0",
+      "name": "community/java-spring",
+      "version": "1.4.0",
+      "domains": [
+        "java",
+        "spring"
+      ],
+      "requires": [
+        "community/java-core@^3",
+        "community/jakarta@^2"
+      ],
+      "capabilities": {
+        "observe": [
+          "java.version",
+          "spring.version",
+          "api.usage"
+        ],
+        "transform": [
+          "java.upgrade",
+          "spring.upgrade",
+          "javax.to-jakarta"
+        ],
+        "validate": [
+          "java.compile",
+          "java.tests"
+        ]
+      }
+    }
+  },
+  "layering_model": {
+    "domain_fact": {
+      "example": "Spring Boot 2 API X is incompatible with Spring Boot 3."
+    },
+    "legal_transformation": {
+      "example": "Replace X with Y."
+    },
+    "vendor_package": {
+      "example": "Replace a messaging layer with Azure Service Bus."
+    },
+    "organization_policy": {
+      "example": "This organization mandates Kafka and PostgreSQL."
+    },
+    "user_intent": {
+      "example": "Keep RabbitMQ for this workload."
+    },
+    "importance": "These layers should remain explicit so vendor preference does not silently become universal domain truth."
+  },
+  "role_of_llm": {
+    "should_not_do_repeatedly": [
+      "rediscover language version",
+      "rediscover framework version",
+      "re-derive known compatibility facts",
+      "reconstruct known migration paths",
+      "decide deterministic legality",
+      "perform simple routing"
+    ],
+    "high_value_roles": [
+      "interpret messy human intent",
+      "map business constraints onto typed alternatives",
+      "resolve ambiguous choices",
+      "handle unsupported or genuinely novel cases",
+      "generate code when no trusted recipe exists",
+      "explain decisions to humans"
+    ],
+    "ideal_flow": [
+      "human intent",
+      "LLM semantic interpretation",
+      "typed goal",
+      "machine-executable domain packages",
+      "legal paths",
+      "LLM decision only where ambiguity remains",
+      "recipe or coding agent execution",
+      "deterministic validators"
+    ]
+  },
+  "provenance_and_trust": {
+    "proposed_output_for_each_change": [
+      "source package",
+      "rule or recipe ID",
+      "deterministic vs agent-generated",
+      "model used if applicable",
+      "validation performed",
+      "review requirement"
+    ],
+    "example": [
+      {
+        "transformation": "Spring 2 to Spring 3",
+        "source": "community/java-spring",
+        "recipe": "spring-2-to-3",
+        "deterministic": true
+      },
+      {
+        "transformation": "Database choice constrained",
+        "source": "org/acme-policy",
+        "constraint": "PostgreSQL required",
+        "deterministic": true
+      },
+      {
+        "transformation": "Unsupported custom integration rewrite",
+        "source": "agent",
+        "deterministic": false,
+        "review": "required"
+      }
+    ],
+    "value": "Makes visible which parts of a modernization are community knowledge, organizational policy, vendor guidance, or genuinely invented by the LLM."
+  },
+  "hackathon_direction": {
+    "do_not_build": [
+      "another generic Java modernizer",
+      "a replacement for Microsoft Modernize",
+      "a giant autonomous coding agent",
+      "a duplicate of OpenRewrite"
+    ],
+    "possible_build": "A minimal open specification and harness showing how domain expertise can be portable, executable, provenance-aware, and independent of the consuming agent.",
+    "best_demo_domain": "Java/Spring, because community-maintained transformation knowledge already exists.",
+    "demo_flow": [
+      "take an old Spring application",
+      "discover typed domain facts",
+      "load community domain packages",
+      "derive legal modernization transitions",
+      "execute known OpenRewrite recipe",
+      "validate using compiler/tests/static analysis",
+      "deliberately leave one unsupported ambiguous task",
+      "delegate only that task to an LLM agent",
+      "show provenance for each transformation"
+    ],
+    "demo_message": "The agent is a client of the domain. It does not own the domain."
+  },
+  "core_phrases": [
+    "Machine-executable domain packages",
+    "The agent is a client of the domain. It does not own the domain.",
+    "Build software with LLMs, not software out of LLMs.",
+    "Do not type the whole world. Type the parts you encounter repeatedly enough that the cost of ambiguity exceeds the cost of encoding them.",
+    "Modernize makes modernization agentic. Machine-executable domain packages make domain expertise portable."
+  ],
+  "open_research_questions": [
+    "How much engineering effort did Microsoft spend encoding .NET and Java modernization knowledge compared with the value gained in reliability and repeatability?",
+    "Which Modernize planning and routing decisions are deterministic versus LLM-mediated?",
+    "What is the smallest useful standard for a machine-executable domain package?",
+    "Can existing OpenRewrite recipes be wrapped directly as package capabilities rather than copied?",
+    "Can CodeQL-style package dependency/version mechanics be reused conceptually?",
+    "How should conflicts between domain truth, vendor recommendations, organization policy, and user intent be resolved?",
+    "How should confidence and provenance propagate through a modernization DAG?",
+    "What is the break-even point where domain encoding becomes more valuable than repeated frontier-model reasoning?",
+    "Can this boundary be adaptive rather than manually engineered for every domain?"
+  ],
+  "current_conclusion": {
+    "summary": "The main opportunity is not to make Microsoft Modernize more deterministic. Modernize already demonstrates a mature typed, tool-driven modernization architecture. The broader opportunity is to extract the architectural pattern into an open, vendor-neutral harness where stable domain expertise is packaged as machine-executable community infrastructure and any agent can consume it.",
+    "project_thesis": "Portable domain expertise is potentially more durable and strategically important than any particular agent or frontier model."
+  }
+}

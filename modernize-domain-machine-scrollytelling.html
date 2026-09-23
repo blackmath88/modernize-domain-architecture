@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Who Owns the Domain? — Modernize, JEV, and Machine‑Executable Domain Packages</title>
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --paper:#fffdf8;
+    --ink:#141414;
+    --muted:#6e6a62;
+    --line:#d8d2c7;
+    --typed:#0d7c72;
+    --llm:#b64070;
+    --human:#be7417;
+    --domain:#4054a8;
+    --good:#27643c;
+    --bad:#9b3636;
+    --shadow:0 18px 50px rgba(37,32,24,.08);
+    --radius:24px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family: ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 15% 8%, rgba(190,116,23,.08), transparent 30%),
+      radial-gradient(circle at 85% 18%, rgba(13,124,114,.08), transparent 26%),
+      var(--bg);
+    line-height:1.45;
+  }
+  a{color:inherit}
+  .nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(18px);
+    background:rgba(246,244,239,.82);
+    border-bottom:1px solid rgba(216,210,199,.8);
+  }
+  .nav-inner{
+    max-width:1180px; margin:auto; height:58px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 22px; gap:20px;
+  }
+  .brand{font-weight:800; letter-spacing:-.03em}
+  .nav a{text-decoration:none; font-size:13px; color:var(--muted)}
+  .navlinks{display:flex; gap:18px; flex-wrap:wrap}
+  .hero{
+    min-height:92vh; max-width:1180px; margin:auto;
+    padding:76px 22px 50px;
+    display:grid; grid-template-columns:1.2fr .8fr; gap:50px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12px; text-transform:uppercase; letter-spacing:.12em; font-weight:800;
+    color:var(--domain);
+    border:1px solid var(--line); border-radius:999px; padding:7px 10px;
+    background:rgba(255,253,248,.7);
+  }
+  h1{font-size:clamp(54px,8vw,108px); line-height:.9; letter-spacing:-.065em; margin:22px 0 24px}
+  h2{font-size:clamp(34px,5vw,62px); line-height:1; letter-spacing:-.05em; margin:0 0 18px}
+  h3{font-size:24px; letter-spacing:-.03em; margin:0 0 10px}
+  .lede{font-size:clamp(20px,2.2vw,30px); color:#37342f; max-width:780px; letter-spacing:-.02em}
+  .hero-note{
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px; box-shadow:var(--shadow);
+  }
+  .hero-note strong{display:block; font-size:16px; margin-bottom:12px}
+  .hero-stack{display:grid; gap:10px}
+  .chip{
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+    padding:13px 15px; border-radius:14px; border:1px solid var(--line);
+    background:#fff;
+  }
+  .chip b{font-size:13px}
+  .chip span{font-size:12px; color:var(--muted)}
+  .typed{border-left:5px solid var(--typed)}
+  .llm{border-left:5px solid var(--llm)}
+  .human{border-left:5px solid var(--human)}
+  .domain{border-left:5px solid var(--domain)}
+  .section{
+    max-width:1180px; margin:auto; padding:110px 22px;
+  }
+  .intro-grid{display:grid; grid-template-columns:.8fr 1.2fr; gap:52px}
+  .kicker{font-size:13px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:14px}
+  .big-quote{
+    font-size:clamp(28px,4vw,52px); line-height:1.06; letter-spacing:-.045em;
+    margin:0;
+  }
+  .callout{
+    border:1px solid var(--line); background:var(--paper); border-radius:20px; padding:22px;
+  }
+  .callout p{margin:7px 0 0; color:var(--muted)}
+  .scrolly{
+    max-width:1240px; margin:auto; padding:60px 22px 140px;
+    display:grid; grid-template-columns:minmax(0, .9fr) minmax(460px, 1.1fr); gap:52px; align-items:start;
+  }
+  .steps{display:grid; gap:36vh}
+  .step{
+    min-height:45vh; display:flex; flex-direction:column; justify-content:center;
+    opacity:.38; transition:opacity .3s ease, transform .3s ease;
+  }
+  .step.active{opacity:1; transform:translateX(3px)}
+  .step .num{font-size:12px; color:var(--muted); font-weight:800; letter-spacing:.12em; text-transform:uppercase}
+  .step p{font-size:19px; color:#49453f; max-width:580px}
+  .sticky{
+    position:sticky; top:86px; min-height:650px;
+    background:linear-gradient(180deg,#fffdfa,#f4f0e9);
+    border:1px solid var(--line); border-radius:28px; box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .diagram-head{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 20px; border-bottom:1px solid var(--line);
+  }
+  .diagram-head small{color:var(--muted)}
+  .legend{display:flex; gap:8px; flex-wrap:wrap}
+  .legend span{font-size:11px; padding:5px 8px; border-radius:999px; border:1px solid var(--line); background:#fff}
+  .legend .l-human{color:var(--human)} .legend .l-llm{color:var(--llm)}
+  .legend .l-typed{color:var(--typed)} .legend .l-domain{color:var(--domain)}
+  .canvas{position:relative; height:590px; padding:24px}
+  .node{
+    position:absolute; width:180px; min-height:78px; border-radius:18px; padding:13px 14px;
+    background:white; border:1px solid var(--line); box-shadow:0 10px 25px rgba(30,25,20,.05);
+    transition:all .4s ease;
+  }
+  .node .kind{font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  .node .name{font-size:15px; font-weight:800; margin-top:5px}
+  .node .desc{font-size:11px; color:var(--muted); margin-top:5px}
+  .node.human-n{border-top:5px solid var(--human)}
+  .node.llm-n{border-top:5px solid var(--llm)}
+  .node.typed-n{border-top:5px solid var(--typed)}
+  .node.domain-n{border-top:5px solid var(--domain)}
+  .edge{
+    position:absolute; height:2px; background:var(--line); transform-origin:left center;
+    transition:all .4s ease; opacity:.42;
+  }
+  .edge:after{
+    content:""; position:absolute; right:-2px; top:-4px;
+    width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid var(--line);
+  }
+  .muted-node{opacity:.16; filter:grayscale(.9)}
+  .hot{transform:scale(1.035); box-shadow:0 18px 38px rgba(30,25,20,.13)}
+  .facts{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:34px;
+  }
+  .fact{background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:20px}
+  .fact strong{display:block; font-size:34px; letter-spacing:-.05em}
+  .fact span{font-size:12px; color:var(--muted)}
+  .matrix{
+    display:grid; grid-template-columns:1fr 1fr; gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:24px; overflow:hidden; margin-top:34px;
+  }
+  .quad{background:var(--paper); padding:28px; min-height:220px}
+  .quad .tag{font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase}
+  .quad p{color:var(--muted); margin-bottom:0}
+  .barrow{
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px;
+    margin:35px 0; background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:20px;
+  }
+  .barrow .side{padding:10px}
+  .barrow .arrow{font-size:28px; color:var(--muted)}
+  .layers{display:grid; gap:12px; margin-top:28px}
+  .layer{
+    display:grid; grid-template-columns:180px 1fr 160px; gap:18px; align-items:center;
+    border:1px solid var(--line); background:var(--paper); border-radius:18px; padding:16px 18px;
+  }
+  .layer b{font-size:14px}
+  .layer p{margin:0; color:var(--muted); font-size:14px}
+  .layer em{font-style:normal; font-size:11px; text-transform:uppercase; letter-spacing:.1em; text-align:right}
+  .crit-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:30px}
+  .crit{border:1px solid var(--line); background:var(--paper); border-radius:20px; padding:22px}
+  .crit .mark{font-size:28px}
+  .crit p{color:var(--muted); font-size:14px}
+  .package{
+    border:1px solid var(--line); background:#121b1a; color:#eff8f5; border-radius:24px;
+    padding:26px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; overflow:auto;
+  }
+  .package .c{color:#93b5aa}.package .k{color:#ffb870}.package .v{color:#89d6ca}
+  .final{
+    min-height:75vh; display:flex; align-items:center; justify-content:center; text-align:center;
+    padding:100px 22px;
+  }
+  .final-inner{max-width:900px}
+  .final h2{font-size:clamp(48px,8vw,96px)}
+  .final p{font-size:22px; color:var(--muted)}
+  .sources{
+    border-top:1px solid var(--line); padding:50px 22px 70px; max-width:1180px; margin:auto;
+  }
+  .sources ol{color:var(--muted); font-size:13px; line-height:1.65}
+  .sources a{color:#46413a}
+  .source-note{font-size:12px; color:var(--muted)}
+  .pillrow{display:flex; gap:8px; flex-wrap:wrap; margin-top:18px}
+  .pill{font-size:12px; padding:7px 10px; border:1px solid var(--line); border-radius:999px; background:var(--paper)}
+  @media(max-width:900px){
+    .hero,.intro-grid,.scrolly{grid-template-columns:1fr}
+    .hero{padding-top:52px}
+    .sticky{position:relative; top:auto; min-height:600px}
+    .steps{gap:80px}
+    .step{min-height:auto}
+    .facts,.crit-grid{grid-template-columns:1fr 1fr}
+    .layer{grid-template-columns:1fr}
+    .layer em{text-align:left}
+  }
+  @media(max-width:600px){
+    h1{font-size:58px}
+    .navlinks{display:none}
+    .facts,.crit-grid,.matrix{grid-template-columns:1fr}
+    .sticky{min-height:720px}
+    .canvas{height:660px; transform:scale(.88); transform-origin:top left; width:113%}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">DOMAIN / MACHINE</div>
+    <div class="navlinks">
+      <a href="#jev">Why JEV</a>
+      <a href="#modernize">Modernize</a>
+      <a href="#value">Value</a>
+      <a href="#critique">Critique</a>
+      <a href="#packages">Open domain</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div>
+    <div class="eyebrow">Modernize × JEV × Semantic Compiler</div>
+    <h1>Who owns<br>the domain?</h1>
+    <p class="lede">
+      Microsoft Modernize is a useful case study in a bigger architectural shift:
+      <b>move stable knowledge out of the frontier model, compile it into typed machinery,
+      and reserve large models for ambiguity.</b>
+    </p>
+    <div class="pillrow">
+      <span class="pill">Human intent</span>
+      <span class="pill">Domain knowledge</span>
+      <span class="pill">Typed semantics</span>
+      <span class="pill">Large LLM</span>
+      <span class="pill">Verification</span>
+    </div>
+  </div>
+  <aside class="hero-note">
+    <strong>Four different things are often collapsed into “the agent”.</strong>
+    <div class="hero-stack">
+      <div class="chip human"><b>Human input</b><span>goals, constraints, exceptions</span></div>
+      <div class="chip domain"><b>Domain knowledge</b><span>what is true / legal / supported</span></div>
+      <div class="chip typed"><b>Semantic compile</b><span>turn facts into typed state + legal moves</span></div>
+      <div class="chip llm"><b>Large LLM</b><span>ambiguity, synthesis, novel cases</span></div>
+    </div>
+  </aside>
+</header>
+
+<section class="section" id="jev">
+  <div class="intro-grid">
+    <div>
+      <div class="kicker">01 · Why everybody suddenly cares about JEV</div>
+      <h2>Decision work is not the same as language generation.</h2>
+    </div>
+    <div>
+      <p class="big-quote">
+        If the task is “pick the best legal next move”, a frontier LLM may be an extremely expensive way to implement a classifier.
+      </p>
+      <div style="height:18px"></div>
+      <div class="callout">
+        <b>The JEV attraction</b>
+        <p>
+          Fast, cheap, calibrated decisions create a separate “decision layer” inside agent systems.
+          The deeper idea is bigger than JEV: <strong>shrink the surface that needs generative reasoning.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="scrolly" id="modernize">
+  <div class="steps">
+    <article class="step active" data-state="human">
+      <span class="num">02 · Start with the messy bit</span>
+      <h2>Human intent is fuzzy.</h2>
+      <p>
+        “Modernize this app” can mean framework upgrade, cloud migration, CVE cleanup, containerization,
+        rearchitecture, or all of them. This is a legitimate place for language understanding.
+      </p>
+    </article>
+
+    <article class="step" data-state="assess">
+      <span class="num">03 · Modernize does not ask Claude to rediscover everything</span>
+      <h2>Assessment is already typed.</h2>
+      <p>
+        In our PhotoAlbum run, .NET AppCAT produced machine-readable findings: rule IDs, file locations,
+        target-specific severity, effort, frameworks, languages and tools. The raw analysis itself took about one second.
+      </p>
+    </article>
+
+    <article class="step" data-state="plan">
+      <span class="num">04 · The middle layer</span>
+      <h2>Facts become an executable plan.</h2>
+      <p>
+        Modernize loads assessment results, merges rulebook constraints, then emits both
+        <strong>plan.md</strong> for humans and <strong>tasks.json</strong> for execution.
+        The task layer is structured enough to drive routing.
+      </p>
+    </article>
+
+    <article class="step" data-state="route">
+      <span class="num">05 · Not one giant agent</span>
+      <h2>Specialists are routed by task type.</h2>
+      <p>
+        Java upgrades, .NET-to-Azure work, security/CVE remediation and rearchitecture are delegated to
+        different executors. The orchestrator is explicitly closer to a router than a universal doer.
+      </p>
+    </article>
+
+    <article class="step" data-state="verify">
+      <span class="num">06 · Where determinism becomes non-negotiable</span>
+      <h2>The compiler gets the last word.</h2>
+      <p>
+        Build, tests, CVE scanning and deployment checks close the loop.
+        The LLM may propose a change; software proves whether it survives contact with reality.
+      </p>
+    </article>
+  </div>
+
+  <div class="sticky">
+    <div class="diagram-head">
+      <div>
+        <b>Modernization system anatomy</b><br>
+        <small id="stateLabel">Human intent enters the system</small>
+      </div>
+      <div class="legend">
+        <span class="l-human">● human</span>
+        <span class="l-domain">● domain</span>
+        <span class="l-typed">● typed</span>
+        <span class="l-llm">● LLM</span>
+      </div>
+    </div>
+    <div class="canvas">
+      <div class="node human-n" id="n-human" style="left:30px;top:40px">
+        <div class="kind">Human</div><div class="name">Intent</div><div class="desc">goal, constraints, context</div>
+      </div>
+      <div class="node llm-n" id="n-router" style="left:270px;top:40px">
+        <div class="kind">LLM / orchestration</div><div class="name">Intent router</div><div class="desc">which workflow?</div>
+      </div>
+      <div class="node typed-n" id="n-assess" style="left:60px;top:200px">
+        <div class="kind">Typed analyzer</div><div class="name">AppCAT / assess</div><div class="desc">facts, incidents, targets</div>
+      </div>
+      <div class="node domain-n" id="n-domain" style="left:300px;top:200px">
+        <div class="kind">Domain knowledge</div><div class="name">Rules + rulebook</div><div class="desc">support, constraints, policy</div>
+      </div>
+      <div class="node llm-n" id="n-plan" style="left:180px;top:350px">
+        <div class="kind">LLM + typed inputs</div><div class="name">Planner</div><div class="desc">plan.md + tasks.json</div>
+      </div>
+      <div class="node domain-n" id="n-exec" style="left:30px;top:500px">
+        <div class="kind">Domain executors</div><div class="name">Specialists</div><div class="desc">upgrade / cloud / CVE</div>
+      </div>
+      <div class="node typed-n" id="n-verify" style="left:300px;top:500px">
+        <div class="kind">Deterministic</div><div class="name">Verify</div><div class="desc">build / test / scan</div>
+      </div>
+
+      <div class="edge" style="left:210px;top:80px;width:60px"></div>
+      <div class="edge" style="left:360px;top:118px;width:120px;transform:rotate(133deg)"></div>
+      <div class="edge" style="left:150px;top:278px;width:125px;transform:rotate(43deg)"></div>
+      <div class="edge" style="left:340px;top:278px;width:118px;transform:rotate(137deg)"></div>
+      <div class="edge" style="left:235px;top:430px;width:135px;transform:rotate(140deg)"></div>
+      <div class="edge" style="left:275px;top:430px;width:135px;transform:rotate(40deg)"></div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="kicker">07 · Evidence from the actual PhotoAlbum run</div>
+  <h2>Modernize already has a semantic front-end.</h2>
+  <p class="lede" style="font-size:22px">
+    The raw AppCAT report is exactly the kind of intermediate representation we kept imagining:
+    precise, typed, target-aware, and machine-readable.
+  </p>
+  <div class="facts">
+    <div class="fact"><strong>≈1s</strong><span>raw AppCAT analysis time</span></div>
+    <div class="fact"><strong>2</strong><span>projects detected</span></div>
+    <div class="fact"><strong>8</strong><span>issue types</span></div>
+    <div class="fact"><strong>28</strong><span>incidents with locations / targets</span></div>
+  </div>
+  <div class="barrow">
+    <div class="side">
+      <b>Example typed observation</b>
+      <div style="font-family:ui-monospace,monospace;font-size:13px;margin-top:9px;color:var(--typed)">
+        ruleId: Identity.0002<br>
+        location: PhotoAlbum/Web.config<br>
+        target: ACA<br>
+        severity: mandatory
+      </div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="side">
+      <b>Human explanation</b>
+      <p style="margin:8px 0 0;color:var(--muted)">
+        Windows Authentication is not supported for the selected target; choose a supported identity approach.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="value">
+  <div class="kicker">08 · So where is the value?</div>
+  <h2>The scarce asset may not be the model.</h2>
+  <div class="matrix">
+    <div class="quad">
+      <div class="tag" style="color:var(--typed)">Cheap to repeat</div>
+      <h3>Semantic compile</h3>
+      <p>Version detection, code-shape classification, compatibility checks, legal transitions, dependency ordering, validation.</p>
+    </div>
+    <div class="quad">
+      <div class="tag" style="color:var(--llm)">Expensive but flexible</div>
+      <h3>Large LLM</h3>
+      <p>Ambiguous intent, architecture trade-offs, unsupported edge cases, synthesis across incomplete business context.</p>
+    </div>
+    <div class="quad">
+      <div class="tag" style="color:var(--domain)">High upfront value</div>
+      <h3>Domain knowledge</h3>
+      <p>Migration recipes, compatibility facts, known-safe transformations, framework conventions and operational constraints.</p>
+    </div>
+    <div class="quad">
+      <div class="tag" style="color:var(--human)">Irreplaceable input</div>
+      <h3>Human policy + goals</h3>
+      <p>“Keep RabbitMQ.” “No public endpoints.” “Use PostgreSQL.” “Minimize operational change.” These are not discoverable from code alone.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="critique">
+  <div class="kicker">09 · The critique is not “Microsoft did it wrong”</div>
+  <h2>They did the architecture. The question is who owns the knowledge.</h2>
+  <div class="crit-grid">
+    <div class="crit">
+      <div class="mark">①</div>
+      <h3>Vendor truth vs domain truth</h3>
+      <p>
+        “Windows Auth is incompatible with ACA” is a domain/target fact.
+        “Move to Azure service X” can be a vendor-preferred path. Those are not the same layer.
+      </p>
+    </div>
+    <div class="crit">
+      <div class="mark">②</div>
+      <h3>Closed expertise compounds</h3>
+      <p>
+        If the best migration knowledge is trapped inside one agent stack, every other agent must rediscover,
+        reverse-engineer or pay to access the same domain expertise.
+      </p>
+    </div>
+    <div class="crit">
+      <div class="mark">③</div>
+      <h3>Big-model overreach</h3>
+      <p>
+        Once inputs and legal moves are already typed, using a frontier model for every routing or selection decision
+        may add cost and variance without adding much intelligence.
+      </p>
+    </div>
+  </div>
+
+  <div class="layers">
+    <div class="layer">
+      <b>Domain fact</b>
+      <p>Spring Boot 2 API X is incompatible with Spring Boot 3.</p>
+      <em style="color:var(--domain)">community / upstream</em>
+    </div>
+    <div class="layer">
+      <b>Legal transformation</b>
+      <p>Replace X with Y; update dependency Z; run validator Q.</p>
+      <em style="color:var(--typed)">machine-executable</em>
+    </div>
+    <div class="layer">
+      <b>Vendor package</b>
+      <p>For Azure target A, prefer service B and identity pattern C.</p>
+      <em style="color:var(--domain)">vendor-owned</em>
+    </div>
+    <div class="layer">
+      <b>Organization policy</b>
+      <p>Use PostgreSQL, Managed Identity, no Kafka, region restrictions.</p>
+      <em style="color:var(--human)">human-governed</em>
+    </div>
+    <div class="layer">
+      <b>Agent decision</b>
+      <p>Choose among legal paths when constraints are incomplete or genuinely ambiguous.</p>
+      <em style="color:var(--llm)">probabilistic</em>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="packages">
+  <div class="kicker">10 · The abstraction</div>
+  <h2>Machine-executable domain packages.</h2>
+  <p class="lede" style="font-size:22px;max-width:920px">
+    Package stable domain expertise so that Copilot, Codex, Claude, a local model, or no model at all can consume the same substrate.
+    The agent becomes a <b>client of the domain</b>, not its owner.
+  </p>
+  <div style="height:24px"></div>
+  <div class="package">
+<span class="c"># community/java-spring/domain.yaml</span>
+<br><span class="k">schema:</span> <span class="v">medp/v0</span>
+<br><span class="k">name:</span> <span class="v">community/java-spring</span>
+<br><span class="k">version:</span> <span class="v">1.4.0</span>
+<br>
+<br><span class="k">requires:</span>
+<br>&nbsp;&nbsp;- <span class="v">community/java-core@^3</span>
+<br>&nbsp;&nbsp;- <span class="v">community/jakarta@^2</span>
+<br>
+<br><span class="k">capabilities:</span>
+<br>&nbsp;&nbsp;<span class="k">observe:</span> [<span class="v">java.version</span>, <span class="v">spring.version</span>, <span class="v">api.usage</span>]
+<br>&nbsp;&nbsp;<span class="k">transform:</span> [<span class="v">java.upgrade</span>, <span class="v">spring.upgrade</span>, <span class="v">javax.to-jakarta</span>]
+<br>&nbsp;&nbsp;<span class="k">validate:</span> [<span class="v">java.compile</span>, <span class="v">java.tests</span>]
+  </div>
+
+  <div style="height:44px"></div>
+  <div class="intro-grid">
+    <div>
+      <div class="kicker">Existing precedent</div>
+      <h3>OpenRewrite already looks like part of this future.</h3>
+    </div>
+    <div>
+      <p style="font-size:18px;color:#49453f">
+        OpenRewrite uses Lossless Semantic Trees and composable recipes for framework migrations and refactoring.
+        Community projects already publish migration recipes for ecosystems such as Apache Camel, Wicket, AWS SDK, Axon, Jenkins and others.
+      </p>
+      <p style="font-size:18px;color:#49453f">
+        That means the transformation layer does not have to be invented from zero. The opportunity is to make
+        the <b>harness, packaging, provenance and agent boundary</b> explicit.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="kicker">11 · The modular target architecture</div>
+  <h2>Compile the domain. Rent the intelligence.</h2>
+  <div class="layers">
+    <div class="layer">
+      <b>1 · Semantic frontend</b>
+      <p>Messy repo + telemetry + human context → typed observations.</p>
+      <em style="color:var(--typed)">deterministic / small model</em>
+    </div>
+    <div class="layer">
+      <b>2 · Domain packages</b>
+      <p>Rules, transitions, recipes, constraints, validators, provenance.</p>
+      <em style="color:var(--domain)">community / vendor / org</em>
+    </div>
+    <div class="layer">
+      <b>3 · Harness</b>
+      <p>DAG, state, execution, retries, evidence and lifecycle.</p>
+      <em style="color:var(--typed)">software</em>
+    </div>
+    <div class="layer">
+      <b>4 · Agent / LLM</b>
+      <p>Ambiguity, novel work, human dialogue and synthesis where recipes stop.</p>
+      <em style="color:var(--llm)">probabilistic</em>
+    </div>
+    <div class="layer">
+      <b>5 · Verification</b>
+      <p>Compiler, tests, scanners, policies and runtime checks.</p>
+      <em style="color:var(--typed)">ground truth</em>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="final-inner">
+    <div class="kicker">The thesis</div>
+    <h2>The agent is a client of the domain.</h2>
+    <p>
+      Microsoft Modernize shows that serious agentic software already depends on typed analyzers,
+      task contracts, domain specialists and deterministic verification.
+      The next question is whether that domain expertise should be portable infrastructure.
+    </p>
+    <div class="pillrow" style="justify-content:center">
+      <span class="pill">Build software with LLMs</span>
+      <span class="pill">not software out of LLMs</span>
+    </div>
+  </div>
+</section>
+
+<footer class="sources">
+  <div class="kicker">Sources & evidence</div>
+  <ol>
+    <li>
+      Microsoft / GitHub Copilot Modernization agent repository — workflow, assess → plan → execute,
+      rulebook merging, specialized executors:
+      <a href="https://github.com/microsoft/github-copilot-modernization" target="_blank" rel="noreferrer">github.com/microsoft/github-copilot-modernization</a>
+    </li>
+    <li>
+      Microsoft Learn — customization of <code>plan.md</code> and the companion <code>tasks.json</code> execution contract:
+      <a href="https://learn.microsoft.com/en-us/azure/developer/github-copilot-app-modernization/customize-modernization-plan" target="_blank" rel="noreferrer">Microsoft Learn</a>
+    </li>
+    <li>
+      OpenRewrite — Lossless Semantic Trees, composable recipes and community-maintained migration recipes:
+      <a href="https://docs.openrewrite.org/concepts-and-explanations/recipes" target="_blank" rel="noreferrer">Recipes</a> ·
+      <a href="https://docs.openrewrite.org/reference/community-recipes" target="_blank" rel="noreferrer">Community recipes</a>
+    </li>
+    <li>
+      PhotoAlbum assessment evidence from this hackathon run: <code>.NET AppCAT CLI</code> raw report,
+      with typed rule IDs, target-specific severity, file/line locations and effort estimates.
+    </li>
+    <li>
+      JEV framing: contemporary coverage describes JEV as a fast, low-cost model aimed at calibrated decision-making
+      rather than general text generation. This page uses JEV as an architectural prompt, not as a claim that every decision should use JEV.
+    </li>
+  </ol>
+  <p class="source-note">
+    Interpretation note: the separation between “domain fact”, “vendor preference”, “semantic compile” and “LLM ambiguity”
+    is the conceptual model proposed here. Microsoft’s public docs establish the concrete Modernize workflow and artifacts;
+    the modular open-domain architecture is an extrapolation.
+  </p>
+</footer>
+
+<script>
+  const steps = [...document.querySelectorAll('.step')];
+  const nodes = {
+    human: document.getElementById('n-human'),
+    router: document.getElementById('n-router'),
+    assess: document.getElementById('n-assess'),
+    domain: document.getElementById('n-domain'),
+    plan: document.getElementById('n-plan'),
+    exec: document.getElementById('n-exec'),
+    verify: document.getElementById('n-verify')
+  };
+  const labels = {
+    human:'Human intent enters the system',
+    assess:'Typed assessment extracts facts',
+    plan:'Typed facts + policy become executable tasks',
+    route:'Task type routes to domain specialists',
+    verify:'Software validates probabilistic work'
+  };
+  const hotsets = {
+    human:['human','router'],
+    assess:['assess','domain'],
+    plan:['assess','domain','plan'],
+    route:['plan','exec'],
+    verify:['exec','verify']
+  };
+  function setState(state){
+    document.getElementById('stateLabel').textContent = labels[state];
+    Object.values(nodes).forEach(n=>{n.classList.add('muted-node');n.classList.remove('hot')});
+    hotsets[state].forEach(k=>{nodes[k].classList.remove('muted-node');nodes[k].classList.add('hot')});
+  }
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        steps.forEach(s=>s.classList.remove('active'));
+        e.target.classList.add('active');
+        setState(e.target.dataset.state);
+      }
+    });
+  },{rootMargin:'-35% 0px -45% 0px',threshold:0});
+  steps.forEach(s=>obs.observe(s));
+  setState('human');
+</script>
+</body>
+</html>

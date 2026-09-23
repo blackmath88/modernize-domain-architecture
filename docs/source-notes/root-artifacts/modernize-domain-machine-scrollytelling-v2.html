@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Modernize as a case study for typed domain knowledge, semantic compilation, large models, and machine-executable domain packages.">
+<title>Who owns the domain?</title>
+<style>
+:root{
+  --paper:#f4f0e7;
+  --paper-2:#ebe5d8;
+  --ink:#2b211c;
+  --soft:#746a62;
+  --rule:rgba(43,33,28,.18);
+  --rule-strong:rgba(43,33,28,.42);
+  --wada:#8e4936;
+  --teal:#315f5a;
+  --blue:#465b79;
+  --gold:#a7772e;
+  --stage:#1f1b18;
+  --stage-ink:#f4f0e7;
+  --stage-soft:#aaa096;
+  --max:1380px;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--serif)}
+a{color:inherit}
+.mast{
+  position:sticky;top:0;z-index:50;height:44px;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 clamp(18px,3vw,46px);
+  background:color-mix(in srgb,var(--paper) 94%,transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+  font:600 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase
+}
+.mark{display:flex;align-items:center;gap:12px}
+.mark i{width:9px;height:9px;background:var(--wada);display:block}
+.issue{color:var(--soft)}
+.shell{width:min(var(--max),calc(100% - 36px));margin-inline:auto}
+.hero{
+  min-height:calc(100svh - 44px);
+  display:grid;grid-template-columns:minmax(0,1.18fr) minmax(280px,.55fr);
+  gap:7vw;align-items:end;padding:10vh 0 8vh
+}
+.eyebrow,.mono{
+  font:700 10px/1.35 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--soft)
+}
+.hero h1{
+  margin:20px 0 30px;
+  font:500 clamp(64px,10.5vw,160px)/.82 var(--serif);
+  letter-spacing:-.075em;max-width:1050px
+}
+.hero .lede{
+  max-width:810px;font:400 clamp(21px,2.25vw,34px)/1.25 var(--serif);
+  letter-spacing:-.02em;margin:0
+}
+.hero-aside{align-self:end;border-top:2px solid var(--ink);padding-top:16px}
+.hero-aside p{margin:0 0 20px;font-size:14px;color:var(--soft)}
+.legend{display:grid;border-top:1px solid var(--rule)}
+.legend div{
+  display:grid;grid-template-columns:18px 1fr;gap:10px;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--rule);
+  font:600 11px/1.3 var(--mono)
+}
+.sw{width:10px;height:10px}
+.human{background:var(--gold)}.domain{background:var(--blue)}.typed{background:var(--teal)}.llm{background:var(--wada)}
+
+.thesis{
+  padding:10vh 0 12vh;border-top:1px solid var(--rule);
+  display:grid;grid-template-columns:.7fr 1.3fr;gap:7vw
+}
+.thesis h2,.section h2{
+  font:500 clamp(44px,6.3vw,94px)/.94 var(--serif);letter-spacing:-.055em;margin:0
+}
+.thesis .big{
+  font:400 clamp(26px,3.2vw,48px)/1.15 var(--serif);letter-spacing:-.03em;margin:0 0 28px
+}
+.thesis p{max-width:68ch;margin:0;color:#514840}
+.ruleband{
+  margin-top:28px;border-top:1px solid var(--rule-strong);border-bottom:1px solid var(--rule-strong);
+  display:grid;grid-template-columns:1fr 1fr
+}
+.ruleband div{padding:18px 0}
+.ruleband div+div{padding-left:24px;border-left:1px solid var(--rule)}
+.ruleband b{font:700 10px var(--mono);text-transform:uppercase;letter-spacing:.11em}
+.ruleband p{font-size:14px;margin-top:7px;color:var(--soft)}
+
+.story{
+  width:min(var(--max),calc(100% - 36px));margin:auto;
+  display:grid;grid-template-columns:minmax(300px,.78fr) minmax(520px,1.22fr);
+  gap:clamp(26px,5vw,80px)
+}
+.copy{padding-right:2vw}
+.step{
+  min-height:92svh;display:flex;flex-direction:column;justify-content:center;
+  opacity:.26;transition:opacity .2s ease
+}
+.step.is-active{opacity:1}
+.step h2{
+  font:500 clamp(38px,4.6vw,72px)/.95 var(--serif);letter-spacing:-.05em;
+  margin:14px 0 20px
+}
+.step p:not(.eyebrow){font:400 18px/1.55 var(--serif);max-width:570px;color:#514840;margin:0}
+.step code{
+  margin-top:18px;font:600 11px/1.5 var(--mono);color:var(--wada);
+  border-top:1px solid var(--rule);padding-top:12px;max-width:560px;white-space:normal
+}
+.stage-wrap{position:relative}
+.stage{
+  position:sticky;top:66px;height:calc(100svh - 88px);margin:22px 0;
+  background:var(--stage);color:var(--stage-ink);overflow:hidden
+}
+.stage-meta{
+  position:absolute;z-index:20;left:18px;right:18px;top:16px;
+  display:flex;justify-content:space-between;gap:20px;
+  font:600 9px var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--stage-soft)
+}
+.stage-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(244,240,231,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(244,240,231,.045) 1px,transparent 1px);
+  background-size:48px 48px;opacity:.6
+}
+.scene{position:absolute;inset:0;transition:opacity .35s ease,transform .55s cubic-bezier(.2,.75,.2,1)}
+.scene[aria-hidden="true"]{opacity:0;pointer-events:none}
+
+/* scene 0: everything collapsed into "agent" */
+.agent-blob{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(420px,72%);aspect-ratio:1;border:1px solid rgba(244,240,231,.45);
+  border-radius:50%;display:grid;place-items:center;text-align:center
+}
+.agent-blob strong{font:500 clamp(42px,6vw,78px)/.9 var(--serif);letter-spacing:-.05em}
+.agent-blob span{display:block;margin-top:10px;font:600 10px var(--mono);letter-spacing:.12em;color:var(--stage-soft)}
+.orbit{position:absolute;border:1px solid rgba(244,240,231,.12);border-radius:50%;inset:8%;animation:spin 22s linear infinite}
+.orbit:before,.orbit:after{content:"";position:absolute;width:8px;height:8px;background:var(--wada);top:20%;left:7%}
+.orbit:after{background:var(--teal);top:auto;left:auto;right:10%;bottom:19%}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* scenes 1-4: persistent four-lane machine */
+.machine{position:absolute;inset:78px 32px 34px;display:grid;grid-template-columns:1fr 72px 1.08fr;gap:0}
+.input-col,.output-col{position:relative}
+.rail{position:relative;display:grid;grid-template-rows:repeat(4,1fr);border-left:1px solid rgba(244,240,231,.18);border-right:1px solid rgba(244,240,231,.18)}
+.lane{
+  position:relative;border-top:1px solid rgba(244,240,231,.18);padding:16px 18px;
+  display:flex;flex-direction:column;justify-content:space-between
+}
+.lane:last-child{border-bottom:1px solid rgba(244,240,231,.18)}
+.lane .tag{font:700 9px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.lane .txt{font:500 20px/1.1 var(--serif);letter-spacing:-.02em;max-width:210px}
+.lane.h .tag{color:var(--gold)}.lane.d .tag{color:#91a7c6}.lane.t .tag{color:#73b8ac}.lane.l .tag{color:#d67e66}
+.core{
+  position:relative;display:flex;align-items:center;justify-content:center
+}
+.core:before{content:"";position:absolute;top:6%;bottom:6%;width:1px;background:rgba(244,240,231,.18)}
+.core-block{
+  z-index:2;writing-mode:vertical-rl;transform:rotate(180deg);
+  padding:13px 8px;background:var(--stage);border:1px solid rgba(244,240,231,.32);
+  font:700 9px var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--stage-soft)
+}
+.flow{
+  position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(244,240,231,.13)
+}
+.pulse{
+  position:absolute;width:9px;height:9px;top:calc(50% - 4px);left:9%;
+  background:var(--wada);transition:left .75s cubic-bezier(.2,.75,.2,1),background .3s ease
+}
+.output-box{
+  position:absolute;inset:0;border:1px solid rgba(244,240,231,.18);padding:24px;
+  display:flex;flex-direction:column;justify-content:center
+}
+.output-k{font:700 9px var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--stage-soft)}
+.output-main{font:500 clamp(28px,4vw,56px)/.95 var(--serif);letter-spacing:-.045em;margin:14px 0 18px}
+.output-sub{font:500 11px/1.5 var(--mono);color:var(--stage-soft);max-width:36ch}
+.stage[data-step="1"] .pulse{left:22%;background:var(--teal)}
+.stage[data-step="2"] .pulse{left:48%;background:var(--blue)}
+.stage[data-step="3"] .pulse{left:68%;background:var(--wada)}
+.stage[data-step="4"] .pulse{left:88%;background:var(--teal)}
+
+/* spotlighting lanes */
+.stage[data-step="1"] .lane:not(.t){opacity:.28}
+.stage[data-step="2"] .lane:not(.d):not(.t){opacity:.28}
+.stage[data-step="3"] .lane.h{opacity:.5}
+.stage[data-step="4"] .lane:not(.t){opacity:.3}
+.stage[data-step="1"] .lane.t,
+.stage[data-step="2"] .lane.d,
+.stage[data-step="2"] .lane.t,
+.stage[data-step="3"] .lane.l,
+.stage[data-step="3"] .lane.d,
+.stage[data-step="4"] .lane.t{background:rgba(244,240,231,.035)}
+
+/* ownership reframe */
+.ownership{
+  position:absolute;inset:76px 30px 34px;
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(244,240,231,.18)
+}
+.owner{
+  background:var(--stage);padding:28px;display:flex;flex-direction:column;justify-content:space-between;
+  transition:opacity .3s ease,transform .45s ease
+}
+.owner small{font:700 9px var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--stage-soft)}
+.owner h3{font:500 clamp(34px,4.4vw,62px)/.95 var(--serif);letter-spacing:-.045em;margin:0;max-width:420px}
+.owner p{font:400 14px/1.5 var(--serif);color:var(--stage-soft);max-width:46ch;margin:0}
+.owner.vendor{border-top:4px solid var(--wada)}
+.owner.community{border-top:4px solid var(--teal)}
+.package-stack{
+  display:grid;gap:7px;margin-top:22px;font:600 10px/1.3 var(--mono)
+}
+.pkg{padding:9px 11px;border:1px solid rgba(244,240,231,.22);display:flex;justify-content:space-between;gap:12px}
+.pkg span:last-child{color:var(--stage-soft);font-weight:500}
+
+/* final package contract */
+.contract{
+  position:absolute;inset:90px 9% 56px;
+  border-left:2px solid var(--teal);padding-left:28px;
+  display:grid;grid-template-columns:.75fr 1.25fr;gap:46px;align-items:center
+}
+.contract h3{font:500 clamp(38px,5vw,72px)/.94 var(--serif);letter-spacing:-.05em;margin:0 0 18px}
+.contract p{margin:0;color:var(--stage-soft);font-size:14px;max-width:40ch}
+.codebox{
+  font:500 11px/1.72 var(--mono);white-space:pre-wrap;color:#d8d1c7;
+  border-top:1px solid rgba(244,240,231,.2);border-bottom:1px solid rgba(244,240,231,.2);padding:20px 0
+}
+.codebox .k{color:#d89a72}.codebox .v{color:#79b6aa}.codebox .c{color:#827970}
+
+/* evidence strip */
+.evidence{
+  padding:12vh 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)
+}
+.evidence-head{display:grid;grid-template-columns:.75fr 1.25fr;gap:7vw}
+.evidence .statline{
+  margin-top:55px;display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--rule-strong);border-left:1px solid var(--rule)
+}
+.stat{
+  min-height:180px;padding:18px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  display:flex;flex-direction:column;justify-content:space-between
+}
+.stat b{font:500 clamp(42px,5vw,74px)/1 var(--serif);letter-spacing:-.05em}
+.stat span{font:600 10px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--soft)}
+.evidence-note{max-width:62ch;color:#514840}
+
+.section{padding:13vh 0}
+.break{
+  display:grid;grid-template-columns:.8fr 1.2fr;gap:7vw;align-items:start
+}
+.spectrum{margin-top:32px;border-top:1px solid var(--rule-strong)}
+.row{
+  display:grid;grid-template-columns:180px 1fr 120px;gap:16px;align-items:center;
+  min-height:86px;border-bottom:1px solid var(--rule)
+}
+.row b{font:700 10px var(--mono);text-transform:uppercase;letter-spacing:.1em}
+.row p{margin:0;font-size:15px;color:#514840}
+.row em{font:600 10px var(--mono);font-style:normal;text-transform:uppercase;letter-spacing:.09em;text-align:right}
+.row.domain-r em{color:var(--blue)}.row.typed-r em{color:var(--teal)}.row.llm-r em{color:var(--wada)}.row.human-r em{color:var(--gold)}
+
+.final{
+  min-height:85svh;display:flex;align-items:center;border-top:1px solid var(--rule)
+}
+.final blockquote{
+  margin:0;font:500 clamp(50px,8vw,118px)/.9 var(--serif);letter-spacing:-.065em;max-width:1200px
+}
+.final p{font:600 11px var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--soft);margin-top:34px}
+.foot{
+  padding:24px 0 70px;border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;gap:30px;color:var(--soft);font:500 10px/1.5 var(--mono)
+}
+.foot p{max-width:68ch;margin:0}
+
+@media(max-width:940px){
+  .hero,.thesis,.evidence-head,.break{grid-template-columns:1fr}
+  .hero{align-items:center}.hero-aside{max-width:520px}
+  .story{display:flex;flex-direction:column}
+  .stage-wrap{order:0;position:sticky;top:44px;height:55svh;z-index:20;background:var(--paper)}
+  .stage{top:8px;height:calc(55svh - 16px);margin:8px 0}
+  .copy{order:1;padding:0}.step{min-height:auto;padding:80px 0}
+  .machine{inset:64px 16px 20px;grid-template-columns:1fr 44px 1fr}
+  .lane{padding:10px}.lane .txt{font-size:14px}.output-box{padding:14px}
+  .ownership{inset:64px 14px 20px}.owner{padding:18px}
+  .contract{inset:70px 7% 35px;grid-template-columns:1fr;gap:20px;overflow:auto}
+  .evidence .statline{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){
+  .mast .issue{display:none}
+  .hero h1{font-size:clamp(58px,18vw,96px)}
+  .hero{padding-top:7vh}
+  .ruleband{grid-template-columns:1fr}.ruleband div+div{border-left:0;border-top:1px solid var(--rule);padding-left:0}
+  .stage-wrap{height:58svh}.stage{height:calc(58svh - 16px)}
+  .machine{display:grid;grid-template-columns:1fr;grid-template-rows:1fr 40px .8fr}
+  .core{writing-mode:horizontal-tb}.core:before{left:5%;right:5%;top:50%;bottom:auto;width:auto;height:1px}
+  .core-block{writing-mode:horizontal-tb;transform:none}
+  .rail{grid-template-columns:repeat(4,1fr);grid-template-rows:1fr;border-top:1px solid rgba(244,240,231,.18)}
+  .lane{border-left:1px solid rgba(244,240,231,.18);border-top:0;padding:7px}
+  .lane .txt{font-size:11px}.lane .tag{font-size:7px}.output-main{font-size:25px}
+  .ownership{grid-template-columns:1fr}.owner.vendor{display:none}
+  .contract{grid-template-columns:1fr}.contract h3{font-size:38px}
+  .evidence .statline{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr;padding:16px 0;gap:5px}.row em{text-align:left}
+  .final blockquote{font-size:clamp(50px,16vw,82px)}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{animation:none!important;transition:none!important}
+  .step{opacity:1}
+}
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="mark"><i></i><span>Machine-executable domain knowledge</span></div>
+  <div class="issue">Modernize / JEV / semantic compile</div>
+</header>
+
+<main>
+<section class="hero shell">
+  <div>
+    <p class="eyebrow">A case study in what an “agent” is actually made of</p>
+    <h1>Who owns<br>the domain?</h1>
+    <p class="lede">
+      Microsoft Modernize looks like an AI agent from the outside.
+      Inside, much of the valuable work is already <em>typed, routed, rule-bound and verified</em>.
+      The interesting question is not “agent or no agent?” It is where each kind of intelligence belongs.
+    </p>
+  </div>
+  <aside class="hero-aside">
+    <p>Four layers keep getting collapsed into one word: <b>agent</b>.</p>
+    <div class="legend">
+      <div><i class="sw human"></i><span>Human input — goals, policy, exceptions</span></div>
+      <div><i class="sw domain"></i><span>Domain knowledge — what is true / supported</span></div>
+      <div><i class="sw typed"></i><span>Semantic compile — typed state + legal moves</span></div>
+      <div><i class="sw llm"></i><span>Large LLM — ambiguity, synthesis, novel work</span></div>
+    </div>
+  </aside>
+</section>
+
+<section class="thesis shell" id="why-jev">
+  <div>
+    <p class="eyebrow">01 / Why JEV is interesting</p>
+    <h2>Not every intelligent choice is a generation problem.</h2>
+  </div>
+  <div>
+    <p class="big">If the legal next moves are already known, a frontier model may be an extravagant way to choose among them.</p>
+    <p>
+      The attraction of JEV-like systems is architectural: split <em>decision</em> from <em>generation</em>.
+      Better yet, compile stable structure out of the messy input before a large model ever sees it.
+    </p>
+    <div class="ruleband">
+      <div><b>Good candidate for semantic compile</b><p>version, capability, compatibility, dependency, policy, legal transition, validation</p></div>
+      <div><b>Good candidate for large LLM</b><p>ambiguous intent, incomplete business context, novel architecture, unsupported code synthesis</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="story" aria-label="Modernize narrative">
+  <div class="copy">
+    <article class="step is-active" data-step="0">
+      <p class="eyebrow">02 / The misleading outside view</p>
+      <h2>“The agent modernizes the app.”</h2>
+      <p>
+        That sentence is convenient and almost useless. It hides which work is language understanding,
+        which is encoded domain expertise, which is deterministic analysis, and which is verification.
+      </p>
+      <code>problem → one giant agent-shaped blob</code>
+    </article>
+
+    <article class="step" data-step="1">
+      <p class="eyebrow">03 / First split</p>
+      <h2>Assessment is already a semantic front-end.</h2>
+      <p>
+        In our PhotoAlbum run, .NET AppCAT emitted rule IDs, exact files and lines, target-specific severity,
+        framework, language, toolchain and effort. That is not Claude “understanding the repo” from scratch.
+      </p>
+      <code>source → AppCAT → typed incidents</code>
+    </article>
+
+    <article class="step" data-step="2">
+      <p class="eyebrow">04 / Domain knowledge enters</p>
+      <h2>Facts only matter because the domain knows what they mean.</h2>
+      <p>
+        “Windows Authentication detected” becomes actionable because compatibility knowledge says which targets support it,
+        which migrations are legal, and which constraints apply. Modernize combines these findings with rulebooks and supported patterns.
+      </p>
+      <code>typed facts + domain rules + policy → candidate work</code>
+    </article>
+
+    <article class="step" data-step="3">
+      <p class="eyebrow">05 / Where the big model earns its keep</p>
+      <h2>The LLM bridges typed machinery and messy intent.</h2>
+      <p>
+        Planning still has to reconcile human language, repository specifics, business constraints and gaps in the recipe catalog.
+        This is exactly where a large model is useful — not because every step is fuzzy, but because some are.
+      </p>
+      <code>human intent ↔ planner ↔ tasks.json</code>
+    </article>
+
+    <article class="step" data-step="4">
+      <p class="eyebrow">06 / Ground truth returns</p>
+      <h2>The compiler gets the final vote.</h2>
+      <p>
+        Specialist executors may generate or transform code, but builds, tests, scanners and deployment checks verify the result.
+        Probabilistic work is enclosed by deterministic evidence.
+      </p>
+      <code>execute → build → test → scan → evidence</code>
+    </article>
+
+    <article class="step" data-step="5">
+      <p class="eyebrow">07 / Reframe</p>
+      <h2>The architectural question becomes an ownership question.</h2>
+      <p>
+        Microsoft can afford to encode .NET expertise deeply — and has every incentive to guide modernization toward its own stack.
+        But for Java, Python, Kubernetes or databases, should the executable domain layer belong to one agent vendor?
+      </p>
+      <code>who owns the machine-readable truth?</code>
+    </article>
+
+    <article class="step" data-step="6">
+      <p class="eyebrow">08 / The open alternative</p>
+      <h2>Package the domain. Let agents consume it.</h2>
+      <p>
+        OpenRewrite already shows the pattern: semantic trees and composable migration recipes maintained across communities.
+        The next abstraction is a portable contract that bundles observations, rules, transitions, recipes, validators and provenance.
+      </p>
+      <code>machine-executable domain package → any agent / harness</code>
+    </article>
+  </div>
+
+  <div class="stage-wrap" aria-hidden="true">
+    <div class="stage" data-step="0">
+      <div class="stage-grid"></div>
+      <div class="stage-meta"><span id="scene-label">SCENE A / COLLAPSED MODEL</span><span id="scene-state">state 00</span></div>
+
+      <div class="scene scene-blob" id="scene-blob">
+        <div class="agent-blob">
+          <div>
+            <strong>AGENT</strong>
+            <span>reasoning · tools · knowledge · planning · validation?</span>
+          </div>
+          <div class="orbit"></div>
+        </div>
+      </div>
+
+      <div class="scene scene-machine" id="scene-machine" aria-hidden="true">
+        <div class="machine">
+          <div class="input-col">
+            <div class="rail">
+              <div class="lane h"><span class="tag">human</span><span class="txt">goal + constraints</span></div>
+              <div class="lane d"><span class="tag">domain</span><span class="txt">rules + recipes</span></div>
+              <div class="lane t"><span class="tag">typed</span><span class="txt">facts + legal moves</span></div>
+              <div class="lane l"><span class="tag">LLM</span><span class="txt">ambiguity + synthesis</span></div>
+            </div>
+          </div>
+          <div class="core">
+            <div class="core-block">modernize harness</div>
+          </div>
+          <div class="output-col">
+            <div class="flow"></div><div class="pulse"></div>
+            <div class="output-box">
+              <span class="output-k" id="out-k">assessment</span>
+              <strong class="output-main" id="out-main">typed incidents</strong>
+              <span class="output-sub" id="out-sub">ruleId · file · line · target · severity · effort</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene scene-own" id="scene-own" aria-hidden="true">
+        <div class="ownership">
+          <div class="owner vendor">
+            <small>vendor-owned domain layer</small>
+            <h3>Modernize knows .NET because Microsoft encoded the domain.</h3>
+            <p>That is valuable. It is also directional: target catalogs, Azure patterns, migration guidance and policy live inside a vendor-shaped system.</p>
+          </div>
+          <div class="owner community">
+            <small>portable domain layer</small>
+            <h3>What if the knowledge travelled independently of the agent?</h3>
+            <div class="package-stack">
+              <div class="pkg"><span>community/java-core</span><span>facts + transitions</span></div>
+              <div class="pkg"><span>community/spring</span><span>recipes + validators</span></div>
+              <div class="pkg"><span>vendor/azure-java</span><span>target guidance</span></div>
+              <div class="pkg"><span>org/acme-policy</span><span>local constraints</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene scene-contract" id="scene-contract" aria-hidden="true">
+        <div class="contract">
+          <div>
+            <p class="mono" style="color:#79b6aa;margin-bottom:12px">machine-executable domain package</p>
+            <h3>The agent is a client of the domain.</h3>
+            <p>Stable expertise becomes versioned infrastructure. Models can change without taking the domain with them.</p>
+          </div>
+          <div class="codebox"><span class="c"># community/java-spring/domain.yaml</span>
+<span class="k">schema:</span> <span class="v">medp/v0</span>
+<span class="k">name:</span> <span class="v">community/java-spring</span>
+
+<span class="k">observe:</span>
+  - <span class="v">java.version</span>
+  - <span class="v">spring.version</span>
+  - <span class="v">api.usage</span>
+
+<span class="k">transitions:</span>
+  - <span class="v">spring-2-to-3</span>
+  - <span class="v">javax-to-jakarta</span>
+
+<span class="k">validate:</span>
+  - <span class="v">compile</span>
+  - <span class="v">tests</span>
+
+<span class="k">provenance:</span> <span class="v">community-maintained</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="evidence">
+  <div class="shell">
+    <div class="evidence-head">
+      <div>
+        <p class="eyebrow">09 / Evidence from the morning</p>
+        <h2 style="font:500 clamp(42px,6vw,86px)/.95 var(--serif);letter-spacing:-.05em;margin:16px 0 0">The “AI assessment” was mostly not AI.</h2>
+      </div>
+      <div class="evidence-note">
+        <p>
+          The raw PhotoAlbum assessment identifies itself as <b>.NET AppCAT CLI</b>.
+          Its recorded analysis window is roughly one second. The report contains structured incidents,
+          exact locations, target-specific severity and effort. That is already a typed intermediate representation.
+        </p>
+        <p>
+          The multi-minute Modernize experience therefore includes orchestration, downloads, reporting and model-mediated work
+          around a very fast deterministic analyzer.
+        </p>
+      </div>
+    </div>
+    <div class="statline">
+      <div class="stat"><b>≈1s</b><span>raw AppCAT analysis</span></div>
+      <div class="stat"><b>2</b><span>projects detected</span></div>
+      <div class="stat"><b>8</b><span>issue types</span></div>
+      <div class="stat"><b>28</b><span>typed incidents</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section shell" id="value">
+  <div class="break">
+    <div>
+      <p class="eyebrow">10 / Where the value sits</p>
+      <h2>The expensive thing may be encoding the domain, not calling the model.</h2>
+    </div>
+    <div>
+      <p style="font-size:22px;line-height:1.4;margin:0 0 18px;max-width:38ch">
+        Modernize is evidence for both sides of the argument.
+      </p>
+      <p style="color:#514840;max-width:64ch;margin:0">
+        Heavy domain engineering buys repeatability, lower variance, policy, provenance and cheaper runtime decisions.
+        General models buy breadth and lower setup cost. The design problem is finding the break-even point.
+      </p>
+      <div class="spectrum">
+        <div class="row domain-r"><b>Domain package</b><p>Compatibility tables, framework migration knowledge, known recipes.</p><em>encode once</em></div>
+        <div class="row typed-r"><b>Semantic compiler</b><p>Observe state, derive legal moves, order dependencies, reject impossible paths.</p><em>cheap repeat</em></div>
+        <div class="row llm-r"><b>Large LLM</b><p>Resolve ambiguity, synthesize unsupported changes, combine incomplete context.</p><em>rent flexibility</em></div>
+        <div class="row human-r"><b>Human</b><p>Supply goals, policy, exceptions, risk appetite and meaning.</p><em>authority</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section shell">
+  <div class="break">
+    <div>
+      <p class="eyebrow">11 / The critique</p>
+      <h2>Closed knowledge is useful — until it becomes the only machine-readable knowledge.</h2>
+    </div>
+    <div>
+      <div class="ruleband" style="margin-top:0">
+        <div><b>Domain truth</b><p>“Spring API X is incompatible with Spring 3.” This belongs close to the community/upstream.</p></div>
+        <div><b>Vendor guidance</b><p>“For Azure, migrate X to service Y.” Valuable, but explicitly vendor-scoped.</p></div>
+        <div><b>Organization policy</b><p>“Use PostgreSQL; no public endpoints.” Local authority, versioned separately.</p></div>
+        <div><b>Agent judgment</b><p>“Given these constraints, choose path B.” Probabilistic and reviewable.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final shell">
+  <div>
+    <p class="eyebrow">12 / Thesis</p>
+    <blockquote>Compile the domain.<br>Rent the intelligence.</blockquote>
+    <p>Build software with LLMs — not software out of LLMs.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot shell">
+  <p>
+    Design approach: editorial rather than SaaS; one fixed scene with state accumulation, followed by one reframe into ownership.
+    Continuity anchor: the same modernization “decision object” persists while its representation changes.
+  </p>
+  <p>
+    Sources: Microsoft GitHub Copilot Modernization docs and repo; this morning’s PhotoAlbum AppCAT report;
+    OpenRewrite concepts/community recipes. Visual doctrine informed by blackmath88/webcraft, blackmath88/colors and blackmath88/scrollytelling.
+  </p>
+</footer>
+
+<script>
+const stage = document.querySelector('.stage');
+const steps = [...document.querySelectorAll('.step')];
+const label = document.getElementById('scene-label');
+const state = document.getElementById('scene-state');
+const scenes = {
+  blob: document.getElementById('scene-blob'),
+  machine: document.getElementById('scene-machine'),
+  own: document.getElementById('scene-own'),
+  contract: document.getElementById('scene-contract')
+};
+const outK = document.getElementById('out-k');
+const outMain = document.getElementById('out-main');
+const outSub = document.getElementById('out-sub');
+
+const outputs = {
+  1:['assessment','typed incidents','ruleId · file · line · target · severity · effort'],
+  2:['planning substrate','legal modernization work','facts + domain rules + policy'],
+  3:['agent-mediated plan','tasks.json','bounded ambiguity becomes executable work'],
+  4:['verification','evidence','build · test · scan · deployment checks']
+};
+
+function showScene(name){
+  Object.entries(scenes).forEach(([k,el])=>el.setAttribute('aria-hidden', k===name ? 'false':'true'));
+}
+function setStep(i){
+  steps.forEach((s,n)=>s.classList.toggle('is-active',n===i));
+  stage.dataset.step=String(i);
+  if(i===0){
+    showScene('blob'); label.textContent='SCENE A / COLLAPSED MODEL'; state.textContent='state 00';
+  }else if(i<=4){
+    showScene('machine'); label.textContent='SCENE A / DECOMPOSED SYSTEM'; state.textContent=`state 0${i}`;
+    const o=outputs[i]; outK.textContent=o[0];outMain.textContent=o[1];outSub.textContent=o[2];
+  }else if(i===5){
+    showScene('own');label.textContent='SCENE B / OWNERSHIP';state.textContent='reframe';
+  }else{
+    showScene('contract');label.textContent='SCENE C / PORTABLE DOMAIN';state.textContent='package';
+  }
+}
+const obs=new IntersectionObserver(entries=>{
+  const v=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+  if(v) setStep(Number(v.target.dataset.step));
+},{rootMargin:'-34% 0px -34% 0px',threshold:[0,.15,.35,.6,.85]});
+steps.forEach(s=>obs.observe(s));
+setStep(0);
+</script>
+</body>
+</html>

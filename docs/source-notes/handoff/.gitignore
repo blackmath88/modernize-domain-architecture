@@ -1,0 +1,16 @@
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+secrets/
+credentials/
+.azure/
+.github/copilot/credentials*
+
+# Local/editor
+.DS_Store
+.vscode/settings.json
+
+# Generated/raw temp
+tmp/
