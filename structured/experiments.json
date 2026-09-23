@@ -1,18 +1,98 @@
 {
   "schema_version": "1.0.0",
   "shared_input": {
-    "application": null,
-    "source_repository": null,
-    "source_commit": null,
+    "application": "PhotoAlbum-Java",
+    "source_repository": "https://github.com/Azure-Samples/PhotoAlbum-Java.git",
+    "source_commit": "0d5a4c47fa229c48bd99c625c69f80af5096a091",
+    "modernize_version": "1.0.74+2ef08a34f9dd25079a0528c9f99c6ea8b25de6c6",
+    "model_selector": "auto",
+    "assessment": "experiments/provider-boundary/raw/shared-assessment/",
     "control_requirement": "Use the same clean source revision and tool versions for every run."
   },
   "experiments": [
-    {"id": "A", "intent": "language/framework upgrade only", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null},
-    {"id": "B", "intent": "modernize without cloud target", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null},
-    {"id": "C", "intent": "modernize for cloud, provider unspecified", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null},
-    {"id": "D", "intent": "modernize for Azure", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null},
-    {"id": "E", "intent": "explicitly provider-neutral modernization", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null},
-    {"id": "F", "intent": "modernize for AWS", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null},
-    {"id": "G", "intent": "preserve current hosting and deployment", "status": "planned", "input": {}, "artifacts": [], "observations": [], "provider_assumptions": [], "llm_decisions": [], "deterministic_decisions": [], "conclusion": null}
+    {
+      "id": "A",
+      "intent": "language/framework upgrade only",
+      "status": "blocked",
+      "input": {"prompt": "Upgrade the Java language and Spring Boot framework only. Do not migrate cloud services, change hosting, containerize, or deploy."},
+      "artifacts": ["experiments/provider-boundary/raw/run-A/"],
+      "observations": ["create-modernization-plan was selected", "Copilot monthly quota was exceeded", "The process exited 0 and printed success", "No plan.md or tasks.json was produced"],
+      "provider_assumptions": [],
+      "llm_decisions": [],
+      "deterministic_decisions": [],
+      "conclusion": "Planning behavior is inconclusive because the run was blocked before artifact generation."
+    },
+    {
+      "id": "B",
+      "intent": "modernize without cloud target",
+      "status": "blocked",
+      "input": {"prompt": "Modernize this application without selecting or migrating to any cloud provider. Do not add cloud services, containerization, infrastructure, or deployment."},
+      "artifacts": ["experiments/provider-boundary/raw/run-B/"],
+      "observations": ["create-modernization-plan was selected", "Copilot monthly quota was exceeded", "The process exited 0 and printed success", "No plan.md or tasks.json was produced"],
+      "provider_assumptions": [],
+      "llm_decisions": [],
+      "deterministic_decisions": [],
+      "conclusion": "Planning behavior is inconclusive because the run was blocked before artifact generation."
+    },
+    {
+      "id": "C",
+      "intent": "modernize for cloud, provider unspecified",
+      "status": "blocked",
+      "input": {"prompt": "Modernize this application for cloud deployment. No cloud provider has been selected. Do not assume or choose a provider; identify any decision that requires one."},
+      "artifacts": ["experiments/provider-boundary/raw/run-C/"],
+      "observations": ["create-modernization-plan was selected", "Copilot monthly quota was exceeded", "The process exited 0 and printed success", "No plan.md or tasks.json was produced"],
+      "provider_assumptions": [],
+      "llm_decisions": [],
+      "deterministic_decisions": [],
+      "conclusion": "Planning behavior is inconclusive because the run was blocked before artifact generation."
+    },
+    {
+      "id": "D",
+      "intent": "modernize for Azure",
+      "status": "blocked",
+      "input": {"prompt": "Modernize this application for Azure."},
+      "artifacts": ["experiments/provider-boundary/raw/run-D/"],
+      "observations": ["create-modernization-plan was selected", "Copilot monthly quota was exceeded", "The process exited 0 and printed success", "No plan.md or tasks.json was produced"],
+      "provider_assumptions": [],
+      "llm_decisions": [],
+      "deterministic_decisions": [],
+      "conclusion": "Planning behavior is inconclusive because the run was blocked before artifact generation."
+    },
+    {
+      "id": "E",
+      "intent": "explicitly provider-neutral modernization",
+      "status": "blocked",
+      "input": {"prompt": "Modernize this application while keeping all outputs provider-neutral and portable across Azure, AWS, and GCP. Do not select provider-specific services."},
+      "artifacts": ["experiments/provider-boundary/raw/run-E/"],
+      "observations": ["create-modernization-plan was selected", "Copilot monthly quota was exceeded", "The process exited 0 and printed success", "No plan.md or tasks.json was produced"],
+      "provider_assumptions": [],
+      "llm_decisions": [],
+      "deterministic_decisions": [],
+      "conclusion": "Planning behavior is inconclusive because the run was blocked before artifact generation."
+    },
+    {
+      "id": "F",
+      "intent": "modernize for AWS",
+      "status": "blocked",
+      "input": {"prompt": "Modernize this application for AWS. Preserve AWS as the target provider and do not substitute Azure services."},
+      "artifacts": ["experiments/provider-boundary/raw/run-F/"],
+      "observations": ["create-modernization-plan was selected", "Copilot monthly quota was exceeded", "The process exited 0 and printed success", "No plan.md or tasks.json was produced"],
+      "provider_assumptions": [],
+      "llm_decisions": [],
+      "deterministic_decisions": [],
+      "conclusion": "Planning behavior is inconclusive because the run was blocked before artifact generation."
+    },
+    {
+      "id": "G",
+      "intent": "preserve current hosting and deployment",
+      "status": "blocked",
+      "input": {"prompt": "Modernize the application code while preserving its current hosting and deployment model. Do not introduce cloud migration, containerization, infrastructure, or deployment changes."},
+      "artifacts": ["experiments/provider-boundary/raw/run-G/"],
+      "observations": ["create-modernization-plan was selected", "Copilot monthly quota was exceeded", "The process exited 0 and printed success", "No plan.md or tasks.json was produced"],
+      "provider_assumptions": [],
+      "llm_decisions": [],
+      "deterministic_decisions": [],
+      "conclusion": "Planning behavior is inconclusive because the run was blocked before artifact generation."
+    }
   ]
 }
