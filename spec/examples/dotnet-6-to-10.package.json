@@ -1,0 +1,189 @@
+{
+  "$schema": "../medp.schema.json",
+  "medp_version": "0",
+  "package": {
+    "id": "community/dotnet-6-to-10",
+    "name": ".NET 6 to .NET 10 software modernization",
+    "version": "0.1.0",
+    "kind": "software",
+    "knowledge_scope": "community",
+    "summary": "Describes shared source-upgrade behavior for a .NET 6 application before any target-specific deployment package is chosen.",
+    "publisher": {
+      "name": "Community .NET modernization maintainers",
+      "scope": "community"
+    },
+    "license": "MIT"
+  },
+  "native_artifacts": [
+    {
+      "id": "rewrite-recipes",
+      "kind": "openrewrite_recipe",
+      "location": "https://example.org/openrewrite/dotnet-6-to-10.yml",
+      "integrity": "sha256:0123456789abcdef0123456789abcdef",
+      "notes": "Native rewrite logic remains outside MEDP."
+    },
+    {
+      "id": "dotnet-build-cli",
+      "kind": "cli",
+      "location": "dotnet build",
+      "notes": "Representative build command surface."
+    },
+    {
+      "id": "dotnet-test-cli",
+      "kind": "cli",
+      "location": "dotnet test",
+      "notes": "Representative deterministic test command surface."
+    }
+  ],
+  "interfaces": [
+    {
+      "kind": "cli",
+      "target": "rewrite run --recipe Dotnet6To10",
+      "contract_ref": "rewrite-recipes"
+    },
+    {
+      "kind": "cli",
+      "target": "dotnet build",
+      "contract_ref": "dotnet-build-cli"
+    },
+    {
+      "kind": "cli",
+      "target": "dotnet test",
+      "contract_ref": "dotnet-test-cli"
+    }
+  ],
+  "observations": {
+    "required": [
+      "source.tree",
+      "dotnet.project",
+      "dotnet.target-framework",
+      "package.inventory"
+    ],
+    "optional": [
+      "test.baseline",
+      "deployment.current-hosting"
+    ],
+    "missing_behavior": "blocked"
+  },
+  "expected_user_inputs": [
+    {
+      "id": "target-framework",
+      "description": "Requested destination runtime version.",
+      "required": true
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "upgrade-source-to-net10",
+      "kind": "transform",
+      "summary": "Applies source and dependency updates needed for a supported .NET 6 to .NET 10 modernization path.",
+      "native_refs": [
+        "rewrite-recipes"
+      ],
+      "effects": [
+        "source_edit",
+        "dependency_change"
+      ],
+      "requires_observations": [
+        "dotnet.project",
+        "dotnet.target-framework",
+        "package.inventory"
+      ],
+      "unsupported_cases": [
+        "Observed project type is outside the native recipe set.",
+        "Required engine or SDK versions are unavailable."
+      ],
+      "required_rights": [
+        "choose",
+        "authorize_change",
+        "execute"
+      ],
+      "validator_refs": [
+        "post-upgrade-build",
+        "post-upgrade-tests"
+      ]
+    }
+  ],
+  "validation": [
+    {
+      "id": "post-upgrade-build",
+      "kind": "build",
+      "summary": "Build must succeed after the rewrite.",
+      "native_refs": [
+        "dotnet-build-cli"
+      ],
+      "result_states": [
+        "pass",
+        "fail",
+        "error",
+        "not_run"
+      ]
+    },
+    {
+      "id": "post-upgrade-tests",
+      "kind": "test",
+      "summary": "Existing deterministic tests should be re-run after the rewrite.",
+      "native_refs": [
+        "dotnet-test-cli"
+      ],
+      "result_states": [
+        "pass",
+        "fail",
+        "error",
+        "skipped",
+        "not_run"
+      ]
+    }
+  ],
+  "dependencies": {
+    "packages": [
+      {
+        "id": "organization/acme-modernization-policy",
+        "version_range": "^1.0.0",
+        "reason": "Local policy may allow or deny deployment-specific follow-on actions separately from the shared source upgrade."
+      }
+    ],
+    "engines": [
+      {
+        "name": "openrewrite",
+        "version_range": ">=8.30.0 <9.0.0",
+        "role": "transform"
+      },
+      {
+        "name": "dotnet-sdk",
+        "version_range": ">=10.0.100",
+        "role": "validation"
+      }
+    ]
+  },
+  "authority": {
+    "self_authorizing": false,
+    "required_external_bindings": [
+      "user_intent",
+      "authority_profile",
+      "execution_gate"
+    ],
+    "notes": "This package can describe a supported upgrade path but cannot approve or execute it by itself."
+  },
+  "provenance": {
+    "sources": [
+      {
+        "name": "WS-03 executable domain precedents",
+        "uri": "../research/executable-domain-precedents.md",
+        "retrieved_on": "2026-09-23"
+      },
+      {
+        "name": "WS-06 authority model",
+        "uri": "../research/authority-model.md",
+        "retrieved_on": "2026-09-23"
+      }
+    ],
+    "artifacts": [
+      {
+        "name": "Dotnet6To10 rewrite recipe bundle",
+        "locator": "https://example.org/openrewrite/dotnet-6-to-10.yml",
+        "digest": "sha256:0123456789abcdef0123456789abcdef"
+      }
+    ]
+  }
+}

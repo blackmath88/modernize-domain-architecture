@@ -1,0 +1,154 @@
+{
+  "$schema": "../medp.schema.json",
+  "medp_version": "0",
+  "package": {
+    "id": "provider/azure-container-apps",
+    "name": "Azure Container Apps deployment package",
+    "version": "0.1.0",
+    "kind": "deployment",
+    "knowledge_scope": "provider",
+    "summary": "Provider-specific deployment planning and validation guidance for Azure Container Apps.",
+    "publisher": {
+      "name": "Azure deployment specialists",
+      "scope": "provider"
+    }
+  },
+  "native_artifacts": [
+    {
+      "id": "aca-plan-docs",
+      "kind": "document",
+      "location": "https://example.org/azure/container-apps-plan"
+    },
+    {
+      "id": "az-cli",
+      "kind": "cli",
+      "location": "az containerapp"
+    }
+  ],
+  "interfaces": [
+    {
+      "kind": "cli",
+      "target": "az containerapp up --help",
+      "contract_ref": "az-cli"
+    }
+  ],
+  "observations": {
+    "required": [
+      "deployment.target",
+      "containerization.readiness",
+      "secrets.plan",
+      "telemetry.plan"
+    ],
+    "optional": [
+      "network.requirements"
+    ],
+    "missing_behavior": "blocked"
+  },
+  "expected_user_inputs": [
+    {
+      "id": "azure-subscription",
+      "description": "Azure subscription or tenant scope selected by the local user.",
+      "required": true
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "plan-azure-container-apps-target",
+      "kind": "plan",
+      "summary": "Produces an Azure Container Apps deployment plan using provider-specific capabilities and constraints.",
+      "native_refs": [
+        "aca-plan-docs",
+        "az-cli"
+      ],
+      "effects": [
+        "deployment_plan",
+        "configuration_edit",
+        "report_only"
+      ],
+      "requires_observations": [
+        "deployment.target",
+        "containerization.readiness",
+        "secrets.plan",
+        "telemetry.plan"
+      ],
+      "unsupported_cases": [
+        "The workload requires provider features not mapped by this package.",
+        "Containerization readiness has not been established."
+      ],
+      "required_rights": [
+        "choose",
+        "authorize_change"
+      ],
+      "validator_refs": [
+        "azure-plan-check"
+      ]
+    }
+  ],
+  "validation": [
+    {
+      "id": "azure-plan-check",
+      "kind": "runtime",
+      "summary": "Preserve deterministic evidence that the Azure deployment plan was rendered and checked.",
+      "native_refs": [
+        "az-cli"
+      ],
+      "result_states": [
+        "pass",
+        "fail",
+        "error",
+        "not_run",
+        "unknown"
+      ]
+    }
+  ],
+  "dependencies": {
+    "packages": [
+      {
+        "id": "organization/acme-modernization-policy",
+        "version_range": "^1.0.0",
+        "reason": "Local guardrails must be evaluated separately from provider capabilities."
+      },
+      {
+        "id": "community/dotnet-6-to-10",
+        "version_range": "^0.1.0",
+        "reason": "Shared source modernization should remain separate from deployment planning."
+      }
+    ],
+    "engines": [
+      {
+        "name": "azure-cli",
+        "version_range": ">=2.60.0",
+        "role": "execution"
+      }
+    ]
+  },
+  "authority": {
+    "self_authorizing": false,
+    "required_external_bindings": [
+      "user_intent",
+      "authority_profile",
+      "execution_gate"
+    ],
+    "notes": "Provider-specific planning does not authorize subscription changes or deployment execution."
+  },
+  "provenance": {
+    "sources": [
+      {
+        "name": "WS-03 executable domain precedents",
+        "uri": "../research/executable-domain-precedents.md",
+        "retrieved_on": "2026-09-23"
+      },
+      {
+        "name": "WS-12 generalization",
+        "uri": "../research/generalization.md",
+        "retrieved_on": "2026-09-23"
+      }
+    ],
+    "artifacts": [
+      {
+        "name": "Azure Container Apps deployment notes",
+        "locator": "https://example.org/azure/container-apps-plan"
+      }
+    ]
+  }
+}

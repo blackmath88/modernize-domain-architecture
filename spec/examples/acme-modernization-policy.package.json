@@ -1,0 +1,150 @@
+{
+  "$schema": "../medp.schema.json",
+  "medp_version": "0",
+  "package": {
+    "id": "organization/acme-modernization-policy",
+    "name": "Acme modernization guardrails",
+    "version": "1.0.0",
+    "kind": "organization_policy",
+    "knowledge_scope": "organization",
+    "summary": "Organization-owned policy constraints for modernization runs.",
+    "publisher": {
+      "name": "Acme architecture and security",
+      "scope": "organization"
+    }
+  },
+  "native_artifacts": [
+    {
+      "id": "acme-opa-bundle",
+      "kind": "rego_bundle",
+      "location": "oci://example.org/acme/modernization-policy:1.0.0",
+      "integrity": "sha256:11111111111111111111111111111111"
+    },
+    {
+      "id": "opa-cli",
+      "kind": "cli",
+      "location": "opa eval"
+    }
+  ],
+  "interfaces": [
+    {
+      "kind": "cli",
+      "target": "opa eval --bundle ./policy 'data.modernize.allow'",
+      "contract_ref": "acme-opa-bundle"
+    },
+    {
+      "kind": "cli",
+      "target": "opa eval --bundle ./policy 'data.modernize.required_checks'",
+      "contract_ref": "opa-cli"
+    }
+  ],
+  "observations": {
+    "required": [
+      "deployment.target",
+      "secrets.plan",
+      "telemetry.plan",
+      "database.exposure"
+    ],
+    "optional": [
+      "exception.request"
+    ],
+    "missing_behavior": "blocked"
+  },
+  "expected_user_inputs": [
+    {
+      "id": "selected-target",
+      "description": "Deployment target chosen by the local decision owner.",
+      "required": true
+    },
+    {
+      "id": "exception-ticket",
+      "description": "Optional exception request identifier for a separately governed workflow.",
+      "required": false
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "evaluate-acme-modernization-policy",
+      "kind": "policy",
+      "summary": "Evaluates whether a proposed modernization path satisfies Acme guardrails.",
+      "native_refs": [
+        "acme-opa-bundle",
+        "opa-cli"
+      ],
+      "effects": [
+        "policy_decision",
+        "report_only"
+      ],
+      "requires_observations": [
+        "deployment.target",
+        "secrets.plan",
+        "telemetry.plan",
+        "database.exposure"
+      ],
+      "unsupported_cases": [
+        "The selected deployment target has no mapped organization policy input contract."
+      ],
+      "required_rights": [
+        "evaluate_policy"
+      ],
+      "validator_refs": [
+        "policy-decision-recorded"
+      ]
+    }
+  ],
+  "validation": [
+    {
+      "id": "policy-decision-recorded",
+      "kind": "policy",
+      "summary": "A policy decision must be preserved with its revision and outcome state.",
+      "native_refs": [
+        "opa-cli"
+      ],
+      "result_states": [
+        "pass",
+        "fail",
+        "error",
+        "unknown"
+      ]
+    }
+  ],
+  "dependencies": {
+    "packages": [],
+    "engines": [
+      {
+        "name": "opa",
+        "version_range": ">=1.0.0",
+        "role": "policy"
+      }
+    ]
+  },
+  "authority": {
+    "self_authorizing": false,
+    "required_external_bindings": [
+      "authority_profile",
+      "policy_engine"
+    ],
+    "notes": "This package evaluates organization policy but does not grant exceptions or approvals."
+  },
+  "provenance": {
+    "sources": [
+      {
+        "name": "WS-06 authority model",
+        "uri": "../research/authority-model.md",
+        "retrieved_on": "2026-09-23"
+      },
+      {
+        "name": "WS-12 generalization",
+        "uri": "../research/generalization.md",
+        "retrieved_on": "2026-09-23"
+      }
+    ],
+    "artifacts": [
+      {
+        "name": "Acme modernization policy bundle",
+        "locator": "oci://example.org/acme/modernization-policy:1.0.0",
+        "digest": "sha256:11111111111111111111111111111111"
+      }
+    ]
+  }
+}

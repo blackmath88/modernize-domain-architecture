@@ -1,0 +1,95 @@
+{
+  "$schema": "../medp.schema.json",
+  "medp_version": "0",
+  "package": {
+    "id": "provider/invalid-self-authorizing",
+    "name": "Invalid self-authorizing package",
+    "version": "0.1.0",
+    "kind": "deployment",
+    "knowledge_scope": "provider",
+    "summary": "Intentionally invalid example: packages cannot self-authorize.",
+    "publisher": {
+      "name": "Example publisher",
+      "scope": "provider"
+    }
+  },
+  "native_artifacts": [
+    {
+      "id": "invalid-doc",
+      "kind": "document",
+      "location": "https://example.org/invalid"
+    }
+  ],
+  "interfaces": [
+    {
+      "kind": "file",
+      "target": "invalid.txt",
+      "contract_ref": "invalid-doc"
+    }
+  ],
+  "observations": {
+    "required": [
+      "deployment.target"
+    ],
+    "optional": [],
+    "missing_behavior": "blocked"
+  },
+  "capabilities": [
+    {
+      "id": "invalid-capability",
+      "kind": "plan",
+      "summary": "Intentionally invalid because authority is wrong.",
+      "native_refs": [
+        "invalid-doc"
+      ],
+      "effects": [
+        "deployment_plan"
+      ],
+      "requires_observations": [
+        "deployment.target"
+      ],
+      "unsupported_cases": [],
+      "required_rights": [
+        "authorize_change"
+      ],
+      "validator_refs": [
+        "invalid-validation"
+      ]
+    }
+  ],
+  "validation": [
+    {
+      "id": "invalid-validation",
+      "kind": "other",
+      "summary": "Placeholder validation entry.",
+      "native_refs": [
+        "invalid-doc"
+      ],
+      "result_states": [
+        "pass",
+        "fail"
+      ]
+    }
+  ],
+  "dependencies": {
+    "packages": [],
+    "engines": []
+  },
+  "authority": {
+    "self_authorizing": true,
+    "required_external_bindings": [
+      "execution_gate"
+    ],
+    "notes": "This should fail schema validation."
+  },
+  "provenance": {
+    "sources": [
+      {
+        "name": "Invalid example source",
+        "uri": "https://example.org/invalid-source",
+        "retrieved_on": "2026-09-23"
+      }
+    ],
+    "artifacts": []
+  }
+}
