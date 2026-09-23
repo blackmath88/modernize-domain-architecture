@@ -6,6 +6,8 @@
 
 The controlled assessment completed. Planning runs A-G were executed but are classified `blocked` because Copilot quota exhaustion prevented every plan artifact. No plan was executed.
 
+Pull request: <https://github.com/blackmath88/modernize-domain-architecture/pull/2>
+
 ## WHAT I DID
 
 - Pinned a clean PhotoAlbum-Java revision and recorded Modernize, Copilot CLI, and model versions.
