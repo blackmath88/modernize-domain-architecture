@@ -1,0 +1,452 @@
+{
+  "schema_version": "1.0",
+  "workstream": "WS-08",
+  "title": "Product value over public and executable technical knowledge",
+  "retrieved_on": "2026-09-23",
+  "method": {
+    "unit": "A named product offer, not a whole-company analogy.",
+    "evidence": "Primary licensing, billing and technical documentation. Published offers are DOCUMENTED, not observed purchases or demonstrated outcomes.",
+    "analysis": "Buyers and value mechanisms are INFERRED; defensibility and proposed tests are HYPOTHESIS.",
+    "scope_limit": "No product execution, buyer interviews, contracts, comparative benchmarks or feature-level revenue data were obtained.",
+    "license_limit": "Public source, free usage, open licenses, public standards and customer-private data are distinct. Licenses are bounded to the named artifact, not its entire ecosystem.",
+    "source_limit": "External pages are mutable retrieval snapshots, not archived raw evidence. Source locators identify the inspected sections; no current price or tier is guaranteed.",
+    "attributed_revenue_semantics": "null means no revenue attributable to this comparison unit or mechanism was established."
+  },
+  "cases": [
+    {
+      "id": "GH",
+      "company": "GitHub",
+      "category": "GitHub",
+      "comparison_unit": "Actions hosted execution and deployment controls",
+      "documented": {
+        "claim_type": "DOCUMENTED",
+        "substrate": "MIT-licensed Actions runner; users supply workflow and build logic.",
+        "commercial_layer": "GitHub-hosted execution, storage and repository-integrated control plane.",
+        "paid_offer": "Private repository usage above included allowances is billed; standard hosted runners for public repositories and self-hosted runner usage are free under the inspected billing documentation.",
+        "meter": "Runner minutes and storage usage; repository owner pays. Failed runs still consume time.",
+        "capability": "Environment protection can gate jobs and secrets on approval; required reviewers on Free, Pro and Team are limited to public repositories.",
+        "caveat": "Open runner code does not license the GitHub service. Self-hosted usage being free does not make machines or operations free. One listed reviewer suffices; approval is not correctness.",
+        "source_ids": ["GH1", "GH2", "GH3"]
+      },
+      "analysis": {
+        "claim_type": "INFERRED",
+        "buyer": "Engineering/platform team already operating repositories on GitHub.",
+        "mechanism": "Remove executor operations and connect code changes, permissions and review in an existing workflow.",
+        "similarity": "A modernization recipe can remain public while reliable execution and review are separately supplied.",
+        "disanalogy": "CI is recurrent general-purpose infrastructure, not a migration-knowledge product; billed time rewards consumption rather than accepted outcomes.",
+        "proprietary_domain_knowledge": "not_required_for_this_mechanism",
+        "knowledge_reason": "The meter applies to execution of customer-selected logic, not exclusive migration rules.",
+        "other_dependencies": "Operated service, identity/repository integration and customer workflow state.",
+        "defensibility": {"claim_type": "HYPOTHESIS", "thesis": "Installed workflow and identity integration make replacement costly.", "failure": "Equivalent self-hosted or competing CI plus portable workflows is cheaper after operations cost."}
+      },
+      "attributed_revenue": null
+    },
+    {
+      "id": "TF",
+      "company": "HashiCorp / IBM",
+      "category": "HashiCorp",
+      "comparison_unit": "HCP Terraform resource management and governance subscriptions",
+      "documented": {
+        "claim_type": "DOCUMENTED",
+        "substrate": "Terraform configurations and provider interfaces; the inspected AWS provider is MPL-2.0.",
+        "commercial_layer": "Shared execution, state-aware resource management, concurrency and higher-tier governance.",
+        "paid_offer": "Free resource allowance, Essentials pay-as-you-go and sales-led Standard/Premium plans; Premium documents audit logging and custom RBAC.",
+        "meter": "Managed-resource hours with monthly billing for pay-as-you-go; committed/custom contracts also documented.",
+        "capability": "Execution, VCS integration and private module registry are available in Free as well as paid plans.",
+        "caveat": "Current Terraform core license covers version 1.6.0 onward under BSL, with a competitive-use restriction and later MPL change date; it is not a clean all-OSS example. Overview prose says Free includes SSO and policy enforcement while tables withhold them; SSO tables also disagree on Essentials. Exact disputed entitlements remain unresolved and are not used as conclusions.",
+        "source_ids": ["TF1", "TF2", "TF3"]
+      },
+      "analysis": {
+        "claim_type": "INFERRED",
+        "buyer": "Platform/infra team coordinating shared infrastructure and audit requirements.",
+        "mechanism": "Centralize execution and operational state across teams, with priced capacity and control.",
+        "similarity": "A domain-aware control plane can add value above reusable modules or recipes.",
+        "disanalogy": "Terraform manages continuing desired state and drift; one-off migration has no equivalent resource-hour recurrence. Licensing also limits competitive reuse.",
+        "proprietary_domain_knowledge": "not_required_for_this_mechanism",
+        "knowledge_reason": "Coordinating state, permission and execution does not require exclusive infrastructure recipes.",
+        "other_dependencies": "Stateful commercial control plane, customer state, identity integration and maintenance.",
+        "defensibility": {"claim_type": "HYPOTHESIS", "thesis": "Operational history and team controls create durable integration value.", "failure": "Native CI, alternative state/control services or open alternatives meet the same controls more cheaply."}
+      },
+      "attributed_revenue": null
+    },
+    {
+      "id": "SN",
+      "company": "Snyk",
+      "category": "Snyk",
+      "comparison_unit": "Snyk Open Source analysis within paid Team/Platform offers",
+      "documented": {
+        "claim_type": "DOCUMENTED",
+        "substrate": "Apache-2.0 CLI and publicly inspectable advisories; some findings originate in public databases and package repositories.",
+        "commercial_layer": "Dependency analysis, maintained vulnerability intelligence, fix workflows, reporting and company license policy.",
+        "paid_offer": "Team monthly subscription with increased test limits, Jira integration and support; Enterprise Platform prepaid credits usable across capabilities.",
+        "meter": "Current Enterprise rate card meters Open Source per Active Contributor per Day; Team has a monthly subscription and product limits. Do not substitute older per-developer-month pricing.",
+        "capability": "Dependency and indirect-dependency risk analysis with remediation/PR workflows. Snyk documents its own vulnerability research and advisory maintenance.",
+        "caveat": "Snyk Open Source is a product name, not a service license. Public advisories do not prove open redistribution rights or that enrichment is reproducible. Vendor accuracy claims are not measured false-positive rates.",
+        "source_ids": ["SN1", "SN2", "SN3", "SN4"]
+      },
+      "analysis": {
+        "claim_type": "INFERRED",
+        "buyer": "Application-security lead purchasing organization-wide developer coverage.",
+        "mechanism": "Turn changing dependency facts into prioritized, maintained developer actions.",
+        "similarity": "Versioned technical knowledge plus integration can reduce repeated expert investigation.",
+        "disanalogy": "Threat intelligence changes continuously and may contain differentiated research; a stable published migration rule may not.",
+        "proprietary_domain_knowledge": "mixed",
+        "knowledge_reason": "Workflow needs no exclusive facts, but Snyk explicitly combines public inputs with proprietary research. Its incremental contribution is unmeasured.",
+        "other_dependencies": "Scanning implementation, continuous curation, dependency context and developer integration.",
+        "defensibility": {"claim_type": "HYPOTHESIS", "thesis": "Timely enrichment plus low-friction fixes justifies coverage fees.", "failure": "Public databases and native scanners deliver equivalent actionable accuracy; alert burden outweighs benefit."}
+      },
+      "attributed_revenue": null
+    },
+    {
+      "id": "SO",
+      "company": "Sonar",
+      "category": "Sonar",
+      "comparison_unit": "SonarQube Cloud private analysis and enterprise administration",
+      "documented": {
+        "claim_type": "DOCUMENTED",
+        "substrate": "Public analyzer source and inspectable analysis logic; inspected sonar-java master carries the Sonar Source-Available License, not an unrestricted OSS license.",
+        "commercial_layer": "Hosted private-code analysis capacity and enterprise-level administration/security.",
+        "paid_offer": "Free/OSS offers coexist with Team and Enterprise; larger private analysis allowances and enterprise audit logs/IP restrictions are documented.",
+        "meter": "Private lines-of-code allowance; Team monthly or coupon billing, Enterprise enterprise-level annual billing under one/multiyear licenses.",
+        "capability": "DevOps binding/import is not universally paid-only; enterprise hierarchy and audit functions are differentiated.",
+        "caveat": "Free OSS scanning does not establish open implementation. The billing introduction says organization-level billing for both tiers but its detailed Enterprise section says enterprise-level; this record follows the detailed section and preserves the inconsistency. Exact current contract terms were not inspected.",
+        "source_ids": ["SO1", "SO2", "SO3"]
+      },
+      "analysis": {
+        "claim_type": "INFERRED",
+        "buyer": "Engineering-quality/platform lead managing private-code review and organizational standards.",
+        "mechanism": "Make repeated quality evaluation and administration accessible at organization scale.",
+        "similarity": "Inspectable rules can coexist with paid evaluation capacity and governance.",
+        "disanalogy": "Recurring code analysis differs from migration acceptance; static findings do not demonstrate behavioral equivalence.",
+        "proprietary_domain_knowledge": "mixed",
+        "knowledge_reason": "Capacity and audit do not require exclusive rules, but analyzer implementation/license rights and differentiated analysis can be part of the paid value.",
+        "other_dependencies": "Analyzer implementation, private code context, hosting and organizational integration.",
+        "defensibility": {"claim_type": "HYPOTHESIS", "thesis": "Consistent analysis and integrated review reduce coordination costs.", "failure": "Native checks meet policy needs or low-signal gates add more review than they save."}
+      },
+      "attributed_revenue": null
+    },
+    {
+      "id": "DD",
+      "company": "Datadog",
+      "category": "Datadog",
+      "comparison_unit": "Metered infrastructure observability accepting OpenTelemetry",
+      "documented": {
+        "claim_type": "DOCUMENTED",
+        "substrate": "Standardized OpenTelemetry instrumentation and supported upstream-collector ingestion paths.",
+        "commercial_layer": "Hosted telemetry retention, correlation, visualization and alerting with service-specific features.",
+        "paid_offer": "Paid monitored infrastructure and custom metrics; historical metrics remain available for inactive hosts.",
+        "meter": "Hourly monitored host counts using the lower-99%-of-hours high-water mark; custom metric hours averaged for billing.",
+        "capability": "OpenTelemetry ingestion is supported; feature compatibility varies with SDK/collector choice.",
+        "caveat": "Open instrumentation does not make back-end features equivalent. Infrastructure billing must not be confused with incident-response seats or other product meters.",
+        "source_ids": ["DD1", "DD2", "DD3"]
+      },
+      "analysis": {
+        "claim_type": "INFERRED",
+        "buyer": "SRE/operations team responsible for live-system diagnosis.",
+        "mechanism": "Operate storage/query infrastructure and correlate a customer's otherwise fragmented live telemetry.",
+        "similarity": "Open inputs can feed a useful paid operational service.",
+        "disanalogy": "Live observability has recurring high-volume signals. Sparse, sensitive, heterogeneous migration outcomes do not automatically yield a transferable data advantage.",
+        "proprietary_domain_knowledge": "not_required_for_this_mechanism",
+        "knowledge_reason": "Customer-specific measurements and reliable analysis are not exclusive public-domain rules.",
+        "other_dependencies": "Private customer telemetry, hosted implementation and operations. Cross-customer reuse rights and learning effects are unknown.",
+        "defensibility": {"claim_type": "HYPOTHESIS", "thesis": "Operational history and integrated diagnosis make the service valuable.", "failure": "Retention economics, portability limits or an adequate alternative erase its net advantage; migration data proves too sparse to generalize."}
+      },
+      "attributed_revenue": null
+    },
+    {
+      "id": "DM",
+      "company": "AWS",
+      "category": "Cloud migration vendors",
+      "comparison_unit": "AWS DMS replication, schema conversion and data validation",
+      "documented": {
+        "claim_type": "DOCUMENTED",
+        "substrate": "Supported database interfaces, including open-source databases; the DMS engine and conversion knowledge are not established as open by these sources.",
+        "commercial_layer": "Managed data movement, replication capacity, storage and supported validation.",
+        "paid_offer": "Replication instances/additional log storage and serverless capacity are charged; Schema Conversion itself is free, while associated S3 storage is charged.",
+        "meter": "Instance/serverless capacity hours and storage; homogeneous migrations are hourly without replication instances.",
+        "capability": "Optional validation compares corresponding source/target rows and reports mismatches; it consumes additional resources and time. Unsupported/no-primary-key/error states are distinguished.",
+        "caveat": "Data-row checks are not whole-application equivalence. Supported endpoints and validation states constrain coverage. No zero-data-loss guarantee was independently verified.",
+        "source_ids": ["DM1", "DM2"]
+      },
+      "analysis": {
+        "claim_type": "INFERRED",
+        "buyer": "Database/platform migration owner with an execution deadline and data-integrity responsibility.",
+        "mechanism": "Charge for operated migration capacity rather than every planning or conversion step.",
+        "similarity": "Direct modernization activity with documented validation and a separated execution meter.",
+        "disanalogy": "Database replication is not source-code transformation; this is not proof of a fully open knowledge substrate.",
+        "proprietary_domain_knowledge": "unknown",
+        "knowledge_reason": "Conversion internals and exclusive knowledge contribution are not established; free conversion is not open conversion.",
+        "other_dependencies": "Managed infrastructure, database adapters and customer data access.",
+        "defensibility": {"claim_type": "HYPOTHESIS", "thesis": "Cloud distribution and operated data movement support a bundled migration offer.", "failure": "Native replication or specialist tools work better; cloud integration constrains choice. A downstream-cloud subsidy rationale remains inference, not disclosed economics."}
+      },
+      "attributed_revenue": null
+    },
+    {
+      "id": "MO",
+      "company": "Moderne",
+      "category": "Enterprise developer tools",
+      "comparison_unit": "Moderne platform/DX and private-repository CLI execution over OpenRewrite",
+      "documented": {
+        "claim_type": "DOCUMENTED",
+        "substrate": "Apache-2.0 OpenRewrite core with executable recipes; this core license does not cover every recipe or Moderne component.",
+        "commercial_layer": "Multi-repository execution using prebuilt lossless semantic trees, repository grouping, PR/report workflow and private/air-gapped delivery options.",
+        "paid_offer": "Enterprise customer/private tenant path; Connector and DX require signed contracts. CLI private-repository recipe execution requires a license; public-repository usage follows an authentication path without that license requirement.",
+        "meter": null,
+        "meter_limit": "Contract pricing basis was not established; do not infer per-seat, per-repo or outcome pricing.",
+        "capability": "CLI can sync recipe catalogs, download prebuilt LSTs and use organization repository groups. Documented license signature checking need not call home.",
+        "caveat": "Some Moderne-created analysis/transformation recipes carry a proprietary license. This is not exclusively open recipes plus hosting. Local/private delivery contradicts a requirement for centralized telemetry.",
+        "source_ids": ["MO1", "MO2", "MO3", "MO4", "MO5"]
+      },
+      "analysis": {
+        "claim_type": "INFERRED",
+        "buyer": "Platform/modernization lead coordinating code change across a private repository fleet.",
+        "mechanism": "Amortize parsing, dependency/context collection and rollout/review coordination across repositories.",
+        "similarity": "Closest comparison: reusable executable transformation knowledge beneath commercial multi-repository modernization.",
+        "disanalogy": "Typed semantic trees and native recipe execution are substantial specialized implementation; licensed recipes confound a pure workflow-only argument. This is an incumbent alternative to a new package layer.",
+        "proprietary_domain_knowledge": "mixed",
+        "knowledge_reason": "Open recipes can power execution, but the documented product also includes proprietary recipes; their relative value is unknown.",
+        "other_dependencies": "Semantic implementation, customer code/context, native recipe ecosystem and execution integration.",
+        "defensibility": {"claim_type": "HYPOTHESIS", "thesis": "Accurate semantic execution and fleet coordination outperform wrappers around single-repo tools.", "failure": "Native OpenRewrite plus existing CI and review performs equally well; maintenance or license costs exceed coordination savings."}
+      },
+      "attributed_revenue": null
+    },
+    {
+      "id": "RH",
+      "company": "Red Hat",
+      "category": "Red Hat",
+      "comparison_unit": "RHEL Server Standard/Premium physical or virtual subscriptions",
+      "documented": {
+        "claim_type": "DOCUMENTED",
+        "substrate": "Component-licensed software; the inspected GPLv2-based EULA preserves component rights with firmware/trademark qualifications. CentOS Stream public development sources are distinct from exact RHEL sources available through customer/partner portals.",
+        "commercial_layer": "Maintained release stream, patches, upgrades, lifecycle options, support and knowledge-base access.",
+        "paid_offer": "Software license alone supplies no maintenance, upgrade or support entitlement; subscription/service terms supply those. Self-support offerings exist outside the selected support tiers.",
+        "meter": "For these Server Standard/Premium offers: physical node up to two sockets or two virtual nodes per subscription; not a universal RHEL tariff.",
+        "capability": "Lifecycle maintenance and operational assistance are documented subscription inclusions.",
+        "caveat": "Exact supported-release reproducibility was not tested; public development source is not an exact release archive. Listed support is not an application-migration correctness guarantee.",
+        "source_ids": ["RH1", "RH2", "RH3"]
+      },
+      "analysis": {
+        "claim_type": "INFERRED",
+        "buyer": "Infrastructure/platform owner and enterprise procurement covering a production estate.",
+        "mechanism": "Purchase continuing release engineering and accountable assistance instead of assembling and maintaining it internally.",
+        "similarity": "Public recipes can coexist with paid updates, compatibility work and environment-specific support.",
+        "disanalogy": "An ongoing OS estate supports subscription recurrence; application-specific migrations may be episodic and need different acceptance criteria.",
+        "proprietary_domain_knowledge": "not_demonstrated_as_necessary",
+        "knowledge_reason": "Maintenance and support can be valuable without secret Linux concepts; incident expertise may differentiate but exclusivity is unverified.",
+        "other_dependencies": "Sustained engineering, support delivery, compatibility testing and customer environment context.",
+        "defensibility": {"claim_type": "HYPOTHESIS", "thesis": "Maintenance continuity and credible support justify estate coverage.", "failure": "Equivalent maintenance is available elsewhere or the supported lifecycle is unnecessary."}
+      },
+      "attributed_revenue": null
+    },
+    {
+      "id": "JB",
+      "company": "JetBrains",
+      "category": "JetBrains",
+      "comparison_unit": "Unified IntelliJ IDEA free functionality versus Ultimate subscription",
+      "documented": {
+        "claim_type": "DOCUMENTED",
+        "substrate": "Continued open-source build: Apache-2.0 software with third-party terms. Current build terms are distinct from the unified free/paid distribution.",
+        "commercial_layer": "Advanced framework-aware and integrated developer tooling within the same IDE.",
+        "paid_offer": "Since 2025.3 the unified distribution retains free core Java/Kotlin use and unlocks advanced Spring/JVM/data/profiling/HTTP capabilities with Ultimate. Some basic Spring and database features are free.",
+        "meter": null,
+        "meter_limit": "Feature subscription verified; exact billing-seat terms and rates were not established.",
+        "capability": "Open-source build lacks some features of the free unified distribution; paid plugins require non-open licensing infrastructure.",
+        "caveat": "Free is not identical to open. Eligible perpetual fallback licenses still apply to older versions. No source build or productivity evaluation was executed.",
+        "source_ids": ["JB1", "JB2", "JB3"]
+      },
+      "analysis": {
+        "claim_type": "INFERRED",
+        "buyer": "Professional JVM developer or engineering organization needing advanced integrated tooling.",
+        "mechanism": "Buy maintained implementation quality and interaction design over public language/framework concepts.",
+        "similarity": "Public framework knowledge can support both free tools and paid integrated execution.",
+        "disanalogy": "Interactive IDE features do not establish autonomous migration fidelity or an independently authoritative domain package.",
+        "proprietary_domain_knowledge": "not_demonstrated_as_necessary",
+        "knowledge_reason": "Public concepts need not be secret for proprietary, high-quality implementations to differentiate.",
+        "other_dependencies": "Proprietary feature implementation, integration engineering and UX; customer code is context, not a demonstrated vendor-owned moat.",
+        "defensibility": {"claim_type": "HYPOTHESIS", "thesis": "Tooling quality and workflow continuity justify premium capabilities.", "failure": "Free tooling suffices; expansion of free capabilities shifts the paid boundary."}
+      },
+      "attributed_revenue": null
+    },
+    {
+      "id": "JF",
+      "company": "JFrog",
+      "category": "Enterprise developer tools",
+      "comparison_unit": "Artifactory self-managed Pro X/Enterprise X/Enterprise+; separate SaaS consumption boundary",
+      "documented": {
+        "claim_type": "DOCUMENTED",
+        "substrate": "Package formats and basic artifact/repository operations; matrix lists OSS/JCR/CE offerings with different coverage. Current listed OSS release license/reproducibility not established.",
+        "commercial_layer": "Controlled artifact promotion, availability, federation, distribution and support.",
+        "paid_offer": "Pro X includes promotion/SLA support; Enterprise X includes HA/federation; Enterprise+ adds edge distribution/access federation. Bundled Xray capabilities are not attributed to Artifactory alone.",
+        "meter": "Self-managed packages include 1/3/6 Artifactory servers and minimum annual contract; additional servers purchasable. SaaS separately uses base storage-plus-transfer consumption and overage.",
+        "capability": "Repository caching, checksum storage, controlled promotion and multi-site availability/distribution.",
+        "caveat": "CE C/C++ is no-charge proprietary binary-use software, not OSS. Server entitlements are not proof of a universal per-server tariff. Do not confuse SaaS consumption with security-product contributor metrics.",
+        "source_ids": ["JF1", "JF2", "JF3"]
+      },
+      "analysis": {
+        "claim_type": "INFERRED",
+        "buyer": "Platform/DevOps team managing shared private artifacts and multi-site delivery.",
+        "mechanism": "Turn package storage and promotion into a reliable organization-wide service.",
+        "similarity": "Versioned outputs, controlled promotion and distribution could support modernization independently of the agent.",
+        "disanalogy": "Integrity and availability of artifacts do not establish transformation correctness or behavior preservation.",
+        "proprietary_domain_knowledge": "not_required_for_this_mechanism",
+        "knowledge_reason": "Storage, promotion, replication and access controls do not require secret package-format knowledge.",
+        "other_dependencies": "Proprietary implementation, operations, integrations and customer-private artifacts/permissions.",
+        "defensibility": {"claim_type": "HYPOTHESIS", "thesis": "Embedded delivery workflows and multi-site reliability justify paid infrastructure.", "failure": "Simpler registries suffice or advanced governance/federation adds no customer value."}
+      },
+      "attributed_revenue": null
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P1",
+      "priority": 1,
+      "name": "Fleet execution and integrated change workflow",
+      "claim_type": "INFERRED",
+      "value_layers": ["execution", "workflow", "integration"],
+      "case_ids": ["MO", "GH", "TF", "JB"],
+      "source_ids": ["MO3", "MO5", "GH1", "TF1", "JB2"],
+      "mechanism": "Reduce repeated environment/context setup and coordinate proposal, execution and review across existing repositories.",
+      "proprietary_domain_knowledge_required": false,
+      "modernize_implication": "Candidate product unit is an accepted fleet change, not a new knowledge-package format. Compare against incumbent native recipes plus CI before adding a layer.",
+      "limit": "Paid boundaries establish an offer, not coordination savings or demand for a new entrant.",
+      "test": {"claim_type":"HYPOTHESIS","design":"Paired same-scope fleet change using native recipe plus existing CI/review versus added coordination, with equal independent acceptance checks.","measure":"All setup, execution, review/rework and upkeep effort per accepted repository; failure coverage; committed second use.","reject_if":"No reduction in total accepted-change cost or no buyer for the incremental layer."}
+    },
+    {
+      "id": "P2",
+      "priority": 2,
+      "name": "Scoped validation and accountable governance",
+      "claim_type": "INFERRED",
+      "value_layers": ["validation", "governance", "trust"],
+      "case_ids": ["SO", "DM", "TF", "GH", "JF"],
+      "source_ids": ["SO1", "DM2", "TF1", "GH3", "JF1"],
+      "mechanism": "Record who authorized a change, what was checked, and what remains unresolved; enforce gates independently of generation.",
+      "proprietary_domain_knowledge_required": false,
+      "modernize_implication": "Separate approval authority, deterministic check coverage and evidence provenance. Buyable assurance must be scoped, not a claim of universal correctness.",
+      "limit": "A signature verifies origin, an approval permits action, a row check covers data, and a static gate covers selected rules; none proves whole-application equivalence. Existing platforms may already supply governance.",
+      "test": {"claim_type":"HYPOTHESIS","design":"Ask actual change/risk owners to evaluate identical migration results with existing controls versus an explicit acceptance/evidence record, including seeded incomplete checks.","measure":"Review time, missed material failures, rejected unsupported claims and buyer budget ownership.","reject_if":"Controls are redundant, added evidence increases work without improving decisions, or acceptance errors persist."}
+    },
+    {
+      "id": "P3",
+      "priority": 3,
+      "name": "Maintained compatibility and accountable support",
+      "claim_type": "INFERRED",
+      "value_layers": ["updates", "support", "trust"],
+      "case_ids": ["RH", "SN", "JB", "MO"],
+      "source_ids": ["RH1", "RH2", "SN4", "JB2", "MO4"],
+      "mechanism": "Fund continuous compatibility/release work and human escalation rather than resell static facts.",
+      "proprietary_domain_knowledge_required": false,
+      "modernize_implication": "A maintained native operator and explicit support window may be more useful than a generic domain registry.",
+      "limit": "Proprietary research can supplement maintenance; incident expertise and warranty liability were not measured. Episodic demand may not finance continuing upkeep.",
+      "test": {"claim_type":"HYPOTHESIS","design":"Have an independent maintainer carry a bounded operator through two real dependency/framework changes and customer escalation.","measure":"Upkeep and support cost, breakage discovered, customer renewal/coverage commitment.","reject_if":"Coverage revenue cannot fund upkeep or buyers only need a one-off migration."}
+    },
+    {
+      "id": "P4",
+      "priority": 4,
+      "name": "Distribution and incumbent workflow access",
+      "claim_type": "INFERRED",
+      "value_layers": ["distribution", "integration", "UX"],
+      "case_ids": ["GH", "JB", "JF", "DM"],
+      "source_ids": ["GH3", "JB1", "JF1", "DM1", "MS1"],
+      "mechanism": "Reach work where code, identities, artifacts and deployment budgets already reside.",
+      "proprietary_domain_knowledge_required": false,
+      "modernize_implication": "Copilot/IDE/GitHub/Azure distribution is a plausible incumbent advantage and a threat to a standalone package business, not evidence of provider-neutral authority.",
+      "limit": "Distribution does not establish acquisition economics, lock-in magnitude, justified target selection or customer preference.",
+      "test": {"claim_type":"HYPOTHESIS","design":"Offer the same bounded capability through the existing workflow and a separate interface without changing checks or target options.","measure":"Activated and accepted changes, setup burden and procurement friction; preserve ability to choose another provider.","reject_if":"No adoption difference or distribution requires restrictions buyers reject."}
+    },
+    {
+      "id": "P5",
+      "priority": 5,
+      "name": "Hosted capacity or private managed execution",
+      "claim_type": "INFERRED",
+      "value_layers": ["hosting", "execution"],
+      "case_ids": ["GH", "DM", "DD", "JF", "MO"],
+      "source_ids": ["GH1", "DM1", "DD1", "JF2", "MO5"],
+      "mechanism": "Sell operated capacity, availability or deployment support; knowledge can remain public.",
+      "proprietary_domain_knowledge_required": false,
+      "modernize_implication": "Cloud execution is one delivery option; Moderne private/local licensing shows centralized collection is not mandatory. Metered consumption and successful outcomes are different units.",
+      "limit": "Operations cost money and may be commoditized. Free conversion beside paid migration capacity challenges standalone planning fees; it does not reveal a provider's subsidy economics.",
+      "test": {"claim_type":"HYPOTHESIS","design":"Cost an actual repeat workload in existing CI, managed execution and customer-controlled delivery including failures and support.","measure":"Total cost, capacity reliability, data constraints and price a budget owner will approve.","reject_if":"No net operational advantage or viable margin at the required deployment model."}
+    },
+    {
+      "id": "P6",
+      "priority": 6,
+      "name": "Curated intelligence where incremental quality is real",
+      "claim_type": "INFERRED",
+      "value_layers": ["domain knowledge", "evaluation", "updates"],
+      "case_ids": ["SN", "SO", "MO"],
+      "source_ids": ["SN4", "SO3", "MO4"],
+      "mechanism": "Differentiated research, analyzers or recipes may improve actionable coverage beyond public facts.",
+      "proprietary_domain_knowledge_required": null,
+      "modernize_implication": "Reject the absolute claim that durable value cannot live in knowledge. Measure proprietary enrichment separately from better software and workflow.",
+      "limit": "Exclusive knowledge contribution is unknown; visible source or public advisory does not establish unrestricted reuse or quality superiority.",
+      "test": {"claim_type":"HYPOTHESIS","design":"Ablate proprietary enrichment while holding workflow, context, execution and independent acceptance checks constant.","measure":"Additional accepted cases, false positives, review cost, maintenance and license cost.","reject_if":"Public knowledge/native implementation achieves equivalent net results."}
+    },
+    {
+      "id": "P7",
+      "priority": 7,
+      "name": "Customer-specific operational history, not an assumed data flywheel",
+      "claim_type": "INFERRED",
+      "value_layers": ["telemetry", "operational data"],
+      "case_ids": ["DD", "TF", "MO"],
+      "source_ids": ["DD1", "DD2", "DD3", "TF1", "MO3", "MO5"],
+      "mechanism": "Within-customer history and context can aid diagnosis and reproducibility; cross-customer learning is a separate unverified proposition.",
+      "proprietary_domain_knowledge_required": false,
+      "modernize_implication": "Preserve consent, tenant isolation, provenance and explicit reuse rights. Private code/context is not vendor-owned domain truth.",
+      "limit": "No inspected source establishes migration-data learning lift, reuse permission or network effects. Datadog recurrence is the weakest analogy to episodic modernization.",
+      "test": {"claim_type":"HYPOTHESIS","design":"Only with explicit permission, evaluate held-out migration outcomes with and without prior-run context, separating same-organization from cross-organization transfer.","measure":"Incremental acceptance/review improvement, data freshness, coverage, privacy and curation cost.","reject_if":"No transferable lift or insufficient lawful, representative data; retain local evidence only."}
+    }
+  ],
+  "prioritization": {
+    "claim_type": "OPINION",
+    "basis": "Priority for a narrow Modernize-adjacent test: direct task similarity, documented paid boundary, measurable incremental outcome and independence from unavailable data. Not estimated market size or measured moat.",
+    "strongest_precedent": "MO",
+    "weakest_analogy": "DD",
+    "thesis_changing_implication": "A maintained native operator plus accepted-change execution/evidence may be the useful unit. The portfolio does not justify a new package format, a standalone market or the elimination of differentiated knowledge as a source of value."
+  },
+  "aggregate_revenue_evidence": [
+    {
+      "company": "Datadog",
+      "claim_type": "DOCUMENTED",
+      "period": "FY2025",
+      "reported_total_revenue_usd": 3430000000,
+      "source_ids": ["DD4"],
+      "limitation": "Company-reported aggregate revenue confirms an operating commercial business, not revenue attributable to OTel, infrastructure observability, governance or a proprietary-data advantage."
+    }
+  ],
+  "sources": [
+    {"id":"GH1","url":"https://docs.github.com/en/billing/concepts/product-billing/github-actions","locator":"How use of GitHub Actions is measured; How storage billing works","supports":"Included/free use, paid excess, minutes/storage meter and repository-owner billing."},
+    {"id":"GH2","url":"https://raw.githubusercontent.com/actions/runner/main/LICENSE","locator":"License header","supports":"MIT license of the runner, not GitHub service."},
+    {"id":"GH3","url":"https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments","locator":"Deployment protection rules; Required reviewers","supports":"Approval gates, public-repository plan limits and one-reviewer semantics."},
+    {"id":"TF1","url":"https://developer.hashicorp.com/terraform/cloud-docs/overview","locator":"Subscription plans; Plan comparison; Pricing; Managed resources; Team and access limits","supports":"Resource-hour billing, capacity and governance packaging; internally inconsistent SSO/policy entitlements.","retrieval_note":"HTML extractor returned title only; inspected pageProps.mdxSource.compiledSource text from public __NEXT_DATA__ without executing code."},
+    {"id":"TF2","url":"https://raw.githubusercontent.com/hashicorp/terraform/main/LICENSE","locator":"Parameters; Additional Use Grant; Change Date","supports":"BSL for named core versions, competitive restriction and future MPL change."},
+    {"id":"TF3","url":"https://raw.githubusercontent.com/hashicorp/terraform-provider-aws/main/LICENSE","locator":"License header","supports":"MPL-2.0 for this provider, not all Terraform components."},
+    {"id":"SN1","url":"https://snyk.io/plans/","locator":"Team plan; Snyk Platform Subscription Enterprise; Platform Rate Card","supports":"Monthly Team offer; Enterprise credits; Open Source Active Contributor/day meter.","retrieval_note":"Inspected visible HTML text after removing scripts/styles; default Markdown extraction missed the rate card."},
+    {"id":"SN2","url":"https://raw.githubusercontent.com/snyk/cli/main/LICENSE","locator":"License header","supports":"Apache-2.0 CLI; does not establish service or database license."},
+    {"id":"SN3","url":"https://docs.snyk.io/scan-fix-and-prevent/scan-with-snyk/snyk-open-source","locator":"Snyk Open Source overview","supports":"Dependency analysis, license issues, remediation and integration."},
+    {"id":"SN4","url":"https://docs.snyk.io/scan-fix-and-prevent/scan-with-snyk/snyk-open-source/manage-vulnerabilities/snyk-vulnerability-database.md","locator":"Snyk security team; Vulnerability sources","supports":"Public inputs, proprietary research and maintained advisory information; accuracy statements are vendor claims."},
+    {"id":"SO1","url":"https://docs.sonarsource.com/sonarqube-cloud/administering-sonarcloud/managing-subscription/subscription-plans","locator":"Plans overview; feature table, Security and Administration rows","supports":"Free/OSS/Team/Enterprise boundaries, private LOC and enterprise audit controls."},
+    {"id":"SO2","url":"https://docs.sonarsource.com/sonarqube-cloud/administering-sonarcloud/managing-subscription/billing-model","locator":"Introduction; Team billing; Enterprise billing","supports":"Billing terms and conflicting organization/enterprise scope wording."},
+    {"id":"SO3","url":"https://raw.githubusercontent.com/SonarSource/sonar-java/master/LICENSE.txt","locator":"License title; Competing definition","supports":"Current inspected Java analyzer source-available license, not blanket OSS."},
+    {"id":"DD1","url":"https://docs.datadoghq.com/account_management/billing/","locator":"Overview; Hosts; custom metrics billing","supports":"Host/hour measurement, lower-99% high-water mark and historical retention."},
+    {"id":"DD2","url":"https://docs.datadoghq.com/opentelemetry/","locator":"OpenTelemetry in Datadog overview","supports":"Standard instrumentation and supported collection alternatives."},
+    {"id":"DD3","url":"https://docs.datadoghq.com/opentelemetry/compatibility/","locator":"Setups; Feature compatibility","supports":"OTel paths do not imply universal feature equivalence."},
+    {"id":"DD4","url":"https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-fourth-quarter-and-fiscal-year-2025-financial","locator":"Fiscal Year 2025 Financial Highlights","supports":"Company-reported aggregate FY2025 revenue, not feature attribution."},
+    {"id":"DM1","url":"https://aws.amazon.com/dms/pricing/","locator":"Pricing FAQ: Schema Conversion, serverless, replication instances and homogeneous migrations","supports":"Free conversion versus metered execution/storage; no inferred unit economics."},
+    {"id":"DM2","url":"https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Validating.html","locator":"AWS DMS data validation; Replication task statistics","supports":"Row comparison, extra resource/time cost, endpoint scope and unresolved/error states."},
+    {"id":"MO1","url":"https://docs.moderne.io/","locator":"Moderne Platform; CLI; DX product descriptions","supports":"Multi-repository execution, PR/report delivery and deployment options."},
+    {"id":"MO2","url":"https://raw.githubusercontent.com/openrewrite/rewrite/main/LICENSE","locator":"License header","supports":"Apache-2.0 OpenRewrite core only."},
+    {"id":"MO3","url":"https://docs.moderne.io/user-documentation/moderne-cli/getting-started/cli-intro/","locator":"Enterprise Edition; Connect CLI to tenant","supports":"Paying enterprise/private tenant path, recipe sync, LST reuse and organization groups."},
+    {"id":"MO4","url":"https://docs.moderne.io/licensing/overview/","locator":"Licensing overview","supports":"Contract requirements for Connector/DX and proprietary recipe subset."},
+    {"id":"MO5","url":"https://docs.moderne.io/user-documentation/moderne-cli/getting-started/moderne-cli-license/","locator":"Private repositories; How to receive a license key; License check flow","supports":"Private-repo CLI license requirement and local signature validation."},
+    {"id":"MS1","url":"https://learn.microsoft.com/en-us/azure/developer/github-copilot-app-modernization/overview","locator":"Delivery layers; Current availability; Code transformations","supports":"Documented CLI/IDE positioning and OpenRewrite/custom-skill usage, not runtime reliability or attributed revenue."},
+    {"id":"RH1","url":"https://www.redhat.com/en/resources/red-hat-enterprise-linux-subscription-guide","locator":"Maximize your business value; Socket-pair for each physical node or 2 virtual nodes; Self-support subscriptions","supports":"Subscription inclusions, scoped coverage unit and self-support distinction."},
+    {"id":"RH2","url":"https://www.redhat.com/licenses/Red_Hat_GPLv2-Based_EULA_20191118.pdf","locator":"Page 1 introductory notice; sections 1-2","supports":"Component software rights separate from maintenance/upgrade/support entitlement; firmware/trademark qualifications."},
+    {"id":"RH3","url":"https://www.redhat.com/en/blog/furthering-evolution-centos-stream","locator":"Paragraph beginning As the CentOS Stream community grows; Why make this change?","supports":"Public development sources versus customer/partner release-source access."},
+    {"id":"JB1","url":"https://www.jetbrains.com/help/idea/intellij-idea-single-distribution.html","locator":"Unified IntelliJ IDEA Overview; Next steps","supports":"2025.3 unification and free/Ultimate feature boundary."},
+    {"id":"JB2","url":"https://lp.jetbrains.com/intellij-idea-unified-faq/","locator":"Advanced Ultimate features; free features; open-source feature parity; paid plugins; perpetual fallback questions","supports":"Free is not open; basic versus premium tooling and fallback license qualifications."},
+    {"id":"JB3","url":"https://github.com/JetBrains/intellij-community/blob/a857c4d3104b731fedefafaf2334db5d870db62b/LICENSE.txt","locator":"Lines 1-9 and 53-56; Open-Source Build Terms v1.3, effective June 15, 2026","supports":"Apache-2.0 substrate with third-party terms; not a license for all unified-distribution features."},
+    {"id":"JF1","url":"https://docs.jfrog.com/installation/docs/feature-comparison-matrix-for-self-mangaged-jpds","locator":"Included Components and Services; artifact/promotion/federation/distribution sections; server-count FAQ","supports":"Edition gates, server entitlements and Artifactory versus Xray distinction."},
+    {"id":"JF2","url":"https://jfrog.com/pricing/","locator":"Platform Management & Consumption; base consumption and annual-contract FAQs","supports":"Separate SaaS storage-plus-transfer meter and self-managed annual contracts."},
+    {"id":"JF3","url":"https://jfrog.com/artifactory-community-edition-c-c-eula/","locator":"Sections 1.1-1.3 and 3.1-3.2","supports":"No-charge proprietary binary-use grant distinct from third-party open-source components."}
+  ]
+}
