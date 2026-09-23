@@ -27,7 +27,7 @@
     {
       "id": "WS-03",
       "name": "OSS Precedents",
-      "status": "ready",
+      "status": "review",
       "priority": "critical",
       "wave": "first",
       "type": "research",
