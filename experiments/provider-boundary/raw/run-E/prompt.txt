@@ -1,0 +1,1 @@
+Modernize this application while keeping all outputs provider-neutral and portable across Azure, AWS, and GCP. Do not select provider-specific services.
