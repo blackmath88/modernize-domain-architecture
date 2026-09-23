@@ -2,7 +2,8 @@
 
 ## STATUS
 
-`review` on `agent/ws-05-domain-economics`, based on publication main at `65e4dd09b7b6b337d6a3eb7190067d486f050948`. Worktree: `/tmp/achim-ws-05-domain-economics`. Local validation passed; publication is pending the commit/PR step. No publication blocker observed. The user's existing branch and WS-04 edits were not changed.
+`review` on `agent/ws-05-domain-economics`, based on publication main at `65e4dd09b7b6b337d6a3eb7190067d486f050948`. Implementation commit: `9ebf3d0`, pushed to `publish/agent/ws-05-domain-economics`. PR: [#5](https://github.com/blackmath88/modernize-domain-architecture/pull/5), open for orchestrator review. No publication blocker.
+Worktree: `/tmp/achim-ws-05-domain-economics`. Local validation passed. The user's existing branch and WS-04 edits were not changed.
 
 ## WHAT I DID
 
@@ -28,7 +29,7 @@ Built a zero-dependency Node.js interval calculator, three explicitly hypothetic
 
 The scenario catalog contains all variable units, definitions and `HYPOTHESIS` labels, plus source locators and limitations. Sources include current retrieved API rate cards, BLS wage/compensation data, historical price trends, METR's time-sensitive productivity evidence, NIST risk-assessment guidance, native lifecycle/logging documentation and published WS-03/WS-04 interpretations. External facts contextualize assumptions; they are not presented as measured calculator inputs. Preserved source notes and canonical synthesis are unchanged.
 
-Validation: `node --test prototype/economics-calculator/calculator.test.mjs` passed 18/18 on Node.js 25.9.0; bundled CLI ran without dependencies or network access. Tests cover encode/infer/uncertain outcomes, invalid inputs, temporal factors, discounting, cost units, encoded failures, correlated-loss accounting, source/variable coverage, point accounting, sampled interval containment and CLI errors. Research bounds were checked against calculations; source metadata, local links, token arithmetic, repository validation and git whitespace checks passed. Editor diagnostics reported no errors in the calculator, tests, scenarios and research. Handoff/status isolation checks run before publication.
+Validation: `node --test prototype/economics-calculator/calculator.test.mjs` passed 18/18 on Node.js 25.9.0; bundled CLI ran without dependencies or network access. Tests cover encode/infer/uncertain outcomes, invalid inputs, temporal factors, discounting, cost units, encoded failures, correlated-loss accounting, source/variable coverage, point accounting, sampled interval containment and CLI errors. Research bounds were checked against calculations; source metadata, local links, token arithmetic, repository validation and git whitespace checks passed. Editor diagnostics reported no errors in all seven changed files. Exact handoff headings, matched review statuses and unchanged other workstream objects passed before publication.
 
 No real model workloads, production migrations, customer interviews or safety evaluations were run. API pricing and documentation are mutable snapshots, not archived evidence. The Node.js 20 minimum is a compatibility target; only 25.9.0 was executed.
 
