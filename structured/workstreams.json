@@ -5,7 +5,7 @@
     {
       "id": "WS-01",
       "name": "Modernize Archaeology",
-      "status": "ready",
+      "status": "review",
       "priority": "critical",
       "wave": "first",
       "type": "research",
