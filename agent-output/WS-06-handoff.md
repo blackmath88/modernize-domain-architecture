@@ -2,7 +2,7 @@
 
 ## STATUS
 
-`review` on `agent/ws-06-authority-model`, based on publication main at `65e4dd09b7b6b337d6a3eb7190067d486f050948`. Publication details will be recorded after PR creation. Only WS-06's status and outputs changed.
+`review` on `agent/ws-06-authority-model`, based on publication main at `65e4dd09b7b6b337d6a3eb7190067d486f050948`. Research commit: `798d922`, pushed to `publish/agent/ws-06-authority-model`. PR: [blackmath88/modernize-domain-architecture#6](https://github.com/blackmath88/modernize-domain-architecture/pull/6), open for orchestrator review. No publication blocker. Only WS-06's status and outputs changed.
 
 ## WHAT I DID
 
