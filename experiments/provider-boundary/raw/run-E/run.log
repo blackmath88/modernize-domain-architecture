@@ -1,0 +1,14 @@
+GitHub Copilot modernization v1.0.74
+GitHub Copilot modernization is AI-powered and may not always be accurate.
+All tools have access to necessary resources.
+
+GitHub account: blackmath88
+GitHub CLI version: 2.101.0
+Copilot CLI version: 1.0.57
+Model: Auto
+
+[>] Creating plan
+    [*] Using skill: create-modernization-plan
+    [*] Working...
+        [!] [quota] You have exceeded your monthly quota (Request ID: 9B20:199407:4B7682:540495:6AB3CDD7)
+[+] SUCCESS: Modernization plan has been created.

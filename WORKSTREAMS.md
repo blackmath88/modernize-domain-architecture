@@ -4,10 +4,10 @@ All workstreams are independently launchable. “Wave” indicates scheduling pr
 
 | ID | Workstream | Type | Wave | Priority | Depends on | Main output | Status |
 |---|---|---|---|---|---|---|---|
-| WS-01 | Modernize Archaeology | research | first | critical | none | `research/modernize-architecture.md` | ready |
-| WS-02 | Provider Boundary | experiment | first | critical | none | `research/provider-boundary.md` | ready |
-| WS-03 | OSS Precedents | research | first | critical | none | `research/executable-domain-precedents.md` | ready |
-| WS-04 | Thesis Red Team | research | first | critical | none | `research/thesis-red-team.md` | ready |
+| WS-01 | Modernize Archaeology | research | first | critical | none | `research/modernize-architecture.md` | review |
+| WS-02 | Provider Boundary | experiment | first | critical | none | `research/provider-boundary.md` | review |
+| WS-03 | OSS Precedents | research | first | critical | none | `research/executable-domain-precedents.md` | review |
+| WS-04 | Thesis Red Team | research | first | critical | none | `research/thesis-red-team.md` | review |
 | WS-05 | Domain Economics | design | second | high | none | `research/domain-knowledge-economics.md` | review |
 | WS-06 | Authority Model | design | first | critical | none | `research/authority-model.md` | ready |
 | WS-07 | Skills / MCP / Domain Taxonomy | research | second | high | none | `research/skills-mcp-domain-taxonomy.md` | ready |

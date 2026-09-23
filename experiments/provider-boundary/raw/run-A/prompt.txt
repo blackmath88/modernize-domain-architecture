@@ -1,0 +1,1 @@
+Upgrade the Java language and Spring Boot framework only. Do not migrate cloud services, change hosting, containerize, or deploy.

@@ -1,0 +1,19 @@
+GitHub Copilot modernization v1.0.74
+GitHub Copilot modernization is AI-powered and may not always be accurate.
+All tools have access to necessary resources.
+
+GitHub account: blackmath88
+GitHub CLI version: 2.101.0
+Copilot CLI version: 1.0.57
+Model: Auto
+
+[>] Creating plan
+    [*] Using skill: create-modernization-plan
+    [*] Working...
+        [~] Creating the modernization plan first, then I’ll inspect the generated output.
+        [~] I’m pulling the plan templates and project build files so the modernization plan matches this repo.
+        [~] I found the Maven build; now I’m reading the current Java/Spring versions so the plan uses the right target.
+        [~] I’ve got the stack details; next I’m checking the repo’s existing modernization prompt so the plan aligns with its conventions.
+        [~] I’m checking for any Java EE namespace usage so the upgrade plan reflects real compatibility work, not assumptions.
+        [!] [quota] You have exceeded your monthly quota (Request ID: D687:2D41BC:3A01276:41EE6F7:6AB3CDC3)
+[+] SUCCESS: Modernization plan has been created.
