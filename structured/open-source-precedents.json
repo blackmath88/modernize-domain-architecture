@@ -1,0 +1,297 @@
+{
+  "workstream": "WS-03",
+  "title": "Executable domain knowledge: open-source precedents",
+  "accessed_on": "2026-09-23",
+  "method": "Primary-source documentation review; no precedent engine was executed. Each source was accessed on its recorded date. Mutable documentation is not an archived artifact.",
+  "field_semantics": {
+    "documented": "Summaries of capabilities and ownership boundaries in cited primary sources, not observed runtime results.",
+    "roles": "INFERRED functional classification: declarative, transformation, policy, orchestration, validation. These are not exclusive categories.",
+    "agent_consumption": "DOCUMENTED only where native integration is explicit; otherwise INFERRED from a documented callable interface. null native_integration means not established by this review, not absent.",
+    "provenance": "Separate artifact identity from decision records. A source URL, metadata or revision label does not alone authenticate origin or authority.",
+    "assessment": "INFERRED limits and reuse implications; not exhaustive product-wide absence claims.",
+    "testing": "Available test facilities or documented checks, not a claim of executed or passing tests. Application correctness remains separate."
+  },
+  "verdict": {
+    "label": "INFERRED",
+    "necessary_new_package_format": "not established",
+    "closest_artifact": "P01: versioned, tested OpenRewrite recipe library; Apache Camel Upgrade Recipes is a concrete domain-owned example",
+    "strongest_authority_counterexample": "P07: independently managed OPA bundles, configured signature verification and decision logs, with external enforcement",
+    "strongest_operational_terminology_counterexample": "P09: Kubernetes operator pattern explicitly captures human operational knowledge",
+    "remaining_hypothesis": "A thin cross-engine composition and evidence contract may reduce integration costs or authority failures; compare it against native composition before introducing another package format.",
+    "source_ids": ["S01", "S02", "S14", "S15", "S22"]
+  },
+  "precedents": [
+    {
+      "id": "P01",
+      "family": "OpenRewrite",
+      "representative": "OpenRewrite recipe libraries and Apache Camel Upgrade Recipes",
+      "roles": ["declarative", "transformation", "validation"],
+      "documented": {
+        "knowledge": "Version-specific dependency and source migrations composed from named recipes.",
+        "ownership": "Recipe authors own transformations; Apache Camel maintains its upgrade catalog independently of the OpenRewrite engine.",
+        "packaging": "JVM recipe libraries and YAML resources under META-INF/rewrite; Camel distributes Maven artifacts.",
+        "versioning": "Artifact releases and version-specific migration YAML; composed latest/LTS recipe paths. Engine, parser and classpath dependencies affect execution.",
+        "testing": "RewriteTest/RecipeSpec before-and-after and unchanged-source assertions; Camel tests multiple migration paths and publishes a test JAR.",
+        "execution": "Build-tool recipe execution invokes machine transformations without requiring LLM interpretation.",
+        "scope_limit": "Camel explicitly excludes Camel-Quarkus applications from this migration route.",
+        "license_scope": "Camel recipe repository is Apache-2.0. This does not classify every OpenRewrite recipe library or commercial distribution; current recipe-testing docs reference authenticated artifact access."
+      },
+      "agent_consumption": {"label": "INFERRED", "interface": "Build-tool invocation of existing recipes", "native_integration": null},
+      "provenance": {"documented": "Named recipes, versioned artifact coordinates and source repository history.", "assessment": "These identify implementations; a complete decision-to-input audit trail was not established by the reviewed sources."},
+      "assessment": {"authority": "Recipe selection and permission to modify the repository belong to the caller/enforcement environment, not the artifact name.", "reuse": "Use native recipe libraries and tests; this is the nearest existing migration package abstraction."},
+      "source_ids": ["S01", "S02"]
+    },
+    {
+      "id": "P02",
+      "family": "CodeQL",
+      "representative": "CodeQL query, library and model packs",
+      "roles": ["declarative", "validation"],
+      "documented": {
+        "knowledge": "Semantic analysis queries and framework/library models expressed as query libraries or YAML data extensions.",
+        "ownership": "GitHub/community own standard query sources; custom publishers own their packs; CLI ownership and licensing are separate.",
+        "packaging": "Scoped query/library/model packs with qlpack.yml, published and downloaded with CLI pack commands.",
+        "versioning": "Pack versions and dependency ranges; codeql-pack.lock.yml records exact dependencies; model packs specify extension target version ranges.",
+        "testing": "Repository documents query/library unit tests; test-bearing packs participate in dependency locking.",
+        "execution": "CLI evaluates queries and applies model extensions to analysis, not source-code rewrites.",
+        "scope_limit": "Model-pack support is documented as public preview with language-specific availability.",
+        "license_scope": "Standard query/library repository is MIT; README points to a separately licensed CLI and commercial licensing requirements for closed-source analysis."
+      },
+      "agent_consumption": {"label": "INFERRED", "interface": "CodeQL CLI pack and analysis commands", "native_integration": null},
+      "provenance": {"documented": "Pack scope/name/version, dependency lock and source query libraries.", "assessment": "Pack identity does not establish an immutable execution audit or permission to analyze a repository."},
+      "assessment": {"authority": "A publisher can revise knowledge independently of the client; licensed engine use remains a separate condition.", "reuse": "Reuse query and model packs; a new analysis DSL would duplicate an existing packaging boundary."},
+      "source_ids": ["S03", "S04"]
+    },
+    {
+      "id": "P03",
+      "family": "Renovate",
+      "representative": "Renovate modules and shareable presets",
+      "roles": ["declarative", "transformation", "policy", "orchestration"],
+      "documented": {
+        "knowledge": "Dependency ecosystem modules plus reusable update preferences such as grouping, ranges and schedules.",
+        "ownership": "Renovate maintains built-in modules and presets; organizations/repositories publish their own configuration separately.",
+        "packaging": "Managers, datasources, platform and versioning modules; shared JSON/JSONC/JSON5 presets composed with extends.",
+        "versioning": "Engine releases separate from repository presets, which can be pinned to Git tags; unpinned references use default branches.",
+        "testing": "renovate-config-validator is recommended for preset CI; documented relative-reference acceptance can differ between validator and runtime.",
+        "execution": "Renovate interprets modules/configuration to produce update PRs under configured scheduling and selection preferences.",
+        "scope_limit": "Repository ignorePresets and configuration affect what shared settings are used; npm-hosted presets are deprecated.",
+        "license_scope": "Comparison concerns repository-hosted configuration and documented modules, not a claim that every hosted service is open source."
+      },
+      "agent_consumption": {"label": "INFERRED", "interface": "Invoke/configure Renovate through its normal automation interface", "native_integration": null},
+      "provenance": {"documented": "Preset repository/tag references and debug visitedPresets identify resolved preset strings.", "assessment": "A mutable tag or configuration trace is not authenticated immutable decision lineage."},
+      "assessment": {"authority": "Shareable preferences are not necessarily enforced organization policy when repository configuration can override or ignore them.", "reuse": "Reuse preset composition and ecosystem modules while retaining a separate mandatory-policy enforcement boundary."},
+      "source_ids": ["S05", "S06"]
+    },
+    {
+      "id": "P04",
+      "family": "Roslyn analyzers/code fixes",
+      "representative": "DiagnosticAnalyzer and CodeFixProvider",
+      "roles": ["transformation", "validation"],
+      "documented": {
+        "knowledge": "Syntax, semantic and data-flow checks coupled to optional source edits.",
+        "ownership": "Analyzer authors define diagnostics and edits; compiler and host infrastructure have separate maintainers.",
+        "packaging": "Analyzer and code-fix assemblies; template includes NuGet package, VSIX and test projects.",
+        "versioning": "NuGet package releases and compiler API dependencies; documented target framework guidance is independent of source rules.",
+        "testing": "Microsoft.CodeAnalysis.Testing checks expected diagnostic IDs/locations, negative cases and resulting fixed source.",
+        "execution": "DiagnosticAnalyzer reports issues; CodeFixProvider registers executable edits for a host to offer/apply.",
+        "scope_limit": "The tutorial demonstrates additional semantic checks needed to prevent invalid fixes; a first working example is insufficient.",
+        "license_scope": "This is a compiler-extension precedent, not a claim that every third-party analyzer is OSS. SDK archive points to continued development in dotnet/roslyn."
+      },
+      "agent_consumption": {"label": "INFERRED", "interface": "Compiler/host APIs for diagnostics and code actions", "native_integration": null},
+      "provenance": {"documented": "Diagnostic IDs, descriptions and source locations; package identifies the implementation.", "assessment": "Diagnostic context does not automatically provide complete causal history or authorization."},
+      "assessment": {"authority": "Host settings determine diagnostic enforcement and whether a fix is accepted.", "reuse": "Preserve the distinction between finding an issue and applying an edit; reuse packaged analyzers and fixtures."},
+      "source_ids": ["S07", "S08"]
+    },
+    {
+      "id": "P05",
+      "family": "rustfix/cargo fix",
+      "representative": "rustc suggestions consumed by rustfix and Cargo",
+      "roles": ["transformation", "validation"],
+      "documented": {
+        "knowledge": "Compiler/lint knowledge of source corrections and edition migrations; rustfix itself contains no compiler-specific logic.",
+        "ownership": "rustc and external lint authors produce suggestions; rustfix/Cargo maintainers implement suggestion consumption and application.",
+        "packaging": "rustfix library crate and built-in cargo fix command consuming compiler diagnostics.",
+        "versioning": "Cargo/Rust toolchain plus crate release; edition setting is changed separately from cargo fix --edition.",
+        "testing": "cargo fix runs cargo check; documentation requires project tests after edition migration. Archived rustfix repository includes tests and property-test regression artifacts.",
+        "execution": "Automatically applies compiler suggestions; remaining diagnostics are reported.",
+        "scope_limit": "Only compiled code is analyzed; inactive features/cfg require separate feature/target selections, and some migrations need manual changes.",
+        "license_scope": "Archived rustfix source is MIT OR Apache-2.0 and explicitly points to its current home in Cargo."
+      },
+      "agent_consumption": {"label": "INFERRED", "interface": "Cargo CLI or rustfix library; JSON diagnostics available", "native_integration": null},
+      "provenance": {"documented": "Compiler diagnostic output and explicit toolchain selection provide source and execution context.", "assessment": "Retain toolchain, configuration and source snapshot separately; no universal signed causal record is established."},
+      "assessment": {"authority": "The applier does not own compiler knowledge; permission to edit is still granted by its execution environment.", "reuse": "This is a particularly clean existing knowledge-producer/client split; do not move compiler semantics into agent instructions."},
+      "source_ids": ["S09", "S10"]
+    },
+    {
+      "id": "P06",
+      "family": "Semgrep",
+      "representative": "Community Edition engine, YAML rules and rule-defined fixes",
+      "roles": ["declarative", "transformation", "validation"],
+      "documented": {
+        "knowledge": "Structural patterns, messages, severities and optional rule-defined source fixes.",
+        "ownership": "Rule authors define domain checks separately from CE engine and commercial platform maintainers.",
+        "packaging": "YAML rules supplied as local configuration or through a rule registry.",
+        "versioning": "min-version/max-version specify compatible engine versions; author-supplied rule metadata is extensible rather than a universal content version.",
+        "testing": "semgrep --test uses ruleid/ok annotations and .fixed expected files; TODO annotations are non-failing; rule validation is also available.",
+        "execution": "CLI scans sources and --autofix applies rule-defined replacements; README documents semgrep mcp.",
+        "scope_limit": "Rules outside engine min/max-version are skipped without a fatal error; some operators require proprietary engine functionality.",
+        "license_scope": "README identifies CE as LGPL-2.1 and distinguishes proprietary engine/rules/platform; registry contents must not be blanket-classified as OSS."
+      },
+      "agent_consumption": {"label": "DOCUMENTED", "interface": "semgrep mcp and CLI", "native_integration": "README documents MCP server integration in cli/src/semgrep/mcp"},
+      "provenance": {"documented": "Rule IDs/messages and author-provided metadata, including metadata in JSON output.", "assessment": "Metadata can explain origin but is not verified provenance or approval."},
+      "assessment": {"authority": "A caller must distinguish skipped rules from successful validation; agent consumption does not enforce execution policy.", "reuse": "Reuse tested rule artifacts and existing agent interface; MCP access is not a new MEDP capability."},
+      "source_ids": ["S11", "S12", "S13"]
+    },
+    {
+      "id": "P07",
+      "family": "OPA/Rego",
+      "representative": "OPA policy/data bundles and decision logging",
+      "roles": ["declarative", "policy", "validation"],
+      "documented": {
+        "knowledge": "Policy decisions over input and data, independent of application decision callers.",
+        "ownership": "Policy/data publishers own bundle namespaces; evaluator and external enforcement service are separate responsibilities.",
+        "packaging": "Tar bundles with Rego/data, manifest, optional Wasm and optional signatures; bundle distribution can be remote.",
+        "versioning": "Manifest revision, roots and Rego version; bundle updates can be independent of app deployment.",
+        "testing": "opa test supports test rules, mocks, coverage and structured output; opa eval and opa test do not verify signatures.",
+        "execution": "OPA evaluates policy and can emit decision logs; bundle-owned data/policy cannot be changed through ordinary REST writes.",
+        "scope_limit": "Signature checks depend on loading mode/configuration. Decision logs can be masked, dropped or rate-limited.",
+        "license_scope": "OPA policy management is the precedent; individual externally supplied bundles have their own ownership and distribution terms."
+      },
+      "agent_consumption": {"label": "INFERRED", "interface": "Policy evaluator service or CLI", "native_integration": null},
+      "provenance": {"documented": "Configured signed bundles plus decision IDs, inputs/results, paths, timestamps and bundle revisions in decision logs.", "assessment": "Revision labels are not content hashes; configurable logs are not an immutable audit store; signatures do not prove correctness."},
+      "assessment": {"authority": "The enforcement point must honor decisions, protect evaluator configuration and withhold bypass credentials; an agent cannot be constrained merely by being told to query OPA.", "reuse": "Strongest counterexample to new authority/decision infrastructure claims; reuse policy-as-code rather than inventing a policy DSL."},
+      "source_ids": ["S14", "S15", "S16"]
+    },
+    {
+      "id": "P08",
+      "family": "Terraform providers",
+      "representative": "Terraform Plugin Framework and provider protocol",
+      "roles": ["declarative", "transformation", "validation"],
+      "documented": {
+        "knowledge": "Provider-specific resource/data-source schemas, API translations and custom functions.",
+        "ownership": "Individual provider publishers maintain API-specific behavior; framework and Terraform core maintainers are separate.",
+        "packaging": "Plugin server binaries downloaded and managed by CLI, exposing provider protocol operations.",
+        "versioning": "Provider requirements, exact lock selections and package hashes; lockfile currently excludes remote module version selections.",
+        "testing": "Go acceptance tests execute real plan/apply/refresh/destroy; TF_ACC guards against accidental infrastructure costs and credentials are required.",
+        "execution": "Terraform core invokes plugins to manage resources and read external data.",
+        "scope_limit": "Lock verification is trust-on-first-use; optional signed checksum sets still require trust in the signing key.",
+        "license_scope": "Plugin Framework is MPL-2.0. Current Terraform core is BSL-1.1 with additional use grant/change license, not classified here as OSS. Each provider needs its own license review."
+      },
+      "agent_consumption": {"label": "INFERRED", "interface": "Terraform CLI invoking providers; no standalone arbitrary RPC portability assumed", "native_integration": null},
+      "provenance": {"documented": "Provider address/version and checksums; installation may report signed checksum key fingerprints.", "assessment": "Artifact integrity is not evidence of the reason or authorization for a resource change."},
+      "assessment": {"authority": "Core coordinates planning/execution; provider logic is API-specific and effects are bounded by external credentials.", "reuse": "Reuse typed plugin contracts and native locks; a neutral interface does not make provider knowledge neutral."},
+      "source_ids": ["S17", "S18", "S19", "S20", "S21"]
+    },
+    {
+      "id": "P09",
+      "family": "Kubernetes operators",
+      "representative": "Operator pattern and Kubebuilder envtest",
+      "roles": ["declarative", "transformation", "orchestration"],
+      "documented": {
+        "knowledge": "Human operational expertise: desired-state reconciliation, upgrades, backup and recovery.",
+        "ownership": "Operator authors own reconciliation behavior; custom-resource users supply desired state; Kubernetes supplies the API/control-loop environment.",
+        "packaging": "CRDs with controller deployment and container image.",
+        "versioning": "Controller implementation and custom resource API are separate artifacts; reviewed pattern does not prescribe one universal release scheme.",
+        "testing": "envtest starts etcd/API server for controller tests; built-in controllers and kubelet are absent, limiting lifecycle assertions.",
+        "execution": "Controller observes resources and calls APIs to make reality match desired state.",
+        "scope_limit": "Pattern includes orchestration and ongoing control, not only passive knowledge distribution.",
+        "license_scope": "Kubernetes ecosystem pattern; each operator implementation has its own license, not implied by inclusion in the ecosystem."
+      },
+      "agent_consumption": {"label": "INFERRED", "interface": "Kubernetes API or kubectl manipulating custom resources", "native_integration": null},
+      "provenance": {"documented": "Resource identity and deployed controller/image identify desired state and implementation context.", "assessment": "The generic pattern does not mandate an immutable reasoning/provenance record; specific operators may provide more."},
+      "assessment": {"authority": "Controller credentials, admission and deployment permissions require independent protection.", "reuse": "Operator is established terminology for executable operational expertise; distinguish its active orchestration from a passive domain package."},
+      "source_ids": ["S22", "S23"]
+    },
+    {
+      "id": "P10",
+      "family": "Schema/constraint systems",
+      "representative": "JSON Schema 2020-12 and JSON Schema Test Suite",
+      "roles": ["declarative", "validation"],
+      "documented": {
+        "knowledge": "Constraints and annotations over structured instances, organized by dialect/vocabulary.",
+        "ownership": "Domain schema authors own constraints; specification community and independent validator authors own language/runtime behavior.",
+        "packaging": "JSON schema documents, references, meta-schemas and compound schema documents.",
+        "versioning": "Specification dialect/version is distinct from a particular domain schema's content revision.",
+        "testing": "Language-agnostic schema/data/valid test cases; test setup must align dialect, remote references and optional format validation.",
+        "execution": "Validator applies schema to data and produces validity/annotation output; recommended output schemas exist.",
+        "scope_limit": "Conformance suite documents behaviors it cannot express/test; format annotation and assertion are distinct vocabularies.",
+        "license_scope": "Test suite repository is MIT; validator implementation and domain-schema licensing are independent."
+      },
+      "agent_consumption": {"label": "INFERRED", "interface": "Validator library or service", "native_integration": null},
+      "provenance": {"documented": "Schema references/dialect and validation output identify the constraint context.", "assessment": "A schema identifier is not a cryptographic digest, signature or authorization; retain exact referenced content separately."},
+      "assessment": {"authority": "Validation cannot by itself enforce external side effects or determine policy ownership.", "reuse": "Use an existing dialect plus conformance fixtures; cross-client agreement needs configuration and reference control, not just JSON-shaped fields."},
+      "source_ids": ["S24", "S25"]
+    },
+    {
+      "id": "P11",
+      "family": "Package managers",
+      "representative": "Cargo manifests, resolution and lockfiles",
+      "roles": ["declarative", "orchestration"],
+      "documented": {
+        "knowledge": "Dependency declarations and exact selected dependency graph; build/test coordination.",
+        "ownership": "Package authors declare dependencies; Cargo owns resolution machinery; consumers review selected dependency changes.",
+        "packaging": "Cargo.toml manifest, Cargo.lock and dependency source packages.",
+        "versioning": "Broad manifest requirements versus exact lockfile package versions and Git revisions; cargo update changes selections, --locked rejects resolution changes.",
+        "testing": "cargo test compiles/runs unit, integration and documentation tests for selected targets.",
+        "execution": "Cargo resolves dependencies and builds/tests packages through CLI.",
+        "scope_limit": "Locking dependencies is distinct from fixing application behavior, toolchain/environment reproducibility and policy enforcement.",
+        "license_scope": "Cargo represents the family; package contents and dependency licenses are not implied by the package manager."
+      },
+      "agent_consumption": {"label": "INFERRED", "interface": "Cargo CLI", "native_integration": null},
+      "provenance": {"documented": "Lockfile records exact dependency selections and Git source revisions for the documented example.", "assessment": "A mutable checked-in lock is inspectable identity, not trusted authorship or proof that the graph is safe."},
+      "assessment": {"authority": "Consumer can update the lock; required approval must be enforced elsewhere.", "reuse": "Native identities and dependency locks already solve much of package composition; do not invent a competing package resolver without evidence."},
+      "source_ids": ["S26", "S27"]
+    },
+    {
+      "id": "P12",
+      "family": "Migration tooling",
+      "representative": "Alembic database migrations",
+      "roles": ["declarative", "transformation", "orchestration"],
+      "documented": {
+        "knowledge": "Schema evolution steps and ordered migration paths from current database revision to target.",
+        "ownership": "Application authors own migration scripts/environment; Alembic and SQLAlchemy maintain engine/dialect behavior.",
+        "packaging": "Version scripts and migration environment maintained alongside application source; scripts implement upgrade and optional downgrade.",
+        "versioning": "revision/down_revision links order scripts; alembic_version records current database revision; engine release is independent.",
+        "testing": "alembic check reports pending autogenerated operations and can run in CI; it shares autogeneration's detection limits and is not a full migration correctness test.",
+        "execution": "CLI computes migration path and runs scripts; autogenerate proposes candidates from model/database comparison.",
+        "scope_limit": "Autogenerated migrations always require review; renames can appear as add/drop operations and need correction.",
+        "license_scope": "Alembic engine is MIT; application migration scripts have their own ownership/license."
+      },
+      "agent_consumption": {"label": "INFERRED", "interface": "Alembic CLI", "native_integration": null},
+      "provenance": {"documented": "Revision IDs/parents, script history and database current version.", "assessment": "Revision identifiers do not authenticate script contents or prove data preservation; current version is not a complete audit log."},
+      "assessment": {"authority": "Scripts remain editable and database credentials govern effects; a downgrade procedure need not restore lost data.", "reuse": "Reuse migration graphs and native execution; do not equate an encoded path with proof that a transition is safe."},
+      "source_ids": ["S28", "S29", "S30"]
+    }
+  ],
+  "sources": [
+    {"id": "S01", "url": "https://docs.openrewrite.org/authoring-recipes/recipe-testing", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "RewriteTest, RecipeSpec, declarative recipes and test dependency setup"},
+    {"id": "S02", "url": "https://github.com/apache/camel-upgrade-recipes", "accessed_on": "2026-09-23", "kind": "primary_repository", "locator": "README.adoc: migration recipes, usage, testing, release process; license", "observed_head": "35754b69cb0e65d94d985f708d7571913997e7ed"},
+    {"id": "S03", "url": "https://github.com/github/codeql", "accessed_on": "2026-09-23", "kind": "primary_repository", "locator": "README: queries/libraries, tests, CLI availability and license", "observed_head": "4fa22b919b7df9f837d50e25da3f725c7581b4ea"},
+    {"id": "S04", "url": "https://codeql.github.com/docs/codeql-cli/creating-and-working-with-codeql-packs/", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Creating packs/model packs; adding dependencies; directory layout; modifying downloaded packs", "retrieval_note": "Official URL returned German-localized GitHub documentation; old guessed GitHub docs URLs returned 404 and are not evidence."},
+    {"id": "S05", "url": "https://docs.renovatebot.com/config-presets/", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Preset hosting/tags; examples; relative references; ignoring presets; config-validator limitations"},
+    {"id": "S06", "url": "https://docs.renovatebot.com/modules/", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Supported module categories"},
+    {"id": "S07", "url": "https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/tutorials/how-to-write-csharp-analyzer-code-fix", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Explore template; analyzer registrations; write code fix; build unit tests; semantic edge cases", "source_commit": "d55e153b93a742920b847f29fff03f208e8c040c"},
+    {"id": "S08", "url": "https://github.com/dotnet/roslyn-sdk", "accessed_on": "2026-09-23", "kind": "primary_repository", "locator": "Archived Repository notice points to dotnet/roslyn", "observed_head": "13e8f9ef2829e13902dc2219637e89de84cb113f"},
+    {"id": "S09", "url": "https://doc.rust-lang.org/cargo/commands/cargo-fix.html", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Description; edition migration; features/targets; JSON output; toolchain and lock options"},
+    {"id": "S10", "url": "https://github.com/rust-lang/rustfix", "accessed_on": "2026-09-23", "kind": "primary_repository", "locator": "Move notice; Current status; Installation; tests directory and license", "observed_head": "c433369f4aa3fe67b1399e2f6e3c4aeefc3144b7"},
+    {"id": "S11", "url": "https://docs.semgrep.dev/writing-rules/rule-syntax", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Required fields; fix; metadata; min-version/max-version; proprietary operator warning"},
+    {"id": "S12", "url": "https://docs.semgrep.dev/writing-rules/testing-rules", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Annotations; rule-defined fix tests; validating rules"},
+    {"id": "S13", "url": "https://github.com/semgrep/semgrep", "accessed_on": "2026-09-23", "kind": "primary_repository", "locator": "README: CE/proprietary distinction, licensing and MCP integration", "observed_head": "594a78a0589ec7a4a15feb25eb3f12d47008a28d"},
+    {"id": "S14", "url": "https://www.openpolicyagent.org/docs/management-bundles", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Bundle format/manifest/roots; signed bundles; filesystem verification; eval/test warning"},
+    {"id": "S15", "url": "https://www.openpolicyagent.org/docs/management-decision-logs", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Decision log fields; sensitive-data masking; dropping/rate limiting"},
+    {"id": "S16", "url": "https://www.openpolicyagent.org/docs/policy-testing", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "opa test; mocks; coverage; test output"},
+    {"id": "S17", "url": "https://developer.hashicorp.com/terraform/plugin/framework", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Key Concepts: provider servers/protocol, providers, schemas, resources, data sources, functions"},
+    {"id": "S18", "url": "https://developer.hashicorp.com/terraform/plugin/testing/acceptance-tests", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Acceptance test operations, requirements, TF_ACC and CLI installation behavior"},
+    {"id": "S19", "url": "https://developer.hashicorp.com/terraform/language/files/dependency-lock", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Provider-only locking; version selection; checksum verification and trust on first use"},
+    {"id": "S20", "url": "https://github.com/hashicorp/terraform-plugin-framework/blob/main/LICENSE", "accessed_on": "2026-09-23", "kind": "primary_license", "locator": "MPL-2.0", "file_commit": "c9992175c71f126d74863127de32ca1a81263c71"},
+    {"id": "S21", "url": "https://github.com/hashicorp/terraform/blob/main/LICENSE", "accessed_on": "2026-09-23", "kind": "primary_license", "locator": "BSL-1.1 parameters, additional use grant and change license", "file_commit": "f3658552eaa7c3646cd7bfd70dc21fd8ee5348b4"},
+    {"id": "S22", "url": "https://kubernetes.io/docs/concepts/extend-kubernetes/operator/", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Motivation; example operator; deploying and using operators"},
+    {"id": "S23", "url": "https://book.kubebuilder.io/reference/envtest", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Test control plane; writing tests; testing considerations"},
+    {"id": "S24", "url": "https://json-schema.org/draft/2020-12", "accessed_on": "2026-09-23", "kind": "primary_specification_index", "locator": "Vocabulary changes; compound schemas; meta-schemas; output schemas"},
+    {"id": "S25", "url": "https://github.com/json-schema-org/JSON-Schema-Test-Suite", "accessed_on": "2026-09-23", "kind": "primary_repository", "locator": "Test structure; runner assumptions; known limitations; license", "observed_head": "5b0ee1613e45fcc2bddac00e07c19cd49b00d8a8"},
+    {"id": "S26", "url": "https://doc.rust-lang.org/cargo/guide/cargo-toml-vs-cargo-lock.html", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Declared dependencies versus exact Git revision in Cargo.lock; cargo update"},
+    {"id": "S27", "url": "https://doc.rust-lang.org/cargo/commands/cargo-test.html", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Description; documentation tests; target selection; --locked"},
+    {"id": "S28", "url": "https://alembic.sqlalchemy.org/en/latest/tutorial.html", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Migration environment; revision script; upgrade path/version table; history; downgrade"},
+    {"id": "S29", "url": "https://alembic.sqlalchemy.org/en/latest/autogenerate.html", "accessed_on": "2026-09-23", "kind": "primary_documentation", "locator": "Detection limitations and mandatory review; Running Alembic Check"},
+    {"id": "S30", "url": "https://github.com/sqlalchemy/alembic/blob/main/LICENSE", "accessed_on": "2026-09-23", "kind": "primary_license", "locator": "MIT license", "file_commit": "9400ec85a13a9330509e67445b939d79662cc6cb"}
+  ]
+}
