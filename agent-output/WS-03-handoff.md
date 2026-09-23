@@ -3,7 +3,8 @@
 ## STATUS
 
 `review` on `agent/ws-03-oss-precedents`, based on publication repository main at `65e4dd09b7b6b337d6a3eb7190067d486f050948`.
-Publication is pending the final commit/push/PR step; no access blocker has been observed.
+Research commit: `886985e`. Published to `publish/agent/ws-03-oss-precedents`.
+PR: [#3](https://github.com/blackmath88/modernize-domain-architecture/pull/3), open for orchestrator review. No publication blocker.
 
 ## WHAT I DID
 
@@ -27,7 +28,7 @@ Reviewed all twelve required precedent families using thirty primary sources, ac
 
 The catalog contains S01-S30 with URLs, access dates, section locators and source commits where surfaced. Key anchors: S02 Camel README/testing; S14-S16 OPA bundle/decision/test documentation; S22 operator motivation; S13 Semgrep README/MCP. Licensing boundaries distinguish CodeQL queries from its CLI, Semgrep CE from proprietary capabilities, and Terraform's MPL framework from BSL core.
 
-Validation: repository validator passed; all twelve records have the required comparison fields; thirty source IDs are unique and every record reference resolves; dates/URLs/locators checked; git whitespace checks passed; editor diagnostics reported no errors in the research and catalog. No precedent runtime, interoperability, signature-enforcement or migration-safety tests were run.
+Validation: repository validator passed; all twelve records have the required comparison fields; thirty source IDs are unique and every record reference resolves; dates/URLs/locators checked; both matrix panels, local links and exact handoff headings checked; git whitespace checks passed; editor diagnostics reported no errors in the research and catalog. No precedent runtime, interoperability, signature-enforcement or migration-safety tests were run.
 
 ## WHAT CHANGED MY MIND
 
