@@ -1,4 +1,15 @@
+<!-- BEGIN public-repo-header -->
+<div align="center">
+
 # Modernize Domain Architecture
+
+<a href="https://github.com/blackmath88/modernize-domain-architecture"><img alt="Primary language: HTML" src="https://img.shields.io/badge/language-HTML-526078?style=flat"></a>
+<a href="https://github.com/blackmath88/modernize-domain-architecture/tree/main/docs"><img alt="Documentation" src="https://img.shields.io/badge/docs-guide-16796f?style=flat"></a>
+<a href="https://github.com/blackmath88/modernize-domain-architecture/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-737373?style=flat"></a>
+<a href="https://github.com/blackmath88/modernize-domain-architecture/commits/main"><img alt="Last commit" src="https://img.shields.io/github/last-commit/blackmath88/modernize-domain-architecture?style=flat&amp;color=737373"></a>
+
+</div>
+<!-- END public-repo-header -->
 
 An evidence-first research repository about GitHub Copilot Modernize, machine-executable domain knowledge, provider-specific modernization, and the boundary between deterministic software and LLM reasoning.
 
